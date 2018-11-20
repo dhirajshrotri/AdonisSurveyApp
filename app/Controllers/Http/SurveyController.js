@@ -3,7 +3,7 @@
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
-
+const Survey = use('App/Models/Survey')
 /**
  * Resourceful controller for interacting with surveys
  */
@@ -40,14 +40,13 @@ class SurveyController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
-    const {surveyTitle, surveyDesc} = request.post()
-
-    const survey = await Survey.create({surveyTitle, surveyDesc})
+  async store ({ request, response, params: {adminId} }) {
+    const {surveyName, surveyDesc } = request.post()
+    const survey = await Survey.create({surveyName, surveyDesc, adminId})
 
     response.status(201).json({
-      message: 'Successfully created a new survey.'
-      //data: admin 
+      message: 'Successfully created a new survey.',
+      data: survey 
     })
   }
 
@@ -60,7 +59,7 @@ class SurveyController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ request, response, params: {id} }) {
+  async show ({ request, response, params: {surveyid} }) {
     response.status(200).json({
       data: request.post().survey
     })
@@ -86,7 +85,7 @@ class SurveyController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({ request, response, params:{id} }) {
+  async update ({ request, response, params:{surveyid} }) {
       const {surveyTitle, surveyDesc} = request.post()
 
       survey.surveyTitle = surveyTitle
@@ -96,7 +95,7 @@ class SurveyController {
 
       response.status(200).json({
         message: 'Survey updated!',
-        id
+        surveyid
       })
   }
 
@@ -108,14 +107,14 @@ class SurveyController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ request, response, params: {id} }) {
+  async destroy ({ request, response, params: {surveyid} }) {
     const survey = request.post().survey
 
     await survey.delete()
 
     response.status(200).json({
       message: 'Successfully deleted this survey.',
-      data: id
+      data: surveyid
     })
   }
 }

@@ -40,7 +40,8 @@ const namedMiddleware = {
   auth: 'Adonis/Middleware/Auth',
   guest: 'Adonis/Middleware/AllowGuestOnly',
   findAdmin: 'App/Middleware/FindAdmin', 
-  findSurvey: 'App/Middleware/FindSurvey'
+  findSurvey: 'App/Middleware/FindSurvey',
+  findQuestion: 'App/Middleware/FindQuestion'
 }
 
 /*

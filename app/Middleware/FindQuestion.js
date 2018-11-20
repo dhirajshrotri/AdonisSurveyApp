@@ -2,30 +2,27 @@
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
-
-const Survey = use('App/Models/Survey')
-
-class FindSurvey {
+const Question = use('App/Models/Question')
+class FindQuestion {
   /**
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Function} next
    */
-  async handle ({ request, response, params: {surveyId}}, next) {
+  async handle ({ request, response, params: {questionId} }, next) {
     // call next to advance the request
-    const survey = await Survey.find(surveyId)
-    
-    if (!survey) {
+    const question = await Question.find(questionId)
+
+    // console.log(question)
+    if(!question){
       return response.status(404).json({
-        message: 'No such survey found!', 
-        surveyId
+        message: 'No such question found.',
+        questionId
       })
     }
 
-    request.body.survey = survey
     await next()
-    //console.log('hit the find survey middleware!')
   }
 }
 
-module.exports = FindSurvey
+module.exports = FindQuestion

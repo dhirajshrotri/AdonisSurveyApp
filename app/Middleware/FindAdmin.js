@@ -12,19 +12,23 @@ class FindAdmin {
    * @param {Request} ctx.request
    * @param {Function} next
    */
-  async handle ({ request, response, params: {id} }, next) {
+  async handle ({ request, response, params:{adminId}}, next) {
     // call next to advance the request
     //console.log('MiddleWare fired!')
-    const admin = await Admin.find(id)
-
+    
+    //console.log(request.post())
+    const admin = await Admin.find(adminId)
+    //console.log(admin)
     if (!admin) {
       return response.status(404).json({
         message: 'Admin not found!', 
-        id
+        adminId
       }) 
     }
     request.body.admin = admin
+    
     await next()
+    
   }
 }
 

@@ -6,13 +6,13 @@ const Schema = use('Schema')
 class AnswerSchema extends Schema {
   up () {
     this.create('answers', (table) => {
-      table.increments()
+      table.increments('answerId')
       table.timestamps()
       table.text('answerText')
       table.integer('questionId').unsigned()
       table
         .foreign('questionId')
-        .references('questions.id')
+        .references('questions.questionId')
         .onDelete('cascade')
     })
   }

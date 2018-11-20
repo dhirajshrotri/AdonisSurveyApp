@@ -3,7 +3,7 @@
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
-
+const Question = use('App/Models/Question')
 /**
  * Resourceful controller for interacting with questions
  */
@@ -40,7 +40,15 @@ class QuestionController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
+  async store ({ request, response, params: {id} }) {
+    const {questionTitle, description} = request.post()
+
+    const question = await Question.create({questionTitle, description})
+
+    response.status(201).json({
+      message: 'Created a new Question successfully',
+      data: question
+    })
   }
 
   /**
@@ -53,6 +61,9 @@ class QuestionController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
+    response.status(201).json({
+      data: request.post()
+    })
   }
 
   /**

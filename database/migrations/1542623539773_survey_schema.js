@@ -6,14 +6,14 @@ const Schema = use('Schema')
 class SurveySchema extends Schema {
   up () {
     this.create('surveys', (table) => {
-      table.increments()
+      table.increments('surveyId')
       table.timestamps()
       table.string('surveyName')
       table.text('surveyDesc')
       table.integer('adminId').unsigned()
       table  
         .foreign('adminId')
-        .references('admins.id')
+        .references('admins.adminId')
         .onDelete('cascade')
       
     })

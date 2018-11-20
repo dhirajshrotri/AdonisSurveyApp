@@ -4,6 +4,9 @@
 const Model = use('Model')
 
 class Question extends Model {
+    static get primaryKey (){
+        return 'questionId'
+    }
 }
 
 module.exports = Question

@@ -53,8 +53,8 @@ class AdminController {
     const admin = await Admin.create({firstName, lastName, email, password})
     
     response.status(201).json({
-      message: 'Successfully created a new admin.'
-      //data: admin 
+      message: 'Successfully created a new admin.',
+      data: admin 
     })
   }
 
@@ -67,10 +67,13 @@ class AdminController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({request, response}) {
+  async show ({request, response, params: {adminId}}) {
+    //console.log(adminId)
+    
+    //await next()
     response.status(200).json({
       message: 'Here is your admin!', 
-      data: request.post().admin
+      data: request.post()
     })
   }
 
@@ -118,14 +121,14 @@ class AdminController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async delete ({ request, response, params: {id} }) {
+  async delete ({ request, response, params: {adminId} }) {
     const admin = request.post().admin
     
     await admin.delete()
 
     response.status(200).json({
       message: 'Successfully delete this admin.',
-      data: id
+      data: adminId
     })
   }
 }
