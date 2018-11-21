@@ -48,6 +48,8 @@ class AdminController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
+    //const post = new Post()
+
     const {firstName, lastName, email, password} = request.post()
 
     const admin = await Admin.create({firstName, lastName, email, password})
@@ -56,6 +58,7 @@ class AdminController {
       message: 'Successfully created a new admin.',
       data: admin 
     })
+    
   }
 
   /**
@@ -67,13 +70,17 @@ class AdminController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({request, response, params: {adminId}}) {
+  async show ({request, response, params: {adminId}, view}) {
     //console.log(adminId)
-    
+  
     //await next()
-    response.status(200).json({
-      message: 'Here is your admin!', 
-      data: request.post()
+    // response.status(200).json({
+    //   message: 'Here is your admin!', 
+    //   data: request.post()
+    // })
+    return view.render('dashboard', {
+      title: 'Welcome!', 
+      admins: request.post()
     })
   }
 

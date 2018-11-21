@@ -25,7 +25,7 @@ class FindAdmin {
         adminId
       }) 
     }
-    request.body.admin = admin
+    request.body = admin
     
     await next()
     

@@ -1,0 +1,19 @@
+@layout('main')
+@section('content')
+    <div class="container">
+        <div class="row">
+            <p>Welcome, {{ admins.firstName }}!</p>
+        </div>
+        <div class="col-4 ml-auto">
+        <div class="row">
+            <span style="font-size: 48px; color: Dodgerblue;">
+                <i class="fas fa-plus"></i>
+            </span>
+        </div>
+            <span>
+                <a href="/admins/{{ admins.adminId }}/surveys">Add a new Survey!</a>
+            </span>
+        </div>              
+        
+    </div>    
+@endsection

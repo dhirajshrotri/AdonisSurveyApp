@@ -17,9 +17,11 @@
 const Route = use('Route')
 
 Route.on('/').render('home')
-
-Route.post('/admins', 'AdminController.store')
-Route.get('/admins', 'AdminController.index')
+Route.on('/register').render('register')
+Route.on('/about').render('about')
+Route.on('/admins').render('dashboard')
+//Route.post('/admins', 'AdminController.store')
+//Route.get('/admins', 'AdminController.index')
 Route.get('/admins/:adminId', 'AdminController.show').middleware(['findAdmin'])
 Route.patch('/admins/:adminId', 'AdminController.patch').middleware(['findAdmin'])
 Route.delete('/admins/:adminId', 'AdminController.delete').middleware(['findAdmin'])
