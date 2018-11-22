@@ -47,17 +47,20 @@ class AdminController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
-    //const post = new Post()
+  async store ({ request, response, session }) {
+  
+    const admin = new Admin()
 
-    const {firstName, lastName, email, password} = request.post()
+    admin.email = request.input('email')
+    admin.firstName = request.input('firstName')
+    admin.lastName = request.input('lastName')
+    admin.password = request.input('password')
 
-    const admin = await Admin.create({firstName, lastName, email, password})
-    
-    response.status(201).json({
-      message: 'Successfully created a new admin.',
-      data: admin 
-    })
+    await admin.save()
+
+    session.flash({ notification: 'Registered!' })
+
+    return response.redirect('/signin')
     
   }
 

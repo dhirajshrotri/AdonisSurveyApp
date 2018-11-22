@@ -5,27 +5,32 @@
     <div class="col-4">
         <h1>Register to Surveyor</h1>
         <hr>
-        <form action="post" method="POST">
+        <form action="/admins" method="POST">
+            {{ csrfField() }}
             <div class="form-group">
-                <label>Email</label>
-                <input type="email" name="Email" class="form-control" placeholder="test@test.com">
+              <label>First Name</label>
+              <input type="text" name="firstName" class="form-control" placeholder="First Name" value="{{ old('firstName', '') }}">
+              {{ elIf('<span class="text-danger">$self</span>', getErrorFor('firstName'), hasErrorFor('firstName')) }}
             </div>
             <div class="form-group">
-                <label>Firstname</label>
-                <input type="text" name="firstName" class="form-control" placeholder="John">
+              <label>Last Name</label>
+              <input type="text" name="lastName" class="form-control" placeholder="Last Name">{{ old('lastName', '') }}</input>
+              {{ elIf('<span class="text-danger">$self</span>', getErrorFor('lastName'), hasErrorFor('lastName')) }}
             </div>
             <div class="form-group">
-                <label>Lastname</label>
-                <input type="text" name="lastName" class="form-control" placeholder="Wick">
+                    <label>Email</label>
+                    <input type="email" name="email" class="form-control" placeholder="Email">{{ old('email', '') }}</input>
+                    {{ elIf('<span class="text-danger">$self</span>', getErrorFor('email'), hasErrorFor('email')) }}
             </div>
             <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control">
-            </div>
-        </form>
-        <div class="row">
-            <button type="button" class="btn btn-success"><i class="fas fa-arrow-right"><a href="/admins"> Submit</i></a></button>
-        </div>
+                    <label>Password</label>
+                    <input type="password" name="password" class="form-control" placeholder="Password">{{ old('password', '') }}</input>
+                    {{ elIf('<span class="text-danger">$self</span>', getErrorFor('password'), hasErrorFor('password')) }}
+            </div>      
+            <button class="btn btn-primary" type="submit">Submit</button>
+          </form>
+        <a href="/signin">Already an user? Sign In!</a>
+       
         <div class="row">
             <button type="button" class="btn btn-secondary"><i class="fas fa-arrow-left"><a href="/"> Go Back</i></a></button>
         </div>  

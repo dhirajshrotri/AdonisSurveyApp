@@ -18,6 +18,10 @@ class SurveyController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
+    return view.render('makesurvey', {
+      title: "Here's where you can create a new Survey!", 
+      message: "Get started now!"
+    })
   }
 
   /**

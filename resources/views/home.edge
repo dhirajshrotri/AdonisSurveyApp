@@ -1,12 +1,20 @@
 @layout('main')
+@section('headers')
 
+@endsection
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="jumbotron col-sm">
-            <h1>Home</h1>
-            <p>Welcome to the Survey App!</p>
-            <button type="button" class="btn btn-dark"><a href="/register">Get Started! <i class="fas fa-arrow-right"></i></a></button>
+    <div class="col-lg-10 col-mg-8 col-sm-6">
+        <div class="jumbotron">
+            <div class="row text-center">
+                <h1>Home</h1>
+            </div>
+            <div class="row text-center">
+                <p>Welcome to the Survey App!</p>
+            </div>
+            <div class="row">
+                <button type="button" class="btn btn-dark"><a href="/register">Get Started! <i class="fas fa-arrow-right"></i></a></button>
+            </div>
         </div>    
     </div>
 </div>

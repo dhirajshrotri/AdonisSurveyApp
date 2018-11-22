@@ -1,0 +1,12 @@
+@layout('main')
+
+@section('content')
+<h1>{{title}}</h1>
+<p>{{message}}</p>
+<div class="row">
+    <button type="button" class="btn btn-success"><a href="/"> Submit</a></button>
+</div>
+<div class="row">
+    <button type="button" class="btn btn-secondary"><a href="/admins/{{admins.id}}"> Go Back</a></button>
+</div>  
+@endsection

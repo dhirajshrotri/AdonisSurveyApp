@@ -4,16 +4,12 @@
         <div class="row">
             <p>Welcome, {{ admins.firstName }}!</p>
         </div>
-        <div class="col-4 ml-auto">
+        <div class="col-4 mr-auto">
         <div class="row">
             <span style="font-size: 48px; color: Dodgerblue;">
+                <a href="/admins/{{ admins.adminId }}/surveys">
                 <i class="fas fa-plus"></i>
-            </span>
-        </div>
-            <span>
-                <a href="/admins/{{ admins.adminId }}/surveys">Add a new Survey!</a>
-            </span>
-        </div>              
-        
+                </a>
+            </span>              
     </div>    
 @endsection
