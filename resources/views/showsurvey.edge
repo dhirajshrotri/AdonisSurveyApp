@@ -1,0 +1,20 @@
+@layout('main')
+
+@section('content')
+<p>{{ survey.surveyName }}</p>
+<p>{{ survey.surveyDesc }}</p>
+<div class="container" style="padding:50px;margin:auto">
+    <div class="row" style="padding:20px;">
+        <form action="/admins/11/survey/13/question" method="POST">
+            <div class="container">
+                <div class="form-group row">
+                <label>Question</label>
+                    <input type="text" name="questionTitle" class="form-control" placeholder="Question Title">
+                    <input type="text" name="questionDesc" class="form-control" placeholder="Question Description">
+                    <button class="btn btn-secondary" type="submit">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@endsection

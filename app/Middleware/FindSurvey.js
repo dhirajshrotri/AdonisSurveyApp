@@ -22,7 +22,7 @@ class FindSurvey {
       })
     }
 
-    request.body.survey = survey
+    request.body = survey
     await next()
     //console.log('hit the find survey middleware!')
   }

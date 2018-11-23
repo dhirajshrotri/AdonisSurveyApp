@@ -49,18 +49,19 @@ class AdminController {
    */
   async store ({ request, response, session }) {
   
-    const admin = new Admin()
+    // const admin = new Admin()
 
-    admin.email = request.input('email')
-    admin.firstName = request.input('firstName')
-    admin.lastName = request.input('lastName')
-    admin.password = request.input('password')
+    // admin.email = request.input('email')
+    // admin.firstName = request.input('firstName')
+    // admin.lastName = request.input('lastName')
+    // admin.password = request.input('password')
 
-    await admin.save()
+    // await admin.save()
 
-    session.flash({ notification: 'Registered!' })
+    // session.flash({ notification: 'Registered!' })
 
-    return response.redirect('/signin')
+    // return response.redirect('/signin')
+    console.log(request.raw())
     
   }
 
@@ -81,10 +82,11 @@ class AdminController {
     //   message: 'Here is your admin!', 
     //   data: request.post()
     // })
-    return view.render('dashboard', {
-      title: 'Welcome!', 
-      admins: request.post()
-    })
+    console.log(adminId)
+    // return view.render('dashboard', {
+    //   title: 'Welcome!', 
+    //   admins: request.post()
+    // })
   }
 
   /**

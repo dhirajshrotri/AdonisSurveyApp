@@ -1,0 +1,13 @@
+@layout('main')
+
+@section('content')
+<div class="container">
+    <form action={{ '/admins/1/surveys/11'+'?_method=PUT' }} method="POST">
+        <div class="form-group">
+            <input type="text" name="surveyName" placeholder="{{ survey.surveyName }}">
+            <input type="text" name="surveyDesc" placeholder="{{ survey.surveyDesc }}">
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+@endsection

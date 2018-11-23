@@ -40,15 +40,24 @@ class QuestionController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response, params: {id} }) {
-    const {questionTitle, description} = request.post()
+  async store ({ params, request, response  }) {
+    // const {questionTitle, description} = request.post()
 
-    const question = await Question.create({questionTitle, description})
+    // const question = await Question.create({questionTitle, description})
 
-    response.status(201).json({
-      message: 'Created a new Question successfully',
-      data: question
-    })
+    // response.status(201).json({
+    //   message: 'Created a new Question successfully',
+    //   data: question
+    // })
+    const question = new Question()
+
+    question.questionTitle = request.input('questionTitle')
+    question.description = request.input('questionDesc')
+    //question.surveyId = surveyId
+    console.log(params)
+    //await question.save()
+    // console.log(request.input('questionTitle'))
+    // console.log(request.input('questionDesc'))
   }
 
   /**
@@ -61,9 +70,10 @@ class QuestionController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
-    response.status(201).json({
-      data: request.post()
-    })
+    // response.status(201).json({
+    //   data: request.post()
+    // })
+    console.log(params)
   }
 
   /**
