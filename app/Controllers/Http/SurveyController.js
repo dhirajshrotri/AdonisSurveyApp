@@ -1,7 +1,7 @@
 'use strict'
 
 const Survey = use('App/Models/Survey')
-
+const Admin = use('App/Models/Admin')
 class SurveyController {
 
     async index ({ request, response, view }) {
@@ -9,12 +9,14 @@ class SurveyController {
     }
 
     async store({ request, response, params }){
+        const admin = Admin.find(params.adminId)
         const survey = new Survey()
+        console.log(Admin.find(1))
         //console.log(request.input('surveyName'))    
         survey.surveyName = request.input('surveyName')
         survey.surveyDesc = request.input('surveyDesc')
-        survey.adminId = params.adminId
-        await survey.save()
+        //survey.adminId = params.adminId
+        await admin.survey().save(survey)
 
         response.status(201).json({
            message: 'Survey created successfully!',

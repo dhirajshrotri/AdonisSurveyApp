@@ -19,8 +19,15 @@ class User extends Model {
         userInstance.password = await Hash.make(userInstance.password)
       }
     })
-  }
 
+    
+  }
+  static get rules(){
+    return {
+       email: 'required|email|unique:users',
+       password: 'required|confirmed|min:6'
+    }
+  }
   /**
    * A relationship on tokens is required for auth to
    * work. Since features like `refreshTokens` or

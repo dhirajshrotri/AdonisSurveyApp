@@ -7,6 +7,10 @@ class Answer extends Model {
     static get primaryKey() {
         return 'answerId'
     }
+
+    question(){
+        return this.belongsTo('App/Model/Question')
+    }
 }
 
 module.exports = Answer

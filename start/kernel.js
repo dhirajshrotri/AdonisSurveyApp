@@ -16,7 +16,8 @@ const globalMiddleware = [
   'Adonis/Middleware/BodyParser',
   'Adonis/Middleware/Session',
   'Adonis/Middleware/Shield',
-  'Adonis/Middleware/AuthInit'
+  'Adonis/Middleware/AuthInit',
+  
 ]
 
 /*
@@ -41,7 +42,8 @@ const namedMiddleware = {
   guest: 'Adonis/Middleware/AllowGuestOnly',
   findAdmin: 'App/Middleware/FindAdmin', 
   findSurvey: 'App/Middleware/FindSurvey',
-  findQuestion: 'App/Middleware/FindQuestion'
+  findQuestion: 'App/Middleware/FindQuestion',
+  signIn: 'App/Middleware/SignIn'
 }
 
 /*

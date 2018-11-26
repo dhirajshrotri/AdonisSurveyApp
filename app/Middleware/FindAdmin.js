@@ -17,7 +17,8 @@ class FindAdmin {
     //console.log('MiddleWare fired!')
     
     //console.log(request.post())
-    const admin = await Admin.find(adminId)
+    //const admin = yeild Database.from('admins').where('email', 'request.input('input')')
+
     //console.log(admin)
     if (!admin) {
       return response.status(404).json({

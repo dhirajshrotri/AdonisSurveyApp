@@ -4,6 +4,8 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 const Admin = use('App/Models/Admin')
+const Hash = use('Hash')
+const Mail = use('App/Model/Admin')
 /**
  * Resourceful controller for interacting with admins
  */
@@ -26,6 +28,31 @@ class AdminController {
     })
   }
 
+  * login (request, response){
+    const email = request.input('email')
+    const password = request.input('password')
+    const login = request.auth.attempt(email, password)
+
+    if(login){
+      response.send('Logged In successfully')
+      return
+    }
+
+    response.unauthorised('Invalid Credentials')
+   //console.log("Route to signIn hit")
+   //console.log(request.post()) 
+  }
+
+  * profile(request, response){
+    const admin = request.auth.getAdmin()
+    
+    if(admin){
+      response.ok(admin)
+      return
+    }
+
+    response.unauthorised('You must be logged in to view your profile!')
+  }
   /**
    * Render a form to be used for creating a new admin.
    * GET admins/create
@@ -49,19 +76,23 @@ class AdminController {
    */
   async store ({ request, response, session }) {
   
-    // const admin = new Admin()
+    const admin = new Admin()
 
-    // admin.email = request.input('email')
-    // admin.firstName = request.input('firstName')
-    // admin.lastName = request.input('lastName')
-    // admin.password = request.input('password')
+    admin.email = request.input('email')
+    admin.firstName = request.input('firstName')
+    admin.lastName = request.input('lastName')
+    admin.password = request.input('password')
 
-    // await admin.save()
-
-    // session.flash({ notification: 'Registered!' })
-
-    // return response.redirect('/signin')
-    console.log(request.raw())
+    await admin.save()
+    // yeild Mail.send('emails.welcome', user, (message) => {
+    //   message.to(admin.email, admin.firstName)
+    //   message.from('welcome@surveyor.com')
+    //   message.subject
+    // })
+    session.flash({ notification: 'Registered!' })
+    
+    return response.redirect('/login')
+    //console.log(request.raw())
     
   }
 
@@ -142,6 +173,13 @@ class AdminController {
       message: 'Successfully delete this admin.',
       data: adminId
     })
+  }
+
+  async list ({request, response, params: {adminId} }){
+    const admin = request.post().admin
+    const admin_survey = admin.survey().fetch()
+
+    console.log(admin_survey)
   }
 }
 
