@@ -14,14 +14,14 @@
 // */
 
 // /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
-// const Route = use('Route')
+const Route = use('Route')
 
 // Route.on('/').render('home')
-// Route.on('/register').render('register')
+Route.on('/register').render('register')
 // Route.on('/about').render('about')
 // // Route.on('/admins').render('dashboard')
 // Route.on('/login').render('signin')
-// Route.get('/admins/:adminId', 'AdminController.list').middleware(['findAdmin'])
+Route.get('/admins/:adminId', 'AdminController.list').middleware(['findAdmin'])
 // Route.post('/login', 'AdminController.login')//.middleware('signIn')
 // //Route.on('/admins/:adminId/surveys/:surveyId/addquestion').render('addquestion')
 // Route.post('/admins', 'AdminController.store')
@@ -30,9 +30,10 @@
 // Route.patch('/admins/:adminId', 'AdminController.patch').middleware(['findAdmin'])
 // Route.delete('/admins/:adminId', 'AdminController.delete').middleware(['findAdmin'])
 // Route.get('/profile', 'AdminController.profile').middleware('auth')
-// Route.get('/admins/:adminId/surveys', 'SurveyController.index')//.middleware(['findAdmin'])
-// Route.post('/admins/:adminId/surveys', 'SurveyController.store')//.middleware(['findAdmin'])//.middleware(['findSurvey'])
-// Route.get('/admins/:adminId/surveys/:surveyId', 'SurveyController.show')//.middleware(['findAdmin']).middleware(['findSurvey'])
+Route.get('/admins/:adminId/surveys', 'SurveyController.index')//.middleware(['findAdmin'])
+Route.post('/admins/:adminId/surveys', 'SurveyController.store')//.middleware(['findAdmin'])//.middleware(['findSurvey'])
+Route.get('/admins/:adminId/surveys/:surveyId', 'SurveyController.show')//.middleware(['findAdmin']).middleware(['findSurvey'])
+Route.post('/admins/:adminId/surveys/:surveyId/questions', 'QuestionController.store')
 
 // Route.delete('/admins/:adminId/surveys/:surveyId', 'SurveyController.delete')//.middleware(['findAdmin']).middleware(['findSurvey'])
 
@@ -42,5 +43,7 @@
 // Route.put('/admins/:adminId/surveys/:surveyId/', 'SurveyController.update')
 // // Route.get('/admins/:adminId/surveys/:surveyId/questions/:questionId', 'QuestionController.index')
 
-Route.get('register', 'AuthController.showRegisterPage')
-Route.post('register', 'AuthController.register')
+// Route.on('register').render('auth/register')//, 'AuthController.showRegisterPage')
+Route.post('register', 'AdminController.store')
+Route.on('/login').render('signin')
+Route.post('/login', 'AdminController.login')

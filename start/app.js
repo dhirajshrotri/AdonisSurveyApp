@@ -19,7 +19,7 @@ const providers = [
   '@adonisjs/shield/providers/ShieldProvider',
   '@adonisjs/session/providers/SessionProvider',
   '@adonisjs/auth/providers/AuthProvider',
-  'adonis-validation-provider/providers/ValidatorProvider'
+  //'adonis-validation-provider/providers/ValidatorProvider'
 ]
 
 /*
@@ -48,7 +48,7 @@ const aceProviders = [
 |
 */
 const aliases = {
-  Validator: 'Adonis/Addons/Validator'
+  //Validator: 'Adonis/Addons/Validator'
 }
 
 /*

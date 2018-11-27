@@ -9,11 +9,11 @@ class Question extends Model {
     }
 
     survey(){
-        return this.belongsTo('App/Model/Survey')
+        return this.belongsTo('App/Models/Survey')
     }
 
     answer(){
-        return this.hasMany('App/Model/Answer')
+        return this.hasMany('App/Models/Answer')
     }
 }
 

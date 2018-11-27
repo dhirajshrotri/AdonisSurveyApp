@@ -9,7 +9,7 @@ class Answer extends Model {
     }
 
     question(){
-        return this.belongsTo('App/Model/Question')
+        return this.belongsTo('App/Models/Question')
     }
 }
 

@@ -11,9 +11,9 @@ class Admin extends Model {
           super.boot()
           this.addHook('beforeCreate', 'Admin.encryptPassword')
       }
-
+//, adminId, surveyId
       survey(){
-          return this.hasMany('App/Model/Survey')
+          return this.hasMany('App/Models/Survey')
       }
 }
 

@@ -4,6 +4,7 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 const Question = use('App/Models/Question')
+const Survey = use('App/Models/Survey')
 /**
  * Resourceful controller for interacting with questions
  */
@@ -49,15 +50,27 @@ class QuestionController {
     //   message: 'Created a new Question successfully',
     //   data: question
     // })
-    const question = new Question()
+    // const question = new Question()
 
-    question.questionTitle = request.input('questionTitle')
-    question.description = request.input('questionDesc')
-    //question.surveyId = surveyId
-    console.log(params)
+    // question.questionTitle = request.input('questionTitle')
+    // question.description = request.input('questionDesc')
+    // //question.surveyId = surveyId
+    // console.log(params)
     //await question.save()
     // console.log(request.input('questionTitle'))
     // console.log(request.input('questionDesc'))
+    const question = new Question()
+    const survey = await Survey.find(params.surveyId)
+    console.log(params.surveyId)
+    const questionTitle = request.input('questionTitle')
+    const description = request.input('description')
+
+    question.questionTitle = questionTitle
+    question.description = description
+
+    await survey.question().save(question)
+
+    console.log('Question Added Successfully!')
   }
 
   /**

@@ -4,8 +4,9 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 const Admin = use('App/Models/Admin')
-const Hash = use('Hash')
-const Mail = use('App/Model/Admin')
+//const Hash = use('Hash')
+//const Mail = use('App/Models/Admin')
+const Database = use('Database')
 /**
  * Resourceful controller for interacting with admins
  */
@@ -28,17 +29,29 @@ class AdminController {
     })
   }
 
-  * login (request, response){
+  async showLogin(view){
+    return view.render('signin')
+  }
+  async login ({request, response}){
     const email = request.input('email')
     const password = request.input('password')
-    const login = request.auth.attempt(email, password)
 
-    if(login){
-      response.send('Logged In successfully')
-      return
+    const admin = await Database.select('*').from('admins').where('email', email)
+    if(admin[0].password === password){
+      return response.redirect('/admins/'+admin[0].adminId+'/')
     }
+    // console.log(email)
+    // console.log(password)
+    // const email = request.input('email')
+    // const password = request.input('password')
+    // const login = request.auth.attempt(email, password)
 
-    response.unauthorised('Invalid Credentials')
+    // if(login){
+    //   response.send('Logged In successfully')
+    //   return
+    // }
+
+    // response.unauthorised('Invalid Credentials')
    //console.log("Route to signIn hit")
    //console.log(request.post()) 
   }
@@ -175,11 +188,18 @@ class AdminController {
     })
   }
 
-  async list ({request, response, params: {adminId} }){
-    const admin = request.post().admin
-    const admin_survey = admin.survey().fetch()
-
-    console.log(admin_survey)
+  async list ({request, response, view, params: {adminId} }){
+    //console.log(request.post()[0].firstName)
+    const admin = await Admin.find(adminId)
+    //console.log(admin)
+    const adminSurvey = await admin.survey().fetch()
+    const admin_Survey = adminSurvey.toJSON()
+    console.log(admin_Survey)
+    return view.render('dashboard', {
+      admin_Survey: admin_Survey,
+      admin: admin
+    })
+    
   }
 }
 

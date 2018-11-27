@@ -5,7 +5,7 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 const Admin = use('App/Models/Admin')
-
+const Database = use('Database')
 class FindAdmin {
   /**
    * @param {object} ctx
@@ -17,7 +17,7 @@ class FindAdmin {
     //console.log('MiddleWare fired!')
     
     //console.log(request.post())
-    //const admin = yeild Database.from('admins').where('email', 'request.input('input')')
+    const admin = await Database.from('admins').where('adminId', adminId)
 
     //console.log(admin)
     if (!admin) {

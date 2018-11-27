@@ -9,9 +9,9 @@ class AnswerSchema extends Schema {
       table.increments('answerId')
       table.timestamps()
       table.text('answerText')
-      table.integer('questionId').unsigned()
+      table.integer('question_Id').unsigned()
       table
-        .foreign('questionId')
+        .foreign('question_Id')
         .references('questions.questionId')
         .onDelete('cascade')
     })

@@ -9,11 +9,11 @@ class Survey extends Model {
     }
 
     admin(){
-        return this.belongsTo('App/Model/Admin')
+        return this.belongsTo('App/Models/Admin')
     }
-
+//, surveyId, questionId
     question(){
-        return this.hasMany('App/Model/Question')
+        return this.hasMany('App/Models/Question')
     }
 }
 

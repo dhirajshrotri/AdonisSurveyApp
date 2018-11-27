@@ -10,9 +10,9 @@ class QuestionSchema extends Schema {
       table.timestamps()
       table.string('questionTitle')
       table.string('description')
-      table.integer('surveyId').unsigned()
+      table.integer('survey_Id').unsigned()
       table
-        .foreign('surveyId')
+        .foreign('survey_Id')
         .references('surveys.surveyId')
         .onDelete('cascade')
     })

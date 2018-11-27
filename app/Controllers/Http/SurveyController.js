@@ -9,7 +9,7 @@ class SurveyController {
     }
 
     async store({ request, response, params }){
-        const admin = Admin.find(params.adminId)
+        const admin = await Admin.find(params.adminId)
         const survey = new Survey()
         console.log(Admin.find(1))
         //console.log(request.input('surveyName'))    
@@ -44,9 +44,12 @@ class SurveyController {
     }
 
     async show({ request, response, view, params }){
-        //console.log(request.post())
+        const survey = await Survey.find(params.surveyId)
+        //console.log(survey)
+        const question = await survey.question().fetch()
+        //console.log(question)
         return view.render('showsurvey', {
-             survey : request.post(),
+             survey : survey,
              adminId: params.adminId
         })
     }

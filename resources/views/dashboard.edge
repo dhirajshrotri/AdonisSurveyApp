@@ -2,7 +2,12 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <p>Welcome, {{ admins.firstName }}!</p>
+            <p>Welcome, {{ admin.firstName }}!</p>
+        </div>
+        <div class="row">
+            <ul>
+                <li><a href="/admins/{{ admin.adminId }}/surveys/{{ admin_Survey[0].surveyId }}">{{ admin_Survey[0].surveyName }}</a></li>
+            </ul>
         </div>
         <div class="col-4 mr-auto">
         <div class="row">
