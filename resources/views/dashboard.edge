@@ -4,10 +4,13 @@
         <div class="row">
             <p>Welcome, {{ admin.firstName }}!</p>
         </div>
+        <div class="row">
+            <a type="button" class="btn btn-primary" href="/admins/{{ admin.adminId}}/edit">Edit Profile</a>
+        </div>
         @each(survey in admin_Survey)
             <div class="row">
                 <ul>
-                    <li><a href="/admins/{{ admin.adminId }}/surveys/{{ survey.surveyId }}">{{ survey.surveyName }}</a></li>
+                    <li><a href="/admins/{{ admin.adminId }}/surveys/{{ survey.surveyId }}">{{ ($loop.index + 1) }}. {{ survey.surveyName }}</a></li>
                 </ul>
             </div>
         @else

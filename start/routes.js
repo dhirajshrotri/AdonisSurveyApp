@@ -29,7 +29,8 @@ Route.get('/admins/:adminId/surveys/:surveyId', 'SurveyController.show')//.middl
 Route.post('/admins/:adminId/surveys/:surveyId/questions', 'QuestionController.store')
 Route.get('/admins/:adminId/surveys/:surveyId/delete', 'SurveyController.destroy')
 Route.get('/admins/:adminId/surveys/:surveyId/questions/:questionId/delete', 'QuestionController.destroy')
-
+Route.get('/admins/:adminId/edit', 'AdminController.edit')
+Route.put('/admins/:adminId', 'AdminController.update')
 Route.post('register', 'AdminController.store')
 Route.on('/login').render('signin')
 Route.post('/login', 'AdminController.login')

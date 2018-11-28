@@ -201,6 +201,24 @@ class AdminController {
     })
     
   }
+
+  async edit({view, params:{adminId}}){
+    const admin = await Admin.find(adminId)
+
+    return view.render('adminedit', {
+      admin: admin
+    })
+  }
+
+  async update({request, response, params:{adminId}}){
+    //const admin = await Admin.find(adminId)
+    const firstName = request.input('firstName')
+    const lastName = request.input('lastName')
+    //console.log(firstName)
+    //console.log(lastName)
+    await Database.table('admins').where('adminId', adminId).update({ 'firstName': firstName, 'lastName': lastName})
+    response.redirect('/admins/'+adminId)
+  }
 }
 
 module.exports = AdminController

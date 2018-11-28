@@ -24,8 +24,8 @@
                 <p>Question Description: {{ question.description }}</p>
         </div>
         <div class="row">
-            <a type="button" class="btn btn-primary" href="/admins/{{ adminId }}/surveys/{{ survey.surveyId }}/questions/{{ tempQuestion[0].questionId }}/edit">Edit</a>
-            <a type="button" class="btn btn-danger" href="/admins/{{ adminId }}/surveys/{{ survey.surveyId }}/questions/{{ tempQuestion[0].questionId }}/delete">Delete</a>
+            <a type="button" class="btn btn-primary" href="/admins/{{ adminId }}/surveys/{{ survey.surveyId }}/questions/{{ question.questionId }}/edit">Edit</a>
+            <a type="button" class="btn btn-danger" href="/admins/{{ adminId }}/surveys/{{ survey.surveyId }}/questions/{{ question.questionId }}/delete">Delete</a>
         </div>
         @else
             <p>No questions found! Please add a question below to continue.</p>
