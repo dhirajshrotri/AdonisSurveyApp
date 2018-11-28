@@ -1,24 +1,55 @@
 @layout('main')
-
 @section('content')
-<p>{{ survey.surveyName }}</p>
-<p>{{ survey.surveyDesc }}</p>
-<div class="container" style="padding:50px;margin:auto">
-    <div class="row" style="padding:20px;">
-        <form action="/admins/{{ adminId }}/surveys/{{ survey.surveyId }}/questions" method="POST">
-            <div class="container">
-                <div class="form-group row">
-                <label>Question</label>
-                    <input type="text" name="questionTitle" class="form-control" placeholder="Question Title">
-                    <input type="text" name="description" class="form-control" placeholder="Question Description">
-                    <button class="btn btn-primary" type="submit">Submit</button>
-                    
+
+<div class="container" style="padding:5px;margin:auto">
+    <div class="container" style="padding:5px;margin:auto">
+        <div class="row">
+            <p>Survey Name: {{ survey.surveyName }}</p>
+        </div>
+        <div class="row">
+            <p>Survey Title: {{ survey.surveyDesc }}</p>
+        </div>
+        <div class="row" style="padding:5px; margin:5px 5px">
+            <a type="button" class="btn btn-primary" href="/admins/{{ adminId }}/surveys/{{ survey.surveyId }}/edit">Edit</a>
+            <a type="button" class="btn btn-danger" href="/admins/{{ adminId }}/surveys/{{ survey.surveyId }}/delete">Delete</a>
+        </div>
+    </div>
+    <div class="container" style="padding:50px;margin:auto">
+        <p>Questions in survey:</p>
+        @each(question in tempQuestion)
+        <div class="row">
+                <p>Question Title: {{ question.questionTitle }}</p>
+        </div>
+        <div class="row">
+                <p>Question Description: {{ question.description }}</p>
+        </div>
+        <div class="row">
+            <a type="button" class="btn btn-primary" href="/admins/{{ adminId }}/surveys/{{ survey.surveyId }}/questions/{{ tempQuestion[0].questionId }}/edit">Edit</a>
+            <a type="button" class="btn btn-danger" href="/admins/{{ adminId }}/surveys/{{ survey.surveyId }}/questions/{{ tempQuestion[0].questionId }}/delete">Delete</a>
+        </div>
+        @else
+            <p>No questions found! Please add a question below to continue.</p>
+        @endeach
+    </div>
+    <div class="container" style="padding:50px;margin:auto">
+        <div class="row">
+            <form action="/admins/{{ adminId }}/surveys/{{ survey.surveyId }}/questions" method="POST">
+                <div class="container">
+                    <div class="form-group row">
+                        <label>Add a Question</label>
+                            <input type="text" name="questionTitle" class="form-control" placeholder="Question Title">
+                            <input type="text" name="description" class="form-control" placeholder="Question Description">
+                            <button class="btn btn-primary" type="submit">Add Question</button>
+                    </div>
+                    <div class="container" style="padding:50px;margin:auto">
+                        <div class="row">
+                            <a type="button" class="btn btn-primary" href="">Update</a>
+                            <a type="button" class="btn btn-secondary" href="/admins/{{ adminId }}">Cancel</a>
+                        </div>
+                    </div> 
                 </div>
-                <div class="row">
-                    <a type="button" class="btn btn-secondary" href="/admins/{{ adminId }}"> Go Back</a>
-                </div> 
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 @endsection

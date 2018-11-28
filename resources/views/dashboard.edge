@@ -4,11 +4,15 @@
         <div class="row">
             <p>Welcome, {{ admin.firstName }}!</p>
         </div>
-        <div class="row">
-            <ul>
-                <li><a href="/admins/{{ admin.adminId }}/surveys/{{ admin_Survey[0].surveyId }}">{{ admin_Survey[0].surveyName }}</a></li>
-            </ul>
-        </div>
+        @each(survey in admin_Survey)
+            <div class="row">
+                <ul>
+                    <li><a href="/admins/{{ admin.adminId }}/surveys/{{ survey.surveyId }}">{{ survey.surveyName }}</a></li>
+                </ul>
+            </div>
+        @else
+            <p>You haven't created any surveys yet. Please add a survey to continue.</p>
+        @endeach
         <div class="col-4 mr-auto">
         <div class="row">
             <span style="font-size: 48px; color: Dodgerblue;">

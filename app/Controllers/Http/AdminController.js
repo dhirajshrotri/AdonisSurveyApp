@@ -194,7 +194,7 @@ class AdminController {
     //console.log(admin)
     const adminSurvey = await admin.survey().fetch()
     const admin_Survey = adminSurvey.toJSON()
-    console.log(admin_Survey)
+    //console.log(admin_Survey)
     return view.render('dashboard', {
       admin_Survey: admin_Survey,
       admin: admin

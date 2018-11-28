@@ -86,7 +86,7 @@ class QuestionController {
     // response.status(201).json({
     //   data: request.post()
     // })
-    console.log(params)
+    //console.log(params)
   }
 
   /**
@@ -98,7 +98,15 @@ class QuestionController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async edit ({ params, request, response, view }) {
+  async edit ({ params:{adminId, surveyId, questionId }, view }) {
+    const question = await Question.find(questionId)
+    const tempQuestion = question.toJSON()
+    //console.log(tempQuestion)
+    return view.render('questionedit', {
+      adminId: adminId,
+      surveyId: surveyId,      
+      question: question
+    })
   }
 
   /**
@@ -109,7 +117,16 @@ class QuestionController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({ params, request, response }) {
+  async update ({ params:{adminId, surveyId, questionId}, request, response }) {
+    const survey = await Survey.find(surveyId)
+    const question = await Question.find(questionId)
+    console.log(questionId)
+    question.questionTitle = request.input('questionTitle')
+    question.description = request.input('description')
+    
+    await survey.question().save(question)
+
+    response.redirect('/admins/'+adminId+'/surveys/'+surveyId)
   }
 
   /**
@@ -120,7 +137,11 @@ class QuestionController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {
+  async destroy ({ params:{adminId, surveyId, questionId}, request, response }) {
+    const survey = await Survey.find(surveyId)
+
+    await survey.question().where('questionId', questionId).delete()
+    response.redirect('/admins/'+adminId+'/surveys/'+surveyId)
   }
 }
 
