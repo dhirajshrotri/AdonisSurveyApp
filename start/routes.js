@@ -16,7 +16,7 @@
 // /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
-// Route.on('/').render('home')
+Route.on('/').render('home')
 Route.on('/register').render('register')
 Route.get('/admins/:adminId/surveys/:surveyId/questions/:questionId/edit','QuestionController.edit')
 Route.get('/admins/:adminId/surveys/:surveyId/edit', 'SurveyController.edit')

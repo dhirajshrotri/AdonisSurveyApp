@@ -5,33 +5,13 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 const Question = use('App/Models/Question')
 const Survey = use('App/Models/Survey')
+
 /**
  * Resourceful controller for interacting with questions
  */
 class QuestionController {
-  /**
-   * Show a list of all questions.
-   * GET questions
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async index ({ request, response, view }) {
-  }
 
-  /**
-   * Render a form to be used for creating a new question.
-   * GET questions/create
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async create ({ request, response, view }) {
-  }
+
 
   /**
    * Create/save a new question.
@@ -41,24 +21,8 @@ class QuestionController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ params, request, response  }) {
-    // const {questionTitle, description} = request.post()
-
-    // const question = await Question.create({questionTitle, description})
-
-    // response.status(201).json({
-    //   message: 'Created a new Question successfully',
-    //   data: question
-    // })
-    // const question = new Question()
-
-    // question.questionTitle = request.input('questionTitle')
-    // question.description = request.input('questionDesc')
-    // //question.surveyId = surveyId
-    // console.log(params)
-    //await question.save()
-    // console.log(request.input('questionTitle'))
-    // console.log(request.input('questionDesc'))
+  async store ({ params, request }) {
+    
     const question = new Question()
     const survey = await Survey.find(params.surveyId)
     console.log(params.surveyId)
@@ -82,12 +46,6 @@ class QuestionController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ params, request, response, view }) {
-    // response.status(201).json({
-    //   data: request.post()
-    // })
-    //console.log(params)
-  }
 
   /**
    * Render a form to update an existing question.
@@ -120,11 +78,18 @@ class QuestionController {
   async update ({ params:{adminId, surveyId, questionId}, request, response }) {
     const survey = await Survey.find(surveyId)
     const question = await Question.find(questionId)
-    console.log(questionId)
-    question.questionTitle = request.input('questionTitle')
-    question.description = request.input('description')
     
-    await survey.question().save(question)
+    const questionTitle = request.input('questionTitle')
+    const description = request.input('description')
+    //console.log(description)
+    if(!questionTitle){
+      questionTitle = question.questionTitle
+    }
+    if(!description){
+      description = question.description
+      //console.log('null detected')
+    }
+    await survey.question().where('questionId', questionId).update({'questionTitle': questionTitle, 'description': description})
 
     response.redirect('/admins/'+adminId+'/surveys/'+surveyId)
   }
@@ -137,7 +102,7 @@ class QuestionController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params:{adminId, surveyId, questionId}, request, response }) {
+  async destroy ({ params:{adminId, surveyId, questionId}, response }) {
     const survey = await Survey.find(surveyId)
 
     await survey.question().where('questionId', questionId).delete()

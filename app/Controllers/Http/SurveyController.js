@@ -4,11 +4,13 @@ const Survey = use('App/Models/Survey')
 const Admin = use('App/Models/Admin')
 class SurveyController {
 
-    async index ({ request, response, view }) {
-        return view.render('makesurvey')
+    async index ({ params:{ adminId }, view }) {
+        return view.render('makesurvey', {
+            adminId: adminId
+        })
     }
 
-    async store({ request, response, params:{adminId, surveyId} }){
+    async store({ request, response, params:{adminId} }){
         const admin = await Admin.find(adminId)
         //create a new survey instance
         const survey = new Survey()
@@ -25,7 +27,7 @@ class SurveyController {
         // })
     }
 
-    async edit({ request, response, params:{adminId, surveyId}, view }){
+    async edit({ params:{adminId, surveyId}, view }){
         //console.log(params)
         const survey = await Survey.find(surveyId)
         //console.log(survey)
@@ -35,21 +37,21 @@ class SurveyController {
         })
     }
 
-    async update({ request, response, params:{adminId, surveyId}, view }){
+    async update({ request, response, params:{adminId, surveyId}}){
         const survey = await Survey.find(surveyId)
         const admin = await Admin.find(adminId)
-        // console.log(survey)
-        // console.log(admin)
         //update the survey fields
         const surveyName = request.input('surveyName')
         const surveyDesc = request.input('surveyDesc')
-
-        // survey.surveyName = surveyName
-        // survey.surveyDesc = surveyDesc
-        //console.log(params.adminId)
-        //save the survey
-        //await admin.survey().save()
-        await admin.survey().where('surveyId', surveyId).update({'surveyName': surveyName}, {'surveyDesc': surveyDesc})
+        if(!surveyName){
+            surveyName = survey.surveyName
+        }
+        if(!surveyDesc){
+            surveyDesc = survey.surveyDesc
+        }
+        //console.log(surveyName)
+        //console.log(surveyDesc)
+        await admin.survey().where('surveyId', surveyId).update({'surveyName': surveyName, 'surveyDesc': surveyDesc})
         response.redirect('/admins/'+adminId+'/surveys/'+surveyId)
     }
 

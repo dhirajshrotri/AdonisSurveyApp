@@ -15,6 +15,10 @@ class Question extends Model {
     answer(){
         return this.hasMany('App/Models/Answer')
     }
+
+    answerType(){
+        return this.hasOne('App/Models/Answertype')
+    }
 }
 
 module.exports = Question

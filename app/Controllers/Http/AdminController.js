@@ -7,6 +7,7 @@ const Admin = use('App/Models/Admin')
 //const Hash = use('Hash')
 //const Mail = use('App/Models/Admin')
 const Database = use('Database')
+const { validate } = use('Validator')
 /**
  * Resourceful controller for interacting with admins
  */
@@ -88,24 +89,31 @@ class AdminController {
    * @param {Response} ctx.response
    */
   async store ({ request, response, session }) {
-  
-    const admin = new Admin()
+    const rules = {
+      firstName: 'required',
+      lastName: 'required',
+      email: 'required|email|unique:admins,email',
+      password: 'required'
+    }
 
-    admin.email = request.input('email')
-    admin.firstName = request.input('firstName')
-    admin.lastName = request.input('lastName')
-    admin.password = request.input('password')
+    const validation = await validate(request.all(), rules)
 
-    await admin.save()
-    // yeild Mail.send('emails.welcome', user, (message) => {
-    //   message.to(admin.email, admin.firstName)
-    //   message.from('welcome@surveyor.com')
-    //   message.subject
-    // })
-    session.flash({ notification: 'Registered!' })
-    
-    return response.redirect('/login')
-    //console.log(request.raw())
+    if (validation.fails()) {
+      // console.log('validation failed. please try again')
+      // session.flash({notification: 'Validation failed. Please try again.'})
+      session.withErrors(validation.messages()).flashAll()
+    } else{
+      const admin = new Admin()
+      admin.email = request.input('email')
+      admin.firstName = request.input('firstName')
+      admin.lastName = request.input('lastName')
+      admin.password = request.input('password')
+
+      await admin.save()
+      session.flash({ notification: 'User Registered!' })
+      
+      return response.redirect('/login')
+    }
     
   }
 
@@ -118,20 +126,20 @@ class AdminController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({request, response, params: {adminId}, view}) {
-    //console.log(adminId)
+  // async show ({request, response, params: {adminId}, view}) {
+  //   //console.log(adminId)
   
-    //await next()
-    // response.status(200).json({
-    //   message: 'Here is your admin!', 
-    //   data: request.post()
-    // })
-    console.log(adminId)
-    // return view.render('dashboard', {
-    //   title: 'Welcome!', 
-    //   admins: request.post()
-    // })
-  }
+  //   //await next()
+  //   // response.status(200).json({
+  //   //   message: 'Here is your admin!', 
+  //   //   data: request.post()
+  //   // })
+  //   console.log(adminId)
+  //   // return view.render('dashboard', {
+  //   //   title: 'Welcome!', 
+  //   //   admins: request.post()
+  //   // })
+  // }
 
   /**
    * Render a form to update an existing admin.
@@ -153,21 +161,21 @@ class AdminController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async patch ({ params, request, response }) {
-    const { firstName, lastName, email, admin } = request.post()
+  // async patch ({ params, request, response }) {
+  //   const { firstName, lastName, email, admin } = request.post()
 
-    admin.firstName = firstName
-    admin.lastName = lastName
-    admin.email = email
+  //   admin.firstName = firstName
+  //   admin.lastName = lastName
+  //   admin.email = email
 
-    await admin.save()
+  //   await admin.save()
 
-    response.status(200).json({
-      message: 'Successfully updated this admin.',
-      data: admin
-    })
+  //   response.status(200).json({
+  //     message: 'Successfully updated this admin.',
+  //     data: admin
+  //   })
 
-  }
+  // }
 
   /**
    * Delete a admin with id.
@@ -211,11 +219,15 @@ class AdminController {
   }
 
   async update({request, response, params:{adminId}}){
-    //const admin = await Admin.find(adminId)
+    const admin = await Admin.find(adminId)
     const firstName = request.input('firstName')
     const lastName = request.input('lastName')
-    //console.log(firstName)
-    //console.log(lastName)
+    if(!firstName) {
+      firstName = admin.firstName
+    }
+    if(!lastName){
+      lastName = admin.lastName
+    }
     await Database.table('admins').where('adminId', adminId).update({ 'firstName': firstName, 'lastName': lastName})
     response.redirect('/admins/'+adminId)
   }
