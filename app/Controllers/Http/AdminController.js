@@ -33,32 +33,45 @@ class AdminController {
   async showLogin(view){
     return view.render('signin')
   }
-  async login ({request, response}){
-    const email = request.input('email')
-    const password = request.input('password')
+  async login ({request, response, auth}){
+    // const email = request.input('email')
+    // const password = request.input('password')
 
-    const admin = await Database.select('*').from('admins').where('email', email)
-    if(admin[0].password === password){
-      return response.redirect('/admins/'+admin[0].adminId+'/')
-    }
+    // const admin = await Database.select('*').from('admins').where('email', email)
+    // if(admin[0].password === password){
+    //   return response.redirect('/admins/'+admin[0].adminId+'/')
+    const {email, password} = request.all()
+    //await auth.attempt(email, password)
+
+  
+    //}
     // console.log(email)
     // console.log(password)
     // const email = request.input('email')
     // const password = request.input('password')
-    // const login = request.auth.attempt(email, password)
+     const login = auth.attempt(email, password)
+    if(login){
+      const admin = auth.getUser()
+      await auth.login(admin)
+      console.log(admin)
+      //response.send('Logged In successfully')
+      //response.redirect('/admins'+)
+      return
+    }
 
-    // if(login){
-    //   response.send('Logged In successfully')
-    //   return
-    // }
-
-    // response.unauthorised('Invalid Credentials')
+    response.unauthorised('Invalid Credentials')
    //console.log("Route to signIn hit")
    //console.log(request.post()) 
   }
 
-  * profile(request, response){
-    const admin = request.auth.getAdmin()
+  * profile(request, response, auth){
+    
+    // try {
+    //   await auth.check()
+    // } catch (error) {
+    //   response.send('You are not logged in')
+    // }
+    const admin = auth.getAdmin()
     
     if(admin){
       response.ok(admin)

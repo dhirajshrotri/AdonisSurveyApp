@@ -8,8 +8,8 @@ class Survey extends Model {
         return 'surveyId'
     }
 
-    admin(){
-        return this.belongsTo('App/Models/Admin')
+    user(){
+        return this.belongsTo('App/Models/User')
     }
 //, surveyId, questionId
     question(){

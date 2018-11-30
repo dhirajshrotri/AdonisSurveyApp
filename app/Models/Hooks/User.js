@@ -18,3 +18,12 @@ UserHook.hashPassword = async (userInstance) => {
     userInstance.password = await Hash.make(userInstance.password)
   }
 }
+
+UserHook.validate = async (userInstance) => {
+  if(!userInstance.email){
+    throw new Error('Email is required!')
+  }
+  if(!userInstance.password){
+    throw new Error('Password is required!')
+  }
+}

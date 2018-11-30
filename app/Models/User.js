@@ -20,7 +20,10 @@ class User extends Model {
       }
     })
 
-    
+    this.addHook('beforeCreate', 'User.validate')
+  }
+  survey(){
+    return this.hasMany('App/Models/Survey')
   }
   static get rules(){
     return {

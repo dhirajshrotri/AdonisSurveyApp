@@ -2,11 +2,15 @@
 const Hash = use('Hash')
 const Admin = exports = module.exports = {}
 
-Admin.method = async (modelInstance) => {
-
+Admin.encryptPassword = async (admin)=>{
+    admin.password = await Hash.make(admin.password)
 }
 
-Admin.encryptPassword = function * (next){
-    this.password = Hash.make(this.password)
-    next
+Admin.validate = async (admin) =>{
+    if(!admin.email){
+        throw new Error('Email is required!')
+    }
+    if(!admin.password){
+        throw new Error('Password is required!')
+    }
 }

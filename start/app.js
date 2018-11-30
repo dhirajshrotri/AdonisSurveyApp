@@ -49,7 +49,7 @@ const aceProviders = [
 |
 */
 const aliases = {
-  //Validator: 'Adonis/Addons/Validator'
+  Validator: 'Adonis/Addons/Validator'
 }
 
 /*

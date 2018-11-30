@@ -10,6 +10,7 @@ class Admin extends Model {
       static boot(){
           super.boot()
           this.addHook('beforeCreate', 'Admin.encryptPassword')
+          this.addHook('beforeCreate', 'Admin.validate')
       }
 //, adminId, surveyId
       survey(){
