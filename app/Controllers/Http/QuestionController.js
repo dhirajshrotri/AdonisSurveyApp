@@ -10,9 +10,6 @@ const Survey = use('App/Models/Survey')
  * Resourceful controller for interacting with questions
  */
 class QuestionController {
-
-
-
   /**
    * Create/save a new question.
    * POST questions
@@ -21,11 +18,11 @@ class QuestionController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ params, request }) {
+  async store ({ params:{surveyId}, request }) {
     
     const question = new Question()
-    const survey = await Survey.find(params.surveyId)
-    console.log(params.surveyId)
+    const survey = await Survey.find(surveyId)
+    //console.log(params.surveyId)
     const questionTitle = request.input('questionTitle')
     const description = request.input('description')
 
@@ -56,12 +53,12 @@ class QuestionController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async edit ({ params:{adminId, surveyId, questionId }, view }) {
+  async edit ({ params:{id, surveyId, questionId }, view }) {
     const question = await Question.find(questionId)
     const tempQuestion = question.toJSON()
     //console.log(tempQuestion)
     return view.render('questionedit', {
-      adminId: adminId,
+      id: id,
       surveyId: surveyId,      
       question: question
     })
@@ -75,7 +72,7 @@ class QuestionController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({ params:{adminId, surveyId, questionId}, request, response }) {
+  async update ({ params:{id, surveyId, questionId}, request, response }) {
     const survey = await Survey.find(surveyId)
     const question = await Question.find(questionId)
     
@@ -91,7 +88,7 @@ class QuestionController {
     }
     await survey.question().where('questionId', questionId).update({'questionTitle': questionTitle, 'description': description})
 
-    response.redirect('/admins/'+adminId+'/surveys/'+surveyId)
+    response.redirect('/users/'+id+'/surveys/'+surveyId)
   }
 
   /**
@@ -102,11 +99,11 @@ class QuestionController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params:{adminId, surveyId, questionId}, response }) {
+  async destroy ({ params:{id, surveyId, questionId}, response }) {
     const survey = await Survey.find(surveyId)
 
     await survey.question().where('questionId', questionId).delete()
-    response.redirect('/admins/'+adminId+'/surveys/'+surveyId)
+    response.redirect('/users/'+id+'/surveys/'+surveyId)
   }
 }
 

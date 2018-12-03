@@ -3,7 +3,7 @@
 @section('content')
 <div class="container" style="padding:5px;margin:auto">
         <div class="row">
-            <form action="{{ '/admins/'+adminId+'/surveys/'+survey.surveyId+'?_method=PUT'}}" method="POST">
+            <form action="{{ '/users/'+id+'/surveys/'+survey.surveyId+'?_method=PUT'}}" method="POST">
                 <div class="form-group" style="margin:auto">
                     <div class="row" style="padding:5px">
                         <div class="col">
@@ -27,6 +27,6 @@
                 </div>
             </form>
         </div>
-        <a type="button" class="btn btn-secondary" href="/admins/{{adminId}}/surveys/{{survey.surveyId}}">Cancel</a>
+        <a type="button" class="btn btn-secondary" href="/users/{{id}}/surveys/{{survey.surveyId}}">Cancel</a>
     </div>
 @endsection

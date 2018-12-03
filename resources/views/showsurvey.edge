@@ -10,8 +10,8 @@
             <p>Survey Title: {{ survey.surveyDesc }}</p>
         </div>
         <div class="row" style="padding:5px; margin:5px 5px">
-            <a type="button" class="btn btn-primary" href="/admins/{{ adminId }}/surveys/{{ survey.surveyId }}/edit">Edit</a>
-            <a type="button" class="btn btn-danger" href="/admins/{{ adminId }}/surveys/{{ survey.surveyId }}/delete">Delete</a>
+            <a type="button" class="btn btn-primary" href="/users/{{ id }}/surveys/{{ survey.surveyId }}/edit">Edit</a>
+            <a type="button" class="btn btn-danger" href="/users/{{ id }}/surveys/{{ survey.surveyId }}/delete">Delete</a>
         </div>
     </div>
     <div class="container" style="padding:50px;margin:auto">
@@ -24,8 +24,8 @@
                 <p>Question Description: {{ question.description }}</p>
         </div>
         <div class="row">
-            <a type="button" class="btn btn-primary" href="/admins/{{ adminId }}/surveys/{{ survey.surveyId }}/questions/{{ question.questionId }}/edit">Edit</a>
-            <a type="button" class="btn btn-danger" href="/admins/{{ adminId }}/surveys/{{ survey.surveyId }}/questions/{{ question.questionId }}/delete">Delete</a>
+            <a type="button" class="btn btn-primary" href="/users/{{ id }}/surveys/{{ survey.surveyId }}/questions/{{ question.questionId }}/edit">Edit</a>
+            <a type="button" class="btn btn-danger" href="/users/{{ id }}/surveys/{{ survey.surveyId }}/questions/{{ question.questionId }}/delete">Delete</a>
         </div>
         @else
             <p>No questions found! Please add a question below to continue.</p>
@@ -33,7 +33,7 @@
     </div>
     <div class="container" style="padding:50px;margin:auto">
         <div class="row">
-            <form action="/admins/{{ adminId }}/surveys/{{ survey.surveyId }}/questions" method="POST">
+            <form action="/users/{{ id }}/surveys/{{ survey.surveyId }}/questions" method="POST">
                 <div class="container">
                     <div class="form-group row">
                         <label>Add a Question</label>
@@ -54,7 +54,7 @@
                     <div class="container" style="padding:50px;margin:auto">
                         <div class="row">
                             <a type="button" class="btn btn-primary" href="">Update</a>
-                            <a type="button" class="btn btn-secondary" href="/admins/{{ adminId }}">Cancel</a>
+                            <a type="button" class="btn btn-secondary" href="/users/{{ id }}">Cancel</a>
                         </div>
                     </div> 
                 </div>

@@ -6,7 +6,7 @@
     <div class="col-4">
         <h1>Add a survey</h1>
         <hr>      
-    <form action="/admins/1/surveys" method="POST">
+    <form action="{{ '/users/'+id+'/surveys/'}}" method="POST">
         {{ csrfField() }}
         <div class="form-group">
         <label>Survey Name:</label>
@@ -23,6 +23,6 @@
     </div>
 </div>
 <div class="row">
-    <button type="button" class="btn btn-secondary"><a href="/admins/{{adminId}}"> Go Back</a></button>
+    <button type="button" class="btn btn-secondary"><a href="{{'/users/'+id}}"> Go Back</a></button>
 </div>  
 @endsection
