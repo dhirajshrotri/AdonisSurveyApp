@@ -15,6 +15,9 @@ class Survey extends Model {
     question(){
         return this.hasMany('App/Models/Question')
     }
+    surveyToken(){
+        return this.hasMany('App/Models/SurveyToken')
+    }
 }
 
 module.exports = Survey

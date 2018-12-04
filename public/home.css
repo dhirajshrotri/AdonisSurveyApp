@@ -1,0 +1,31 @@
+/* .jumbotron {
+    margin-top: auto;
+    padding-top: auto;
+    text-align: center;
+    margin-left: auto;
+    font-family: lato;
+    font-size: 400;
+    align-items: center;
+    padding: auto auto;
+}
+
+.row {
+    display: block;
+    
+} */
+
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+
+body {
+    font-family: Lato;
+    font-weight: 700;
+    background-color:#EFEFEF;
+}
+
+.jumbotron {
+    margin: 25px;
+    width: 600px; 
+}
+.container {
+    margin: 0 auto;
+}

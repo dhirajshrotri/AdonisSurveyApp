@@ -1,4 +1,7 @@
 @layout('main')
+@section('extracss')
+{{style('dashboard')}}
+@endsection
 @section('content')
 
 <div class="container" style="padding:5px;margin:auto">
@@ -35,21 +38,35 @@
         <div class="row">
             <form action="/users/{{ id }}/surveys/{{ survey.surveyId }}/questions" method="POST">
                 <div class="container">
-                    <div class="form-group row">
-                        <label>Add a Question</label>
-                            <input type="text" name="questionTitle" class="form-control" placeholder="Question Title">
-                            <input type="text" name="description" class="form-control" placeholder="Question Description">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Select Answer Type
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <button class="dropdown-item" type="button">Textbox</button>
-                                    <button class="dropdown-item" type="button">Radio Button</button>
-                                    <button class="dropdown-item" type="button">Checkbox</button>
+                    <div class="form-group">
+                        <div class="col">
+                        <div class="row">
+                            <label>Add a Question</label>
+                                <input type="text" name="questionTitle" class="form-control" placeholder="Question Title">
+                                <input type="text" name="description" class="form-control" placeholder="Question Description">
+                        </div>
+                        <div class="row">
+                                <button class="btn btn-primary" type="submit">Add Question</button>
+                        </div>
+                        </form>
+                        {{--  TODO: add answertype method  --}}
+                        {{--  <form action="{{'/users/'+id+'/surveys/'+survey.surveyId+'/questions/'+}}" method="POST">  --}}
+                            {{--  <div class="form-group">
+                                <div class="row">
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Select Answer Type
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                            <input class="dropdown-item" type="button" name="AnswerType" value="Textbox">Textbox</button>
+                                            <button class="dropdown-item" type="input" name="AnswerType">Radio</button>
+                                            <button class="dropdown-item" type="input" name="AnswerType">Checkbox</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <button class="btn btn-primary" type="submit">Add Question</button>
+                        </form>  --}}
+                    </div>
                     </div>
                     <div class="container" style="padding:50px;margin:auto">
                         <div class="row">
@@ -58,7 +75,7 @@
                         </div>
                     </div> 
                 </div>
-            </form>
+            
         </div>
     </div>
 </div>

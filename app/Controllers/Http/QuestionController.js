@@ -18,20 +18,24 @@ class QuestionController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ params:{surveyId}, request }) {
+  async store ({ params:{id, surveyId}, request, response }) {
+    const answerType = request.input('answerType')//document.getElementById('AnswerType').value
+    //console.log(answerType)
+    const {questionTitle, description, answerType} = request.all()
     
     const question = new Question()
     const survey = await Survey.find(surveyId)
-    //console.log(params.surveyId)
-    const questionTitle = request.input('questionTitle')
-    const description = request.input('description')
+    // // //console.log(params.surveyId)
+    // // const questionTitle = request.input('questionTitle')
+    // // const description = request.input('description')
 
     question.questionTitle = questionTitle
     question.description = description
 
     await survey.question().save(question)
+    //response.redirect('/users/'+id+'/surveys/'+surveyId+'/questions/'+question.questionId+'/addAnswerType')
 
-    console.log('Question Added Successfully!')
+    // console.log('Question Added Successfully!')
   }
 
   /**

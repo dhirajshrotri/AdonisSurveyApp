@@ -10,10 +10,10 @@ class SurveySchema extends Schema {
       table.timestamps()
       table.string('surveyName')
       table.text('surveyDesc')
-      table.integer('admin_id').unsigned()
+      table.integer('user_id').unsigned()
       table  
-        .foreign('admin_id')
-        .references('admins.adminId')
+        .foreign('user_id')
+        .references('users.id')
         .onDelete('cascade')
       
     })

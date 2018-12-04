@@ -10,6 +10,9 @@
                     <li><a href="/users/{{ user.id }}/surveys/{{ survey.surveyId }}">{{ ($loop.index + 1) }}. {{ survey.surveyName }}</a></li>
                 </ul>
             </div>
+            <div class="row">
+                <a type="button" class="btn btn-primary" href="{{ '/users/'+user.id+'/surveys/'+survey.surveyId+'/sendLink'}}">Mail Link</a>
+            </div>
         @else
             <p>You haven't created any surveys yet. Please add a survey to continue.</p>
         @endeach

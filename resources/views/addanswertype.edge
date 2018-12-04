@@ -1,0 +1,13 @@
+@layout('main')
+@section('content')
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Select AnswerType
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" href="{{'/users/'+id+'/surveys/'+surveyId+'/questions/'+questionId+'/textbox'}}">Textbox</a>
+      <a class="dropdown-item" href="{{'/users/'+id+'/surveys/'+surveyId+'/questions/'+questionId+'/RadioButtons'}}">Radio Buttons</a>
+      <a class="dropdown-item" href="{{'/users/'+id+'/surveys/'+surveyId+'/questions/'+questionId+'/CheckBox'}}">Checkbox</a>
+    </div>
+  </div>
+@endsection

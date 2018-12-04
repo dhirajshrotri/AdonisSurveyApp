@@ -2,6 +2,7 @@
 
 const Survey = use('App/Models/Survey')
 const User = use('App/Models/User')
+const randomString = require('random-string')
 
 class SurveyController {
 
@@ -78,6 +79,26 @@ class SurveyController {
 
         response.redirect('/users/'+id)
     }
+    //TODO add these methods to seperate controller
+    // async sendMail({view, auth, params:{id, surveyId}}){
+    //     const user = await auth.getUser()
+    //     const survey = await user.survey().where('surveyId', surveyId).fetch()
+    //     return view.render('sendmail', {
+    //         user:user,
+    //         surveyId: surveyId
+    //     })
+    // }
+
+    // async mail({request, response, auth }){
+    //     const user = await auth.getUser()
+    //     const mail = request.input('emails').split(",")
+    //     // console.log(mail)
+    //     //console.log(mail)
+    //     const token = randomString({length:40})//generate a random string for the token
+    //     const tokenExpires = Date.now() + 86400
+
+    //     //console.log(token)
+    // }
 }
 
 module.exports = SurveyController

@@ -34,11 +34,14 @@ class UserController {
     async profile({request, response, auth, view}){
         const user = await auth.getUser()
         //console.log(user)
+        const userSurvey = await user.survey().fetch()
+        const user_Survey = userSurvey.toJSON()
         if(user){
             //response.ok(user)
             return view.render('dashboard', {
                 title: 'Welcome!',
-                user: user
+                user: user,
+                user_Survey: user_Survey
             })
         }
 
