@@ -7,6 +7,7 @@ const surveyToken = use('App/Models/SurveyToken')
 const Survey = use('App/Models/Survey')
 const Mail = use('Mail')
 const randomString = require('random-string')
+
 /**
  * Resourceful controller for interacting with surveytokens
  */
@@ -22,7 +23,8 @@ class SurveyTokenController {
 
   async sendLink({auth, request, response, params:{id, surveyId}}){
     const user = await auth.getUser()
-    const mail = request.input('emails').split(",")
+    const emails = request.input('emails').split(",")
+    console.log(emails)
     const token = randomString({length:40})
     const tokenExpires = Date.now()+86400
     const survey = await Survey.find(surveyId)
@@ -31,15 +33,14 @@ class SurveyTokenController {
     surveyLink.tokenExpires = tokenExpires
     await survey.surveyToken().save(surveyLink)
 
-    await Mail.send('emails.surveylink', survey.toJSON(), token, (message) => {
-     mail.forEach(element => {
-      message
-      .to(element)
-      .from(user.email)
-      .subject('Survey Link')
-     });
-      
-    } )
+    // emails.forEach(element => {
+      await Mail.send('email.surveylink', user.toJSON(), (message) => { 
+        message
+        .to('dhiraj.shrotri@gmail.com')
+        .from('test@test.com')
+        .subject('Survey Link')
+      })
+    
   }
 }
 

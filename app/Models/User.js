@@ -6,6 +6,7 @@ const Hash = use('Hash')
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
 
+
 class User extends Model {
   static get primaryKey () {
     return 'id'
@@ -27,6 +28,10 @@ class User extends Model {
   }
   survey(){
     return this.hasMany('App/Models/Survey')
+  }
+
+  isActive(){
+    return this.hasOne('App/Models/IsActive')
   }
   static get rules(){
     return {

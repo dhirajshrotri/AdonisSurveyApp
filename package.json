@@ -29,7 +29,9 @@
     "@adonisjs/session": "^1.0.28",
     "@adonisjs/shield": "^1.0.8",
     "@adonisjs/validator": "^5.0.6",
+    "@sendgrid/mail": "^6.3.1",
     "adonis-fold": "^3.0.3",
+    "adonis-mail-provider": "^2.0.2",
     "adonis-validation-provider": "^3.0.5",
     "mysql": "^2.16.0",
     "nodemon": "^1.18.6"

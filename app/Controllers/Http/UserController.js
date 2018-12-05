@@ -1,9 +1,10 @@
 'use strict'
 const Hash = use('Hash')
 const User = use('App/Models/User')
+const isActive = use('App/Models/IsActive')
 const { validate } = use('Validator')
 const Database = use('Database')
-
+const randomString = use('random-string')
 class UserController {
     async login({request, response, auth, session}){
       
@@ -29,6 +30,11 @@ class UserController {
 
         return response.redirect('back')
 
+    }
+
+    async redirect({auth, response}){
+        const user = await auth.getUser()
+        return response.redirect('/users/'+user.id)
     }
 
     async profile({request, response, auth, view}){
@@ -60,7 +66,7 @@ class UserController {
 
         if(validation.fails()){
             session.withErrors(validation.messages()).flashAll()
-            //console.log('Errors')
+            console.log('Errors')
         }else{
             const user = new User()
             user.email = request.input('email')
@@ -69,9 +75,14 @@ class UserController {
             user.password = request.input('password')
             console.log('creating user!')
             await user.save()
+            const userActive = new isActive()
+            userActive.token = randomString({length: 40})
+            userActive.token_expire = Date.now() + 86400
+            userActive.is_active = false
+            await user.isActive().save(userActive)
+            
             session.flash({ notification: 'User Registered!' })
-
-            return response.redirect('/login')
+            //return response.redirect('/login')
         }
         //console.log('Store route hit!')
     }
@@ -167,6 +178,37 @@ class UserController {
         else{
             response.unauthorised('You must be logged in to see this page!')
         }
+    }
+
+    async confirmEmail({ params:{token}, session, response}){
+        //const is_active = await isActive.find(token)
+        const is_active = await Database.from('is_actives').where({ 'token':token })
+        //const user = await User.findby('id', is_active)
+        const expire = Date.now()
+        if(expire > is_active.token_expire){
+            session.flash({
+                notification:{
+                    type: 'danger',
+                    message: 'Your token has expired. Please register again.'
+                }
+            })
+            await User.delete().where('id', is_active)  
+            return response.redirect('/register')
+        }
+        else{
+            // is_active.token = null 
+            // is_active.is_active = true
+            //await is_active.save()
+            await Database.table('is_actives').where('token', token).update({ 'token': null, 'is_active': true})
+            session.flash({
+                notification: {
+                    type: 'success',
+                    message: 'Your email address has been confirmed.'
+                }
+            })
+            return response.redirect('/login')
+        }
+        
     }
 }
 

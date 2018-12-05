@@ -1,3 +1,4 @@
+
 'use strict'
 
 const Helpers = use('Helpers')
@@ -14,6 +15,7 @@ module.exports = {
   |
   */
   driver: Env.get('MAIL_DRIVER', 'smtp'),
+  connection: 'smtp',
 
   /*
   |--------------------------------------------------------------------------
@@ -25,12 +27,12 @@ module.exports = {
   */
   smtp: {
     pool: true,
-    port: 25587,
-    host: 'smtp.sendgrid.net',
-    secure: false,
+    port: 2525,
+    host: "smtp.mailtrap.io",//Env.get('SMTP_HOST'),
+    secure: true,
     auth: {
-      user: Env.get('MAIL_USERNAME'),
-      pass: Env.get('MAIL_PASSWORD')
+      user: "fb12e0180e3f0f",
+      pass: "3b538d85111df9"//Env.get('MAIL_PASSWORD')
     },
     maxConnections: 5,
     maxMessages: 100,
@@ -92,7 +94,7 @@ module.exports = {
   | written inside a log file, which can be used for inspection.
   |
   */
-//   log: {
-//     toPath: Helpers.storagePath('logs/mail.eml')
-//   }
+  // log: {
+  //   toPath: Helpers.storagePath('logs/mail.eml')
+  // }
 }
