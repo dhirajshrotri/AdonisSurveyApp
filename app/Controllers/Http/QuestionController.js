@@ -19,9 +19,9 @@ class QuestionController {
    * @param {Response} ctx.response
    */
   async store ({ params:{id, surveyId}, request, response }) {
-    const answerType = request.input('answerType')//document.getElementById('AnswerType').value
+   //const answerType = request.input('answerType')//document.getElementById('AnswerType').value
     //console.log(answerType)
-    const {questionTitle, description, answerType} = request.all()
+    const {questionTitle, description} = request.all()
     
     const question = new Question()
     const survey = await Survey.find(surveyId)

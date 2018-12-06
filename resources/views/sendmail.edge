@@ -1,5 +1,8 @@
 @layout('main')
 @section('content')
+    @if(flashMessage('notification'))
+        <span> {{ flashMessage('notification') }} </span>
+    @endif
 <div class="container text-center">
     <h3>Send the link via email</h3>
     <form action="{{'/users/'+user.id+'/surveys/'+surveyId+'/sendMail'}}" method="POST">

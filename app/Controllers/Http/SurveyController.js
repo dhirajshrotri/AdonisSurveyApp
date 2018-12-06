@@ -72,7 +72,7 @@ class SurveyController {
 
     async destroy({params:{id, surveyId}, response}){
         //const survey = await Survey.find(surveyId)
-        const user = await User.find(adminId)
+        const user = await User.find(id)
         //console.log(admin)
         //console.log(surveyId)
         await user.survey().where('surveyId', surveyId).delete()

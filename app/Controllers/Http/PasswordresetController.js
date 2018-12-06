@@ -1,39 +1,47 @@
 'use strict'
 
-const {validator, validateAll} = use('Validator')
-const Mail = use('Mail')
+const {validator, validate} = use('Validator')
+//const Mail = use('Mail')
+const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey('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')
 const User = use('App/Models/User')
 const Hash = use('Hash')
-const PasswordReset = use('App/Models/passwordReset')
+const Database = use('Database')
+const PasswordReset = use('App/Models/PasswordReset')
 const randomString = require('random-string')
 class PasswordresetController {
     async sendResetLink({request, session, response}){
+        //console.log('reset pass route hit')
+        const tokenExpire = Date.now() + 360000
         const validation = await validate(request.only('email'),{
             email: 'required|email'
         })
+        const headers = request.headers()
         if(validation.fails()){
             session.withErrors(validation.messages()).flashAll()
             return response.redirect('back')
         }
-        try{
-            const user = await User.findBy('email', request.input('email'))
-            const {token} = await PasswordReset.create({
-                email: user.email,
-                token: randomString({length:40})
-            })
+        
+        const user = await User.findBy('email', request.input('email'))
+        if(user){
+            // const {token} = await PasswordReset.create({
+            //     email: user.email,
+            //     token: randomString({length:40})
+            // })
+            const passreset = new PasswordReset()
+            passreset.email = user.email,
+            passreset.token = randomString({length:40})
+            passreset.tokenExpire = tokenExpire
 
-            const mailData = {
-                user:user.toJSON(),
-                token
+            await user.PasswordReset().save(passreset)
+            const msg = {
+                to: user.email,
+                from: 'noreply@surveyor.com',
+                subject: 'Password reset request.',
+                html: '<p> You have requested to reset the password of your account. You can do so by clicking on the link below:</p>'+
+                        '<p>http://'+headers.host+'/recoverPassword/'+passreset.token+'</p>'
             }
-
-            await Mail.send('auth.emails.password_reset', mailData, message => {
-                message
-                    .to(user.email)
-                    .from('hello@surveyor.com')
-                    .subject('Password Reset Link')
-            })
-
+            sgMail.send(msg)
             session.flash({
                 notification:{
                     type: 'success',
@@ -41,13 +49,58 @@ class PasswordresetController {
                 }
             })
             return response.redirect('back')
-        }catch (error) {
+        }else{
             session.flash({
                 notification: {
-                  type: 'danger',
-                  message: 'Sorry, there is no user with this email address.'
+                    type: 'danger',
+                    message: 'Sorry, there is no user with this email address.'
                 }
             })
+        }
+    }
+
+    async resetPass({request, params:{token}, response, session, view}){
+        const passreset = await Database.from('password_resets').where({'token': token})
+        //console.log(passreset)
+        const id = passreset[0].user_id
+        const user = await Database.from('users').where({'id': id})
+        //console.log(user)
+        const expire = Date.now()
+        //if(passreset.tokenExpire >= expire){
+            return view.render('recoverpassword', {   
+                user: user
+            })
+        // }else{
+        //     //console.log('expired')
+        //     session.flash({
+        //         notification:{
+        //             type: 'danger',
+        //             message: 'Sorry, this token has expired. Please try again.!'
+        //         }
+        //     })
+        // }
+        
+    }
+
+    async setPassword({session, params:{id}, request, response}){
+        const user = await User.find(id)
+        const newPass = request.input('newPass')
+        const confirmPass = request.input('confirmPass')
+        await Database.from('password_resets').where({'user_id': user.id}).delete()
+        if(newPass === confirmPass){
+            const tempPass = await Hash.make(newPass)
+            //console.log(tempPass)
+            await User.query().where('id', user.id).update({'password': tempPass})
+            
+            session.flash({
+                notification: {
+                    type: 'success',
+                    message: 'Password Changed Successfully. Login again to continue.'
+                }
+            })
+            return response.redirect('/users/'+user.id+'/logout')
+        }else{
+            session.withErrors('New Password must match with Confirm Password').flashAll()
         }
     }
 }

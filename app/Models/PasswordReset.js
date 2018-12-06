@@ -7,6 +7,10 @@ class PasswordReset extends Model {
     static get primaryKey() {
         return 'resetId'
     }
+
+    User(){
+        return this.belongsTo('App/Models/User')
+    }
 }
 
 module.exports = PasswordReset

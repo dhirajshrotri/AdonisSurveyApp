@@ -1,9 +1,19 @@
 @layout('main')
+@section('extracss')
+{{style('dashboard')}}
+@endsection
 @section('content')
+    @if(old('notification'))
+    <div class="alert alert-success">
+    {{ old('notification') }}
+    </div>
+    @endif
     <div class="container">
+        @loggedIn
         <div class="row">
             <p>Welcome, <strong>{{ user.firstName}}</strong>!</p>
         </div>
+        <div class="survey-container">
         @each(survey in user_Survey)
             <div class="row">
                 <ul>
@@ -16,12 +26,17 @@
         @else
             <p>You haven't created any surveys yet. Please add a survey to continue.</p>
         @endeach
+        </div>
         <div class="col-4 mr-auto">
         <div class="row">
-            <span style="font-size: 48px; color: Dodgerblue;">
-                <a href="/users/{{ user.id }}/surveys">
-                <i class="fas fa-plus"></i>
-                </a>
-            </span>              
+            <a class="btn-floating btn-lg blue-gradient" href="/users/{{user.id}}/surveys"><i class="fa fa-plus"></i></a>
+        </div>
+        @else
+            <div>
+                <p>
+                    You are not logged in! Please log-in to continue.
+                </p>
+            </div>
+        @endloggedIn
     </div>    
 @endsection

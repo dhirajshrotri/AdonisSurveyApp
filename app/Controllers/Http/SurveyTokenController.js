@@ -5,9 +5,10 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 const surveyToken = use('App/Models/SurveyToken')
 const Survey = use('App/Models/Survey')
-const Mail = use('Mail')
+const sgMail = require('@sendgrid/mail')
 const randomString = require('random-string')
 
+sgMail.setApiKey('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')
 /**
  * Resourceful controller for interacting with surveytokens
  */
@@ -21,25 +22,33 @@ class SurveyTokenController {
         })
   }
 
-  async sendLink({auth, request, response, params:{id, surveyId}}){
+  async sendLink({auth, request, response, session, params:{id, surveyId}}){
     const user = await auth.getUser()
     const emails = request.input('emails').split(",")
-    console.log(emails)
+    //console.log(emails)
     const token = randomString({length:40})
     const tokenExpires = Date.now()+86400
     const survey = await Survey.find(surveyId)
     const surveyLink = new surveyToken()
+    const headers = request.headers()
     surveyLink.token = token
     surveyLink.tokenExpires = tokenExpires
     await survey.surveyToken().save(surveyLink)
 
-    // emails.forEach(element => {
-      await Mail.send('email.surveylink', user.toJSON(), (message) => { 
-        message
-        .to('dhiraj.shrotri@gmail.com')
-        .from('test@test.com')
-        .subject('Survey Link')
+      emails.forEach(element => {
+        const msg = {
+          to: element,  
+          from: 'noreply@surveyor.com',
+          subject: 'Survey Invite',
+          html: '<p> You have been invited to fill out a survey!Please click on the link below to fill out the survey</p>'+'<p>http://'+headers.host+'/surveys/'+token+'</p>',
+        }
+        sgMail.send(msg);
+        session.flash({
+          type:'success', 
+          notification: 'We have sent a link to the Emails to fill out the survey!' })
+        return response.redirect('/users/'+user.id)
       })
+      
     
   }
 }

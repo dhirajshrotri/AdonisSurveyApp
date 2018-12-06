@@ -5,6 +5,8 @@ const isActive = use('App/Models/IsActive')
 const { validate } = use('Validator')
 const Database = use('Database')
 const randomString = use('random-string')
+const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey('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')
 class UserController {
     async login({request, response, auth, session}){
       
@@ -22,11 +24,9 @@ class UserController {
             }
         }
         session.flash({
-            notification: {
-              type: 'danger',
-              message: `We couldn't verify your credentials. Make sure you've confirmed your email address.`
-           }
-        })
+                type:'success', 
+                notification: `We couldn't verify your credentials. Please check your Email and Password!`, 
+          })
 
         return response.redirect('back')
 
@@ -61,7 +61,7 @@ class UserController {
             email: 'required|email|unique:users,email',
             password: 'required'
         }
-
+        const headers = request.headers()
         const validation = await validate(request.all(), rules)
 
         if(validation.fails()){
@@ -80,9 +80,18 @@ class UserController {
             userActive.token_expire = Date.now() + 86400
             userActive.is_active = false
             await user.isActive().save(userActive)
-            
-            session.flash({ notification: 'User Registered!' })
-            //return response.redirect('/login')
+            const msg = {
+                to: user.email,
+                from: 'noreply@surveyor.com',
+                subject: 'Confirm your email!',
+                html: '<p> Your email has been registered on Surveyor. Please confirm your email by clicking the link below:</p>'+
+                      '<p>http://'+headers.host+'/register/confirm/'+userActive.token+'</p>'
+              }
+            sgMail.send(msg)
+           
+            //console.log(headers.host)
+            session.flash({ notification: 'We have sent a confirmation mail to your email. Please confirm your email to continue!' })
+            return response.redirect('/register/plsConfirm')
         }
         //console.log('Store route hit!')
     }

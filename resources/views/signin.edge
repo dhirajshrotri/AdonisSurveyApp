@@ -1,26 +1,44 @@
 @layout('main')
+@section('extracss')
+    {{style('signin')}}
+@endsection
 @section('content')
-    @if(old('notification'))
-        <div class="alert alert-success">
-        {{ old('notification') }}
+@if(flashMessage('notification'))
+<span> {{ flashMessage('notification') }} </span>
+@endif
+    <div class="container">
+        <div class="signin-container text-center">
+            <div class="form-group">
+                <form class="form-signin" action="/login" method="POST">
+                    <h1 class="h3 mb-3 font-weight-normal">Welcome!</h1>
+                    <div class="row">
+                        <label for="inputEmail" class="sr-only">Email address</label>
+                        <input type="email" name="email" class="form-control" placeholder="Email address" required autofocus>
+                    </div>
+                    <div class="row">
+                        <label for="inputPassword" class="sr-only">Password</label>
+                        <input type="password" name="password" class="form-control" placeholder="Password" required>
+                    </div>
+                    <div class="checkbox row">
+                        <label>
+                            <input type="checkbox" value="remember-me" name="remember"> Remember me
+                        </label>
+                    </div>
+                    <div class="row">
+                        <button class="btn btn-primary" type="submit">Sign In</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    @endif
-    <div class="container text-center">
-        <div class="form-group">
-            <form class="form-signin" action="/login" method="POST">
-                <h1 class="h3 mb-3 font-weight-normal">Welcome!</h1>
-                <label for="inputEmail" class="sr-only">Email address</label>
-                <input type="email" name="email" class="form-control" placeholder="Email address" required autofocus>
-                <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" name="password" class="form-control" placeholder="Password" required>
-                <div class="checkbox mb-3">
-                    <label>
-                        <input type="checkbox" value="remember-me" name="remember"> Remember me
-                    </label>
-                </div>
-                <button class="btn btn-primary" type="submit">Sign In</button>
-            </form>
-            <a type="button" class="btn btn-danger" href="/recoverPassword">Forgot Password?</a>
+        <div class="password-container">
+            <div class="row">
+                <a type="button" class="btn btn-danger" href="/recoverPassword">Forgot Password?</a>
+            </div>
+        </div>
+        <div class="register-container">
+            <div class="row">
+                <a href="/register">New User? Register now!</a>
+            </div>
         </div>
     </div>
 @endsection

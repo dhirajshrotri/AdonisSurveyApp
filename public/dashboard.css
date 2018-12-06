@@ -3,3 +3,12 @@
     margin-top: auto;
     margin-left: auto;
 }
+
+.survey-container {
+    background: white;
+  border-radius: 7px;
+  padding: 1em;
+  margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: 120px auto;
+}

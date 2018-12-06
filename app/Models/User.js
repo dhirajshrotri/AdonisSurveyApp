@@ -33,6 +33,10 @@ class User extends Model {
   isActive(){
     return this.hasOne('App/Models/IsActive')
   }
+
+  PasswordReset(){
+    return this.hasOne('App/Models/PasswordReset')
+  }
   static get rules(){
     return {
        email: 'required|email|unique:users',
