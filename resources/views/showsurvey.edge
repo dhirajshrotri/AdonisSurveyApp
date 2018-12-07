@@ -1,59 +1,58 @@
 @layout('main')
 @section('extracss')
-{{style('dashboard')}}
+{{style('showsurvey.css')}}
 @endsection
 @section('content')
 
-<div class="container" style="padding:5px;margin:auto">
-    <div class="container" style="padding:5px;margin:auto">
-        <div class="row">
-            <p>Survey Name: {{ survey.surveyName }}</p>
+<div class="webpage-container" >
+        <div class="surveyTitle-row text-center">
+            <p><h2>{{ survey.surveyName }}</h2></p>
         </div>
-        <div class="row">
-            <p>Survey Title: {{ survey.surveyDesc }}</p>
+        <div class="surveydesc-row text-center">
+            <p><h6>{{ survey.surveyDesc }}</h6></p>
         </div>
-        <div class="row" style="padding:5px; margin:5px 5px">
-            <a type="button" class="btn btn-primary" href="/users/{{ id }}/surveys/{{ survey.surveyId }}/edit">Edit</a>
-            <a type="button" class="btn btn-danger" href="/users/{{ id }}/surveys/{{ survey.surveyId }}/delete">Delete</a>
-        </div>
-    </div>
-    <div class="container" style="padding:50px;margin:auto">
-        <p>Questions in survey:</p>
+        <hr>
         @each(question in tempQuestion)
-        <div class="row">
-                <p>Question Title: {{ question.questionTitle }}</p>
+        <div class="question-container" >
+            <div class="questionTitle-row">
+                    <p>{{ question.questionTitle }}</p>
+            </div>
+            <div class="description-row">
+                    <p>{{ question.description }}</p>
+            </div>
+            <div class="row">
+                <a type="button" class="btn btn-primary" href="/users/{{ id }}/surveys/{{ survey.surveyId }}/questions/{{ question.questionId }}/edit">Edit</a>
+                <a type="button" class="btn btn-danger" href="/users/{{ id }}/surveys/{{ survey.surveyId }}/questions/{{ question.questionId }}/delete">Delete</a>
+            </div>
         </div>
-        <div class="row">
-                <p>Question Description: {{ question.description }}</p>
-        </div>
-        <div class="row">
-            <a type="button" class="btn btn-primary" href="/users/{{ id }}/surveys/{{ survey.surveyId }}/questions/{{ question.questionId }}/edit">Edit</a>
-            <a type="button" class="btn btn-danger" href="/users/{{ id }}/surveys/{{ survey.surveyId }}/questions/{{ question.questionId }}/delete">Delete</a>
-        </div>
-        @else
-            <p>No questions found! Please add a question below to continue.</p>
-        @endeach
-    </div>
-    <div class="container" style="padding:50px;margin:auto">
-        <div class="row">
-            <form action="/users/{{ id }}/surveys/{{ survey.surveyId }}/questions" method="POST">
-                <div class="container">
-                    <div class="form-group">
-                        <div class="col">
-                        <div class="row">
-                            <label>Add a Question</label>
-                                <input type="text" name="questionTitle" class="form-control" placeholder="Question Title">
-                                <input type="text" name="description" class="form-control" placeholder="Question Description">
+            @else
+                <p>No questions found! Please add a question below to continue.</p>
+            @endeach
+        
+        <div class="addquestion-container">
+            <div class="row">
+                <form action="/users/{{ id }}/surveys/{{ survey.surveyId }}/questions" method="POST">
+                    <div class="container">
+                        <div class="form-group">
+                            <div class="col">
+                            <div class="row">
+                                <label>Add a Question</label>
+                                    <input type="text" name="questionTitle" class="form-control" placeholder="Question Title">
+                                    <input type="text" name="description" class="form-control" placeholder="Question Description">
+                            </div>
+                            <div class="row">
+                                    <button class="btn btn-primary" type="submit">Add Question</button>
+                            </div>
+                            </form>
+                            {{--  TODO: add answertype method  --}}
                         </div>
-                        <div class="row">
-                                <button class="btn btn-primary" type="submit">Add Question</button>
-                        </div>
-                        </form>
-                        {{--  TODO: add answertype method  --}}
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        <div class="row">
+                <a type="button" class="btn btn-primary" href="/users/{{ id }}/surveys/{{ survey.surveyId }}/edit">Edit</a>
+                <a type="button" class="btn btn-danger" href="/users/{{ id }}/surveys/{{ survey.surveyId }}/delete">Delete</a>
+        </div>                
 </div>
 @endsection

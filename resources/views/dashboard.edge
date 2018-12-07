@@ -8,35 +8,43 @@
     {{ old('notification') }}
     </div>
     @endif
-    <div class="container">
-        @loggedIn
-        <div class="row">
-            <p>Welcome, <strong>{{ user.firstName}}</strong>!</p>
-        </div>
-        <div class="survey-container">
-        @each(survey in user_Survey)
+    <div class="webpage-container">
+        <div class="main-container">
+            @loggedIn
+            <div class="welcome-row text-center">
+                
+                <p><h3>Welcome, <strong>{{ user.firstName}}</strong>!</h3></p>
+            </div>
+            <hr>
+            @each(survey in user_Survey)
+            <div class="survey-container">
+                <div class="col">
+                    <div class="row">
+                        <ul>
+                            <li><a href="/users/{{ user.id }}/surveys/{{ survey.surveyId }}">{{ survey.surveyName }}</a></li>
+                        </ul>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="btn btn-primary"><a href="{{ '/users/'+user.id+'/surveys/'+survey.surveyId+'/sendLink'}}">Mail Link</a></button>
+                    </div>
+                </div>
+            </div>
+            @else
+            <div class="survey-container">
+                <p>You haven't created any surveys yet. Please add a survey to continue.</p>
+            </div>
+            @endeach
+            <div class="col-4 mr-auto">
             <div class="row">
-                <ul>
-                    <li><a href="/users/{{ user.id }}/surveys/{{ survey.surveyId }}">{{ ($loop.index + 1) }}. {{ survey.surveyName }}</a></li>
-                </ul>
+                <a class="btn-floating btn-lg blue-gradient" href="/users/{{user.id}}/surveys"><i class="fa fa-plus"></i></a>
             </div>
-            <div class="row">
-                <a type="button" class="btn btn-primary" href="{{ '/users/'+user.id+'/surveys/'+survey.surveyId+'/sendLink'}}">Mail Link</a>
-            </div>
-        @else
-            <p>You haven't created any surveys yet. Please add a survey to continue.</p>
-        @endeach
+            @else
+                <div>
+                    <p>
+                        You are not logged in! Please log-in to continue.
+                    </p>
+                </div>
+            @endloggedIn
         </div>
-        <div class="col-4 mr-auto">
-        <div class="row">
-            <a class="btn-floating btn-lg blue-gradient" href="/users/{{user.id}}/surveys"><i class="fa fa-plus"></i></a>
-        </div>
-        @else
-            <div>
-                <p>
-                    You are not logged in! Please log-in to continue.
-                </p>
-            </div>
-        @endloggedIn
     </div>    
 @endsection

@@ -1,0 +1,42 @@
+.webpage-container {
+    font-family: 'Lato';
+    background-color: #e6e6e6;
+    margin-top: 5rem;
+}
+.survey-container {
+    margin: 1rem;
+    background-color: #d8d5d5bd;
+}
+
+.question-container {
+    margin: 1rem;
+    background-color: #bfbfbf;
+
+}
+
+.quesitonTitle-row {
+    font-size: 55px;
+}
+
+.description-row {
+    font-size: 15px
+}
+
+.surveyTitle-row{
+    font-weight: 700;
+}
+
+.surveydesc-row{
+    font-weight: 400;
+    font-size: 20px;
+}
+hr {
+    margin-bottom: 1rem;    
+    border-top: 1.5px solid #017cff;
+    margin-top: 0;
+    display: block;
+}
+
+.addquestion-container {
+
+}

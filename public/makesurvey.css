@@ -1,0 +1,27 @@
+.main-container{
+    background-color: #e2e2e2;
+    margin-top: 10rem;
+}
+
+hr{
+    margin-bottom: 1rem;    
+    border-top: 1.5px solid #017cff;
+    margin-top: 0;
+    display: block;
+}
+
+.form-container{
+    /* background-color: rgba(199, 195, 195, 0.877); */
+    border-spacing: 0.1rem;
+}
+
+.form-group{
+    padding: auto auto;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: rgba(0, 123, 255, 0.71);
+    border-color: #0a7cf1;
+    border-radius: 8px;
+}

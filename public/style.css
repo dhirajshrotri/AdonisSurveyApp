@@ -80,3 +80,7 @@ section:before {
     transform: none;
   }
 }
+
+nav {
+  background: #0505061f;
+}

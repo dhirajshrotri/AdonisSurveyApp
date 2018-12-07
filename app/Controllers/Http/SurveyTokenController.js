@@ -45,7 +45,8 @@ class SurveyTokenController {
         sgMail.send(msg);
         session.flash({
           type:'success', 
-          notification: 'We have sent a link to the Emails to fill out the survey!' })
+          notification: 'We have sent a link to the Emails to fill out the survey!' 
+        })
         return response.redirect('/users/'+user.id)
       })
       

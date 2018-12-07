@@ -1,14 +1,48 @@
-.container {
+.main-container {
     padding: 2em;
     margin-top: auto;
     margin-left: auto;
 }
 
+.webpage-container{
+    background: #e2e2e2;
+    border-radius: 7px;
+  padding: 1em;
+  /* margin-bottom: 10px; */
+  /*margin: auto auto; */
+  margin-top: 10rem;
+  display: block;  
+}
+
 .survey-container {
-    background: white;
+    background: #bfbfbf;
   border-radius: 7px;
   padding: 1em;
   margin-bottom: 10px;
   display: grid;
-  grid-template-columns: 120px auto;
+  grid-template-columns: 200 auto;
+}
+
+hr {
+    margin-bottom: 1rem;    
+    border-top: 1.5px solid #017cff;
+    margin-top: 0;
+    display: block;
+}
+
+.welcome-row {
+    display: block;
+    color: #017cff;
+    word-spacing: 1.5px;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: rgba(0, 123, 255, 0.71);
+    border-color: #0a7cf1;
+    border-radius: 12px;
+}
+
+a {
+    color: #343a40;
 }
