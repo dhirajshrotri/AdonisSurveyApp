@@ -1,7 +1,9 @@
 @layout('main')
-
+@section('extracss')
+    {{ style('surveyedit.css')}}
+@endsection
 @section('content')
-<div class="container" style="padding:5px;margin:auto">
+    <div class="form-container">
         <div class="row">
             <form action="{{ '/users/'+id+'/surveys/'+survey.surveyId+'?_method=PUT'}}" method="POST">
                 <div class="form-group" style="margin:auto">
@@ -21,12 +23,14 @@
                             <textarea type="text" name="surveyDesc" placeholder="{{survey.surveyDesc}}"></textarea>
                         </div>
                     </div>
-                    <div class="col">
-                        <button class="btn btn-primary" type="submit">Save</button>        
+                    <div class="button-row">
+                        <button class="btn btn-primary" type="submit">Save</button>
+                        <button type="button" class="btn btn-secondary"><a href="/users/{{id}}">Cancel</a></button>        
                     </div>
                 </div>
             </form>
         </div>
-        <a type="button" class="btn btn-secondary" href="/users/{{id}}/surveys/{{survey.surveyId}}">Cancel</a>
+        
     </div>
+
 @endsection

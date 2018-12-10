@@ -1,6 +1,15 @@
+.container{
+    text-align: center;
+    margin: 0 auto;
+    align-content: center;
+    padding:0 260px;
+
+}
 .main-container{
     background-color: #e2e2e2;
     margin-top: 10rem;
+    width: 500px;
+    border-radius: 7px;
 }
 
 hr{
@@ -23,5 +32,10 @@ hr{
     color: #fff;
     background-color: rgba(0, 123, 255, 0.71);
     border-color: #0a7cf1;
-    border-radius: 8px;
+    
+}
+
+.btn{
+    margin: 5px 25px;
+    border-radius: 2px;
 }

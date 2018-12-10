@@ -1,6 +1,9 @@
 @layout('main')
+@section('extracss')
+    {{style('useredit.css')}}
+@endsection
 @section('content')
-    <div class="container">
+    <div class="form-container text-center">
         <div class="row">
             <h3>Edit your profile, {{ user.firstName }}</h3>
         </div>
@@ -17,7 +20,7 @@
         </form>
         <a type="button" class="btn btn-secondary" href="{{'/users/'+ user.id}}">Cancel</a>
     </div>
-    <div class="container">
+    <div class="button-container">
         <div class="row">
             <a href="{{'/users/'+user.id+'/resetPassword'}}">Reset your password?</a>
         </div>

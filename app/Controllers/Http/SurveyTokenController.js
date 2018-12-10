@@ -8,7 +8,7 @@ const Survey = use('App/Models/Survey')
 const sgMail = require('@sendgrid/mail')
 const randomString = require('random-string')
 
-sgMail.setApiKey('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')
+sgMail.setApiKey('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')
 /**
  * Resourceful controller for interacting with surveytokens
  */
@@ -27,7 +27,7 @@ class SurveyTokenController {
     const emails = request.input('emails').split(",")
     //console.log(emails)
     const token = randomString({length:40})
-    const tokenExpires = Date.now()+86400
+    const tokenExpires = Date.now()+8640000
     const survey = await Survey.find(surveyId)
     const surveyLink = new surveyToken()
     const headers = request.headers()

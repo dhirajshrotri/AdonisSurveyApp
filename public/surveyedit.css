@@ -1,0 +1,21 @@
+.form-container {
+    padding: 2em;
+    margin: 0 auto;
+    text-align: center;
+    align-content: center;
+    background-color: #e2e2e2;
+    border-radius: 7px;
+}
+
+.container{
+    padding: 2em;
+    margin: auto auto;
+    max-width: 720px;
+    padding: 100px;
+}
+
+.main-container {
+    padding: 0;
+    margin: 0 0;
+
+}

@@ -4,7 +4,7 @@
 @endsection
 @section('content')
 
-<div class="webpage-container" >
+    <div class="webpage-container text-center" >
         <div class="surveyTitle-row text-center">
             <p><h2>{{ survey.surveyName }}</h2></p>
         </div>
@@ -48,11 +48,12 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>  
         </div>
-        <div class="row">
-                <a type="button" class="btn btn-primary" href="/users/{{ id }}/surveys/{{ survey.surveyId }}/edit">Edit</a>
-                <a type="button" class="btn btn-danger" href="/users/{{ id }}/surveys/{{ survey.surveyId }}/delete">Delete</a>
-        </div>                
-</div>
+        <div class="button-container">
+            <div class="row">
+                    <button type="button" class="btn btn-danger"><a href="/users/{{ id }}">Back</a></button>
+            </div>
+        </div>      
+    </div>
 @endsection

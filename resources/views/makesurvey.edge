@@ -4,35 +4,28 @@
 @endsection
 @section('content')
 
-<div class="main-container text-center">
-    <div class="col">
-        <h1>Add a survey</h1>
-        <hr>      
-        <form action="{{ '/users/'+id+'/surveys/'}}" method="POST">
-            {{ csrfField() }}
-            <div class="form-container">
-                <div class="form-group">
-                <label>Survey Name:</label>
-                <input type="text" name="surveyName" class="form-control" placeholder="Add a name to your Survey!" value="{{ old('surveyName', '') }}">
-                {{ elIf('<span class="text-danger">$self</span>', getErrorFor('surveyName'), hasErrorFor('surveyName')) }}
-                </div>
-                <div class="form-group">
-                <label>Survey Description:</label>
-                <textarea name="surveyDesc" class="form-control" placeholder="describe your survey in a few words!">{{ old('surveyDesc', '') }}</textarea>
-                {{ elIf('<span class="text-danger">$self</span>', getErrorFor('surveyDesc'), hasErrorFor('surveyDesc')) }}
-                </div>
-                <div class="button-row">
-                    <div class="col">
-                        <button class="btn btn-primary" type="submit">Submit</button>
-                    </div>
-                    <div class="col">
-                        <button type="button" class="btn btn-secondary"><a href="{{'/users/'+id}}"> Go Back</a></button>
-                    </div>
-                </div>
-            </div>    
-        </form>
-    </div>
-     
+<div class="col">
+    <h1>Add a survey</h1>
+    <hr>      
+    <form action="{{ '/users/'+id+'/surveys/'}}" method="POST">
+        {{ csrfField() }}
+        <div class="form-container">
+            <div class="form-group">
+            <label>Survey Name:</label>
+            <input type="text" name="surveyName" class="form-control" placeholder="Add a name to your Survey!" value="{{ old('surveyName', '') }}">
+            {{ elIf('<span class="text-danger">$self</span>', getErrorFor('surveyName'), hasErrorFor('surveyName')) }}
+            </div>
+            <div class="form-group">
+            <label>Survey Description:</label>
+            <textarea name="surveyDesc" class="form-control" placeholder="describe your survey in a few words!">{{ old('surveyDesc', '') }}</textarea>
+            {{ elIf('<span class="text-danger">$self</span>', getErrorFor('surveyDesc'), hasErrorFor('surveyDesc')) }}
+            </div>
+            <div class="btn-row">
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                    <button type="button" class="btn btn-secondary"><a href="{{'/users/'+id}}"> Go Back</a></button>
+            </div>
+        </div>    
+    </form>
 </div>
 
 @endsection

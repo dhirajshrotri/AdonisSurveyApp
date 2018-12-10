@@ -21,11 +21,14 @@
                 <div class="col">
                     <div class="row">
                         <ul>
-                            <li><a href="/users/{{ user.id }}/surveys/{{ survey.surveyId }}">{{ survey.surveyName }}</a></li>
+                            <h5><a href="/users/{{ user.id }}/surveys/{{ survey.surveyId }}">{{ survey.surveyName }}</a></h5>
+
                         </ul>
                     </div>
-                    <div class="row">
-                        <button type="button" class="btn btn-primary"><a href="{{ '/users/'+user.id+'/surveys/'+survey.surveyId+'/sendLink'}}">Mail Link</a></button>
+                    <div class="btn-row">
+                            <button type="button" class="btn btn-primary"><a href="{{ '/users/'+user.id+'/surveys/'+survey.surveyId+'/sendLink'}}">Mail</a></button>
+                            <button type="button" class="btn btn-secondary"><a href="/users/{{ user.id }}/surveys/{{ survey.surveyId }}/edit">Edit</a></button>
+                            <button type="button" class="btn btn-danger"><a href="/users/{{ user.id }}/surveys/{{ survey.surveyId }}/delete">Delete</a></button>
                     </div>
                 </div>
             </div>

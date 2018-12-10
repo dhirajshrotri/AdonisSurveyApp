@@ -1,0 +1,31 @@
+@layout('main')
+@section('extracss')
+    {{ style('fillsurvey') }}
+@endsection
+@section('content')
+<div class="questions-container">
+    <div class="surveyTitle-row text-center">
+        <p><h2>{{ survey.surveyName }}</h2></p>
+    </div>
+    <div class="surveydesc-row text-center">
+        <p><h6>{{ survey.surveyDesc }}</h6></p>
+    </div>
+    <hr>
+    <form action="{{ '/surveys/'+survey.surveyId+'/addAnswer/'}}" method='POST'>
+        @each(question in questions)
+            <div class="display-container">
+                <h4>
+                    {{ question.questionTitle }}
+                </h4>
+                <h6>
+                    {{ question.description }}
+                </h6>
+                <div class="answer-container">
+                    <textarea type="text" name="answer" placeholder="enter your answer here"></textarea>
+                </div>
+            </div>
+        @endeach
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+</div>
+@endsection

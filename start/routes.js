@@ -63,3 +63,11 @@ Route.post('/users/:id/surveys/:surveyId/sendMail', 'SurveyTokenController.sendL
 
 Route.get('/register/confirm/:token', 'UserController.confirmEmail')
 Route.on('/register/plsConfirm').render('confirm')
+
+
+Route.get('/surveys/:token', 'AnswerSurveyController.index')
+Route.get('/surveys/:surveyId/show', 'AnswerSurveyController.show')
+Route.post('/surveys/:surveyId/addAnswer', 'AnswerSurveyController.store')
+Route.get('/surveys/:surveyId/preview', 'AnswerSurveyController.preview')
+Route.post('/surveys/:surveyId/preview', 'AnswerSurveyController.submit')
+Route.get('/surveys/:surveyId/edit', 'AnswerSurveyController.edit')
