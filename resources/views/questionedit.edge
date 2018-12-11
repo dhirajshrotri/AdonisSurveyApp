@@ -1,6 +1,9 @@
 @layout('main')
+@section('extracss')
+    {{style('questionedit')}}
+@endsection
 @section('content')
-    <div class="container" style="padding:5px;margin:auto">
+    <div class="webpage-container" style="padding:5px;margin:auto">
         <div class="row">
             <form action="{{ '/users/'+id+'/surveys/'+surveyId+'/questions/'+question.questionId+'?_method=PUT'}}" method="POST">
                 <div class="form-group" style="margin:auto">
@@ -17,18 +20,19 @@
                             <label>Description: </label>
                         </div>
                         <div class="col">
-                            <input type="text" name="description" placeholder="{{question.description}}">
+                            <textarea type="text" name="description" placeholder="{{question.description}}"></textarea>
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                        <button class="btn btn-primary" type="submit">Save</button>
+                <div class="row">
+                    <div class="col">
+                            <button class="btn btn-primary" type="submit">Save</button>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-secondary"><a href="/users/{{id}}/surveys/{{surveyId}}">Cancel</a></button>
+                    </div>
                 </div>
             </form>
-        </div>
-        
-        <div class="col">
-            <a type="button" class="btn btn-secondary" href="/users/{{id}}/surveys/{{surveyId}}">Cancel</a>
-        </div>
+        </div>  
     </div>
 @endsection

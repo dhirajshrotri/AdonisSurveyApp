@@ -21,34 +21,30 @@
                     <p>{{ question.description }}</p>
             </div>
             <div class="row">
-                <a type="button" class="btn btn-primary" href="/users/{{ id }}/surveys/{{ survey.surveyId }}/questions/{{ question.questionId }}/edit">Edit</a>
-                <a type="button" class="btn btn-danger" href="/users/{{ id }}/surveys/{{ survey.surveyId }}/questions/{{ question.questionId }}/delete">Delete</a>
+                <button type="button" class="btn btn-primary"><a href="/users/{{ id }}/surveys/{{ survey.surveyId }}/questions/{{ question.questionId }}/edit">Edit</a></button>
+                <button type="button" class="btn btn-danger"><a href="/users/{{ id }}/surveys/{{ survey.surveyId }}/questions/{{ question.questionId }}/delete">Delete</a></button>
             </div>
         </div>
             @else
                 <p>No questions found! Please add a question below to continue.</p>
             @endeach
-        
         <div class="addquestion-container">
-            <div class="row">
-                <form action="/users/{{ id }}/surveys/{{ survey.surveyId }}/questions" method="POST">
-                    <div class="container">
-                        <div class="form-group">
-                            <div class="col">
-                            <div class="row">
-                                <label>Add a Question</label>
-                                    <input type="text" name="questionTitle" class="form-control" placeholder="Question Title">
-                                    <input type="text" name="description" class="form-control" placeholder="Question Description">
-                            </div>
-                            <div class="row">
-                                    <button class="btn btn-primary" type="submit">Add Question</button>
-                            </div>
-                            </form>
-                            {{--  TODO: add answertype method  --}}
-                        </div>
+            <form action="/users/{{ id }}/surveys/{{ survey.surveyId }}/questions" method="POST">
+                <div class="form-group">
+                    <div class="row">
+                        <label><h4>Add a Question</h4></label>
+                    </div>
+                    <div class="title-row">
+                        <input type="text" name="questionTitle" class="form-control" placeholder="Question Title">
+                    </div>
+                    <div class="desc-row">
+                        <input type="text" name="description" class="form-control" placeholder="Question Description">
+                    </div>
+                    <div class="row">
+                        <button class="btn btn-primary" type="submit">Add Question</button>
                     </div>
                 </div>
-            </div>  
+            </form>
         </div>
         <div class="button-container">
             <div class="row">

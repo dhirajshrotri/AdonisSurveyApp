@@ -33,3 +33,7 @@ body {
     height: 100%;
     padding: 5rem;
 }
+
+a{
+    text-decoration: none !important;
+  }

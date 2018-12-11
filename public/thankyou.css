@@ -1,0 +1,11 @@
+.container{
+    text-align: center;
+    margin-top: 15rem;
+    max-width: 720px;
+}
+
+.jumbotron{
+    opacity: 0.90;
+    align-items: center;
+
+}

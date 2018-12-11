@@ -1,35 +1,46 @@
-html,
-body {
-  height: 100%;
-  display: grid;
+.signin-container{
+  margin: 10rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 7px;
+  text-align: center;
+  padding: 0.5rem;
+  padding-bottom: 0rem;
+  margin-bottom: 0rem;
 }
 
-.signin-container {
-  padding-top: 0.1em;
-  padding-bottom:0.1em;
-  margin-top: auto;
-  margin-bottom:0;
+.form-group{
+  margin: 0 auto;
+  margin-top: 1rem;
+  padding: 2rem;
+  background:#bfbfbf;
+  border-radius: 7px;
 }
 
-.row {
-  padding: 0.2em;
+.webpage-container{
+  text-align: center;
+  background-color: gainsboro;
+  border-radius: 7px;
+  width: 720px;
+  margin: 0 auto;
 }
 
-.password-container{
-  padding-top: 0;
-  margin: 0 0;
-}
-
-.register-container {
-  padding-top: 0;
-  margin: 0 0;
+.row{
+  padding: 0.5rem;
+  padding-bottom: 0;
+  display: block;
 }
 
 .container{
-  width: 500px;
-  text-align: center;
+  margin: 0 auto;
+}
+button{
+  width: 10rem;
 }
 
-.form-group {
-  margin-bottom: 0;
+a{
+  text-decoration: none !important;
+}
+
+.register-container{
+  padding: 1rem;
 }

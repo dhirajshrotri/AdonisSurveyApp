@@ -8,7 +8,7 @@ const Survey = use('App/Models/Survey')
 const sgMail = require('@sendgrid/mail')
 const randomString = require('random-string')
 
-sgMail.setApiKey('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')
+sgMail.setApiKey('SENDGRID_API_KEY')
 /**
  * Resourceful controller for interacting with surveytokens
  */

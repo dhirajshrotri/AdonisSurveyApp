@@ -39,3 +39,7 @@ hr{
     margin: 5px 25px;
     border-radius: 2px;
 }
+
+a{
+    text-decoration: none !important;
+  }

@@ -1,0 +1,38 @@
+.webpage-container{
+    margin: 0 auto;
+    display: block;
+    background-color: #e2e2e2;
+    width: 500px;
+    border-radius: 7px;
+    text-align: center;
+}
+
+.container{
+    padding: 15rem;
+    margin: 0 auto;
+}
+.row{
+    margin: 0 auto;
+    padding: 0.5rem;
+}
+
+button{
+    width: 7rem;
+}
+
+a{
+    text-decoration: none !important;
+    color: white;
+}
+
+textarea{
+    border-radius: 7px;
+    width: 300px;
+    height: 100px;
+}
+
+input{
+    border-radius: 7px;
+    width: 300px;
+
+}
