@@ -1,13 +1,27 @@
 @layout('main')
+@section('extracss')
+  {{style('addanswertype')}}
+@endsection
 @section('content')
-<div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Select AnswerType
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" href="{{'/users/'+id+'/surveys/'+surveyId+'/questions/'+questionId+'/textbox'}}">Textbox</a>
-      <a class="dropdown-item" href="{{'/users/'+id+'/surveys/'+surveyId+'/questions/'+questionId+'/RadioButtons'}}">Radio Buttons</a>
-      <a class="dropdown-item" href="{{'/users/'+id+'/surveys/'+surveyId+'/questions/'+questionId+'/CheckBox'}}">Checkbox</a>
-    </div>
-  </div>
+  <div class="main-container">
+      <p><h3>{{ question.questionTitle }}</h3></p>
+      <p>
+        <h6>
+          {{question.description}}
+        </h6>
+      </p>
+      <div class="answer-container">
+        <form action="{{ '/users/'+id+'/surveys/'+surveyId+'/questions/'+question.questionId+'/addChoices'}}" method="POST">
+          <div class="row">
+            <label>
+              Enter the number of options:
+                <input type="text" name="answerChoices">
+            </label>
+          </div>
+          <div class="row">
+              <button type="submit" class="btn btn-primary">Next</button>
+          </div>
+        </form>
+      </div>
+  </div>  
 @endsection

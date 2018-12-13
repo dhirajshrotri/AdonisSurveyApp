@@ -8,8 +8,8 @@ class NoOfChoice extends Model {
         return no_of_choices
     }
 
-    question(){
-        return this.belongsTo('App/Models/Question')
+    answerType(){
+        return this.belongsTo('App/Models/Answertype')
     }
 }
 

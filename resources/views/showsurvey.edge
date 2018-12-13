@@ -3,7 +3,11 @@
 {{style('showsurvey.css')}}
 @endsection
 @section('content')
-
+    @if(old('notification'))
+    <div class="alert alert-success">
+    {{ old('notification') }}
+    </div>
+    @endif
     <div class="webpage-container text-center" >
         <div class="surveyTitle-row text-center">
             <p><h2>{{ survey.surveyName }}</h2></p>
@@ -40,8 +44,21 @@
                     <div class="desc-row">
                         <input type="text" name="description" class="form-control" placeholder="Question Description">
                     </div>
+                    <p>Select the type of Answer for this question:</p>
+                    <label class="radio-inline">
+                        <input type="radio" name="answer" value="text">
+                            Text
+                        </label>
+                        <label class="radio-inline">
+                        <input type="radio" name="answer" value="checkbox">
+                            Checkbox
+                        </label>
+                        <label class="radio-inline">
+                        <input type="radio" name="answer" value="radio">
+                            Radio
+                    </label>
                     <div class="row">
-                        <button class="btn btn-primary" type="submit">Add Question</button>
+                        <button class="btn btn-primary" type="submit">Next</button>
                     </div>
                 </div>
             </form>

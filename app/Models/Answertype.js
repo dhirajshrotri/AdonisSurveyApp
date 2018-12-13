@@ -11,6 +11,10 @@ class Answertype extends Model {
     question(){
         return this.belongsTo('App/Models/Question')
     }
+
+    NoOfChoice(){
+        return this.hasOne('App/Models/NoOfChoice')
+    }
 }
 
 module.exports = Answertype

@@ -2,12 +2,15 @@
     text-align: center;
     margin: 0 auto;
     align-content: center;
-    padding:0 260px;
-
+    padding:1rem;
+    background-color: #bfbfbf;
+    border-radius: 7px;
+    max-width: 560px;
 }
 .main-container{
     background-color: #e2e2e2;
-    margin-top: 10rem;
+    margin: 1rem 1rem;
+    padding: 2rem;
     width: 500px;
     border-radius: 7px;
 }

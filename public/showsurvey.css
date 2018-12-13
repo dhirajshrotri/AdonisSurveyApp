@@ -50,6 +50,7 @@ hr {
     padding: 0;
     border-radius: 7px;
     background-color: #bfbfbf;
+    text-align: center;
 }
 
 .button-container {
@@ -72,4 +73,9 @@ a{
 
 button{
     width: 10rem;
+}
+
+.form-control{
+    width: 500px;
+    margin: 0 auto;
 }

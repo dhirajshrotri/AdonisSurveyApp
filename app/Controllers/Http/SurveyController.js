@@ -16,17 +16,13 @@ class SurveyController {
         const user = await User.find(id)
         //create a new survey instance
         const survey = new Survey()
-        //console.log(Admin.find(1))
-        //console.log(request.input('surveyName'))    
+         
         survey.surveyName = request.input('surveyName')
         survey.surveyDesc = request.input('surveyDesc')
         //survey.adminId = params.adminId
         await user.survey().save(survey)
-        response.redirect('/users/'+id)
-        // response.status(201).json({
-        //    message: 'Survey created successfully!',
-        //    data: survey
-        // })
+        response.redirect('/users/'+id+'/surveys/'+survey.surveyId)
+        
     }
 
     async edit({ params:{id, surveyId}, view }){
@@ -78,6 +74,13 @@ class SurveyController {
         await user.survey().where('surveyId', surveyId).delete()
 
         response.redirect('/users/'+id)
+    }
+
+    async viewResults({params:{id, surveyId}, view}){
+        const survey = await Survey.find(surveyId)
+        const questions = await survey.question().fetch()
+        const answers = await questions.answer().fetch()
+        //console.log(questions.toJSON())
     }
     //TODO add these methods to seperate controller
     // async sendMail({view, auth, params:{id, surveyId}}){

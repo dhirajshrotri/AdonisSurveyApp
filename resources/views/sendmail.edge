@@ -1,24 +1,31 @@
 @layout('main')
+@section('extracss')
+    {{style('sendmail')}}
+@endsection
 @section('content')
     @if(flashMessage('notification'))
         <span> {{ flashMessage('notification') }} </span>
     @endif
-<div class="container text-center">
-    <h3>Send the link via email</h3>
-    <form action="{{'/users/'+user.id+'/surveys/'+surveyId+'/sendMail'}}" method="POST">
-        <div class="form-group">
-            <div class="row">
-                <h6> 
-                    Enter email ids to send link to:
-                </h6>
+<div class="main-container text-center">
+    <div class="form-container text-center">
+        <h3>Send the link via email</h3>
+        <hr>
+        <form action="{{'/users/'+user.id+'/surveys/'+surveyId+'/sendMail'}}" method="POST">
+            <div class="form-group text-center">
+                <div class="row">
+                    <h6> 
+                        Enter email ids to send link to:
+                    </h6>
+                </div>
+                <div class="row">
+                    <textarea name="emails" id="emailid" cols="30" rows="10" placeholder="Enter emails seperated by commas"></textarea>
+                </div>
+                <div class="row">
+                    <button class="btn btn-primary" type="submit">Send Mail</button>
+                    <button class="btn btn-secondary" type="button"><a href="/users/+{{user.id}}">Cancel</a></button>
+                </div>
             </div>
-            <div class="row">
-                <textarea name="emails" id="emailid" cols="30" rows="10" placeholder="Enter emails seperated by commas"></textarea>
-            </div>
-            <div class="row">
-                <button class="btn btn-primary" type="submit">Send Mail</button>
-            </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 @endsection

@@ -3,7 +3,9 @@
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
+const Question = use('App/Models/Question')
 const Answertype = use('App/Models/Answertype')
+const NoOfChoice = use('App/Models/NoOfChoice')
 /**
  * Resourceful controller for interacting with answertypes
  */
@@ -17,7 +19,18 @@ class AnswertypeController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
+  async index ({ session, response, view, params:{id, surveyId, questionId} }) {
+    const question = await Question.find(questionId)
+    const answertype =await question.answerType().fetch()
+    // console.log(answertype)
+    console.log(id)
+    console.log(surveyId)
+    return view.render('addanswertype', {
+        answertype: answertype.answerType,
+        question: question,
+        id: id,
+        surveyId: surveyId
+      })
   }
 
   /**
@@ -29,7 +42,9 @@ class AnswertypeController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async create ({ request, response, view }) {
+  async create ({ request, response, view, params:{surveyId, questionId} }) {
+    console.log('create route hit!')
+    
   }
 
   /**
@@ -40,7 +55,18 @@ class AnswertypeController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
+  async store ({ request, view, params:{id, surveyId, questionId}}) {
+  //  console.log('store route hit!')
+    const answerChoices = request.input('answerChoices')
+    const question = await Question.find(questionId)
+    const answertype = await question.answerType().fetch
+    return view.render('addanswerchoice', {
+      answertype: answertype,
+      answerChoices: parseInt(answerChoices), 
+      question: question,
+      id: id,
+      surveyId: surveyId
+    })
   }
 
   /**

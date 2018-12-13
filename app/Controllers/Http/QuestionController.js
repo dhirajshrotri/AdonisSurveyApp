@@ -5,7 +5,7 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 const Question = use('App/Models/Question')
 const Survey = use('App/Models/Survey')
-
+const AnswerType = use('App/Models/Answertype')
 /**
  * Resourceful controller for interacting with questions
  */
@@ -18,23 +18,37 @@ class QuestionController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ params:{id, surveyId}, request, response }) {
-   //const answerType = request.input('answerType')//document.getElementById('AnswerType').value
-    //console.log(answerType)
-    const {questionTitle, description} = request.all()
+  async store ({ params:{id, surveyId}, request, response, session }) {
+  
+    const {questionTitle, description, answer} = request.all()
+    const answertype = new AnswerType()
+    // console.log(answer)
+    if(answer){
+      
+      const question = new Question()
+      const survey = await Survey.find(surveyId)
+      answertype.answerType = answer
+      question.questionTitle = questionTitle
+      question.description = description
+      await survey.question().save(question)
+      await question.answerType().save(answertype)
+      //console.log('Question added!')
+      if (answer === 'checkbox' || answer === 'radio') {
+        response.redirect('/users/'+id+'/surveys/'+surveyId+'/questions/'+question.questionId+'/addAnswerType')  
+      } else {
+       response.redirect('/users/'+id+'/surveys/'+surveyId) 
+      }
+    }
+    else{
+      session.flash({
+        type:'danger', 
+        notification: `Please select an option for answer type from below.`, 
+      })
+      return response.redirect('/users/'+id+'/surveys/'+surveyId)
+    }
+    // //console.log(answer)
     
-    const question = new Question()
-    const survey = await Survey.find(surveyId)
-    // // //console.log(params.surveyId)
-    // // const questionTitle = request.input('questionTitle')
-    // // const description = request.input('description')
-
-    question.questionTitle = questionTitle
-    question.description = description
-
-    await survey.question().save(question)
-    //response.redirect('/users/'+id+'/surveys/'+surveyId+'/questions/'+question.questionId+'/addAnswerType')
-
+    
     // console.log('Question Added Successfully!')
   }
 
