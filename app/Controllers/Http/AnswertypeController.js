@@ -21,11 +21,15 @@ class AnswertypeController {
    */
   async index ({ session, response, view, params:{id, surveyId, questionId} }) {
     const question = await Question.find(questionId)
-    const answertype =await question.answerType().fetch()
-    // console.log(answertype)
-    console.log(id)
-    console.log(surveyId)
+    var answertype =await question.answerType().fetch()
+    answertype = answertype.toJSON()
+    var choice = await NoOfChoice.query().where('answerType_Id', answertype.answerTypeId).fetch()
+    choice = choice.toJSON()
+    console.log(choice)
+    // console.log(id)
+    // console.log(surveyId)
     return view.render('addanswertype', {
+        choices: choice,
         answertype: answertype.answerType,
         question: question,
         id: id,
@@ -43,7 +47,7 @@ class AnswertypeController {
    * @param {View} ctx.view
    */
   async create ({ request, response, view, params:{surveyId, questionId} }) {
-    console.log('create route hit!')
+    
     
   }
 
@@ -55,18 +59,25 @@ class AnswertypeController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, view, params:{id, surveyId, questionId}}) {
+  async store ({ request, params:{id, surveyId, questionId}, response}) {
   //  console.log('store route hit!')
-    const answerChoices = request.input('answerChoices')
+    const answerChoice = request.input('choice')
     const question = await Question.find(questionId)
-    const answertype = await question.answerType().fetch
-    return view.render('addanswerchoice', {
-      answertype: answertype,
-      answerChoices: parseInt(answerChoices), 
-      question: question,
-      id: id,
-      surveyId: surveyId
-    })
+    var answertype = await Answertype.query().where('question_Id', questionId).fetch()
+    answertype = answertype.toJSON()
+    const choice = new NoOfChoice()
+    choice.option = answerChoice
+    choice.answerType_Id = answertype[0].answerTypeId
+    // console.log(answertype.toJSON())
+    await choice.save()
+    return response.redirect('/users/'+id+'/surveys/'+surveyId+'/questions/'+questionId+'/addAnswerType')
+    // return view.render('addanswerchoice', {
+    //   answertype: answertype,
+    //   answerChoices: parseInt(answerChoices), 
+    //   question: question,
+    //   id: id,
+    //   surveyId: surveyId
+    // })
   }
 
   /**
@@ -90,7 +101,15 @@ class AnswertypeController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async edit ({ params, request, response, view }) {
+  async edit ({ params:{id, surveyId, questionId, choiceId}, request, response, view }) {
+   var choice = await NoOfChoice.query().where('choiceId', choiceId).fetch()
+   choice = choice.toJSON()
+   return view.render('editchoice', {
+     choice: choice,
+     questionId: questionId,
+     id: id,
+     surveyId: surveyId
+   })   
   }
 
   /**
@@ -101,7 +120,11 @@ class AnswertypeController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({ params, request, response }) {
+  async update ({ params:{id, surveyId, questionId, choiceId}, request, response }) {
+    //var choice = await NoOfChoice.find('choiceId')
+    const option = request.input('choice')
+    await NoOfChoice.query().where('choiceId', choiceId).update({'option': option})
+    return response.redirect('/users/'+id+'/surveys/'+surveyId+'/questions/'+questionId+'/addAnswerType')
   }
 
   /**
@@ -112,7 +135,12 @@ class AnswertypeController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {
+  async delete ({ params:{id, surveyId, questionId, choiceId}, request, response }) {
+    await NoOfChoice
+      .query()
+      .where('choiceId', choiceId)
+      .delete()
+    return response.redirect('/users/'+id+'/surveys/'+surveyId+'/questions/'+questionId+'/addAnswerType')
   }
 }
 

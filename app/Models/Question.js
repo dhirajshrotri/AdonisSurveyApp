@@ -19,6 +19,8 @@ class Question extends Model {
     answerType(){
         return this.hasOne('App/Models/Answertype')
     }
+
+    
 }
 
 module.exports = Question

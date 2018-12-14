@@ -3,6 +3,7 @@ const SurveyToken = use('App/Models/SurveyToken')
 const Question = use('App/Models/Question')
 const Answer = use('App/Models/Answer')
 const Survey = use('App/Models/Survey')
+const Answertype = use('App/Models/Answertype')
 class AnswerSurveyController {
 
     async index({params:{token}, view, response}){
@@ -23,10 +24,16 @@ class AnswerSurveyController {
     }
     async show({params:{surveyId}, view, response}){
         const survey = await Survey.find(surveyId)
-        const questions = await Question.query().where('survey_Id', surveyId).fetch()
+        var questions = await Question.query().where('survey_Id', surveyId).fetch()
+        questions = questions.toJSON()
+        var answertype = await Answertype.query().where('question_Id', questions[0].questionId).fetch()
+        answertype = answertype.toJSON()
+        //const choice = await NoOfChoices.query().where('answertype_Id', answertype.)
+        //console.log(answertype.toJSON())
         return view.render('fillsurvey', {
             survey: survey,
-            questions : questions.toJSON()
+            questions : questions,
+            answertype : answertype.toJSON()
         })
         
     }

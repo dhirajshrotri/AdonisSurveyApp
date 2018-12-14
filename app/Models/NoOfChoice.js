@@ -5,7 +5,7 @@ const Model = use('Model')
 
 class NoOfChoice extends Model {
     static get primarykey(){
-        return no_of_choices
+        return choiceId
     }
 
     answerType(){

@@ -8,11 +8,12 @@ class NoOfChoicesSchema extends Schema {
     this.create('no_of_choices', (table) => {
       table.increments('choiceId')
       table.timestamps()
-      table.integer('choices')
-      table.integer('question_id').unsigned()
-      table.foreign('question_id')
-           .references('questions.questionId')
-           .onDelete('cascade')
+      table.string('option')
+      table.integer('answerType_Id').unsigned()
+      table
+        .foreign('answerType_Id')
+        .references('answertypes.answerTypeId')
+        .onDelete('cascade')
     })
   }
 

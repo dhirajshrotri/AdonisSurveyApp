@@ -3,7 +3,7 @@
 const {validator, validate} = use('Validator')
 //const Mail = use('Mail')
 const sgMail = require('@sendgrid/mail')
-sgMail.setApiKey('SENDGRID_API_KEY')
+sgMail.setApiKey('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')
 const User = use('App/Models/User')
 const Hash = use('Hash')
 const Database = use('Database')
@@ -13,21 +13,26 @@ class PasswordresetController {
     async sendResetLink({request, session, response}){
         //console.log('reset pass route hit')
         const tokenExpire = Date.now() + 360000
+        //console.log(tokenExpire)
         const validation = await validate(request.only('email'),{
             email: 'required|email'
         })
+        
         const headers = request.headers()
         if(validation.fails()){
             session.withErrors(validation.messages()).flashAll()
+            // console.log('validation failed')
             return response.redirect('back')
         }
         
         const user = await User.findBy('email', request.input('email'))
+        console.log(user)
         if(user){
             // const {token} = await PasswordReset.create({
             //     email: user.email,
             //     token: randomString({length:40})
             // })
+            //console.log('user found')
             const passreset = new PasswordReset()
             passreset.email = user.email,
             passreset.token = randomString({length:40})
@@ -48,7 +53,7 @@ class PasswordresetController {
                     message: 'A password reset link has been sent to your email'
                 }
             })
-            return response.redirect('back')
+            return response.redirect('/recoverPassword')
         }else{
             session.flash({
                 notification: {

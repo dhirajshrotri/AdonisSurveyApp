@@ -63,7 +63,10 @@ Route.get('/users/:id/surveys/:surveyId/questions/:questionId/addAnswerType', 'A
 Route.get('/users/:id/surveys/:surveyId/sendLink', 'SurveyTokenController.sendMail').middleware('auth')
 Route.post('/users/:id/surveys/:surveyId/sendMail', 'SurveyTokenController.sendLink').middleware('auth')
 Route.get('/users/:id/surveys/:surveyId/questions/:questionId/addAnswerType', 'AnswertypeController.index').middleware('auth')
-Route.post('/users/:id/surveys/:surveyId/questions/:questionId/addChoices', 'AnswertypeController.store')
+Route.post('/users/:id/surveys/:surveyId/questions/:questionId/addChoices', 'AnswertypeController.store').middleware('auth')
+Route.get('/users/:id/surveys/:surveyId/questions/:questionId/option/:choiceId/edit', 'AnswertypeController.edit').middleware('auth')
+Route.get('/users/:id/surveys/:surveyId/questions/:questionId/option/:choiceId/delete', 'AnswertypeController.delete').middleware('auth')
+Route.post('/users/:id/surveys/:surveyId/questions/:questionId/option/:choiceId/update', 'AnswertypeController.update').middleware('auth')
 Route.get('/register/confirm/:token', 'UserController.confirmEmail')
 Route.on('/register/plsConfirm').render('confirm')
 

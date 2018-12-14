@@ -1,0 +1,14 @@
+@layout('main')
+@section('extracss')
+@endsection
+@section('content')
+    <div class="container">
+        <form action="{{'/users/'+id+'/surveys/'+surveyId+'/questions/'+questionId+'/option/'+choice[0].choiceId+'/update'}}" method="POST">
+            <label>
+                Edit the option choice:
+                <input type="text" name="choice" placeholder="{{choice[0].option}}">
+            </label>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+@endsection

@@ -5,15 +5,15 @@ const Model = use('Model')
 
 class Answertype extends Model {
     static get primarykey(){
-        return answerId
+        return answerTypeId
     }
 
     question(){
         return this.belongsTo('App/Models/Question')
     }
 
-    NoOfChoice(){
-        return this.hasOne('App/Models/NoOfChoice')
+   choice(){
+        return this.hasMany('App/Models/NoOfChoice')
     }
 }
 
