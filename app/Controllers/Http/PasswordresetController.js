@@ -3,7 +3,7 @@
 const {validator, validate} = use('Validator')
 //const Mail = use('Mail')
 const sgMail = require('@sendgrid/mail')
-sgMail.setApiKey('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')
+sgMail.setApiKey('sendgrid key')
 const User = use('App/Models/User')
 const Hash = use('Hash')
 const Database = use('Database')
