@@ -23,7 +23,8 @@ class AnswertypeController {
     const question = await Question.find(questionId)
     var answertype =await question.answerType().fetch()
     answertype = answertype.toJSON()
-    var choice = await NoOfChoice.query().where('answerType_Id', answertype.answerTypeId).fetch()
+    //var choice = await NoOfChoice.query().where('answerType_Id', answertype.answerTypeId).fetch()
+    var choice = await question.option().fetch()
     choice = choice.toJSON()
     console.log(choice)
     // console.log(id)
@@ -67,9 +68,10 @@ class AnswertypeController {
     answertype = answertype.toJSON()
     const choice = new NoOfChoice()
     choice.option = answerChoice
-    choice.answerType_Id = answertype[0].answerTypeId
+    //choice.answerType_Id = answertype[0].answerTypeId
     // console.log(answertype.toJSON())
-    await choice.save()
+    await question.option().save(choice)
+    //await choice.save()
     return response.redirect('/users/'+id+'/surveys/'+surveyId+'/questions/'+questionId+'/addAnswerType')
     // return view.render('addanswerchoice', {
     //   answertype: answertype,
@@ -102,8 +104,10 @@ class AnswertypeController {
    * @param {View} ctx.view
    */
   async edit ({ params:{id, surveyId, questionId, choiceId}, request, response, view }) {
-   var choice = await NoOfChoice.query().where('choiceId', choiceId).fetch()
-   choice = choice.toJSON()
+   //var choice = await NoOfChoice.query().where('choiceId', choiceId).fetch()
+   var question = await Question.find(questionId)
+   var choice = question.option().fetch()
+   //choice = choice.toJSON()
    return view.render('editchoice', {
      choice: choice,
      questionId: questionId,
@@ -122,8 +126,10 @@ class AnswertypeController {
    */
   async update ({ params:{id, surveyId, questionId, choiceId}, request, response }) {
     //var choice = await NoOfChoice.find('choiceId')
+    const question = await Question.find(questionId)
     const option = request.input('choice')
-    await NoOfChoice.query().where('choiceId', choiceId).update({'option': option})
+    await question.option().update({'option': option})
+    //await NoOfChoice.query().where('choiceId', choiceId).update({'option': option})
     return response.redirect('/users/'+id+'/surveys/'+surveyId+'/questions/'+questionId+'/addAnswerType')
   }
 

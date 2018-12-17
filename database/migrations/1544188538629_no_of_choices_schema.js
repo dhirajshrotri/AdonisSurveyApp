@@ -9,10 +9,10 @@ class NoOfChoicesSchema extends Schema {
       table.increments('choiceId')
       table.timestamps()
       table.string('option')
-      table.integer('answerType_Id').unsigned()
+      table.integer('question_Id').unsigned()
       table
-        .foreign('answerType_Id')
-        .references('answertypes.answerTypeId')
+        .foreign('question_Id')
+        .references('questions.questionId')
         .onDelete('cascade')
     })
   }

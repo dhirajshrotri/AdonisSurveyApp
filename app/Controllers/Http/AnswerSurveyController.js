@@ -3,7 +3,9 @@ const SurveyToken = use('App/Models/SurveyToken')
 const Question = use('App/Models/Question')
 const Answer = use('App/Models/Answer')
 const Survey = use('App/Models/Survey')
+const NoOfChoice = use('App/Models/NoOfChoice')
 const Answertype = use('App/Models/Answertype')
+const Database = use('Database')
 class AnswerSurveyController {
 
     async index({params:{token}, view, response}){
@@ -23,19 +25,19 @@ class AnswerSurveyController {
         })
     }
     async show({params:{surveyId}, view, response}){
-        const survey = await Survey.find(surveyId)
-        var questions = await Question.query().where('survey_Id', surveyId).fetch()
-        questions = questions.toJSON()
-        var answertype = await Answertype.query().where('question_Id', questions[0].questionId).fetch()
-        answertype = answertype.toJSON()
-        //const choice = await NoOfChoices.query().where('answertype_Id', answertype.)
-        //console.log(answertype.toJSON())
-        return view.render('fillsurvey', {
-            survey: survey,
-            questions : questions,
-            answertype : answertype.toJSON()
-        })
+        var survey = await Survey.find(surveyId)
+        var question = await survey.question().fetch()
+        question = question.toJSON()
+        let option
+        question.forEach(element => {
+            console.log(element)
+            option = await element.option().fetch()
+        });
         
+        // return view.render('fillsurvey', {
+        //     question: question,
+        //     option: options
+        // })
     }
 
     async store({params:{surveyId}, request, response}){

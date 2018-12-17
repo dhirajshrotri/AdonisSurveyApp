@@ -20,6 +20,9 @@ class Question extends Model {
         return this.hasOne('App/Models/Answertype')
     }
 
+    option(){
+        return this.hasMany('App/Models/NoOfChoice')
+    }
     
 }
 

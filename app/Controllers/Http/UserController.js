@@ -6,7 +6,7 @@ const { validate } = use('Validator')
 const Database = use('Database')
 const randomString = use('random-string')
 const sgMail = require('@sendgrid/mail')
-sgMail.setApiKey('sendgrid key')
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 class UserController {
     async login({request, response, auth, session}){
       
