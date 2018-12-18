@@ -1,0 +1,18 @@
+@layout('main')
+@section('extracss')
+{{ style('answershow') }}
+@endsection
+@section('content')
+    <div class="survey-container">
+        <p>{{survey.surveyName}}</p>
+        <div class="question-container">
+            @each(question in question)
+                <ul>
+                    <ul>
+                        <a href="{{'/users/'+id+'/surveys/'+survey.surveyId+'/questions/'+question.questionId+'/viewResult'}}">{{question.questionTitle}}</a>
+                    </ul>
+                </ul>
+            @endeach
+        </div>
+    </div>
+@endsection

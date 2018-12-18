@@ -3,7 +3,8 @@
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
-
+const Survey = use('App/Models/Survey')
+const Question = use('App/Models/Question')
 /**
  * Resourceful controller for interacting with answers
  */
@@ -17,7 +18,15 @@ class AnswerController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
+  async index ({ params: {id, surveyId}, response, view }) {
+    const survey = await Survey.find(surveyId)
+    const question = await survey.question().fetch()
+    
+    return view.render('answershow', {
+      survey: survey.toJSON(),
+      question: question.toJSON(),
+      id: id
+    })
   }
 
   /**
@@ -29,7 +38,17 @@ class AnswerController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async create ({ request, response, view }) {
+  async count ({params:{id, surveyId, questionId}, request, response, view }) {
+    const question = await Question.find(questionId)
+    var answertype = await question.answerType().fetch()
+    answertype = answertype.toJSON()
+    //console.log(answertype.answerType)
+    if(answertype.answerType === 'radio' || answertype.answerType === 'checkbox'){
+      //TODO: calculate percentage
+    }
+    else{
+      console.log('text')
+    }
   }
 
   /**
@@ -52,7 +71,16 @@ class AnswerController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ params, request, response, view }) {
+  async show ({ params:{id, surveyId, questionId}, request, response, view }) {
+    const question = await Question.find(questionId)
+    const answertype = await question.answerType().fetch()
+    //const answer = await question.answer().fetch()
+    if (answertype === "checkbox" || answertype === "radio") {
+      console.log('checkbox')
+    }
+    else{
+      console.log('text')
+    }
   }
 
   /**

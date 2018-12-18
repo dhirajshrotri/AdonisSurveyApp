@@ -1,6 +1,13 @@
 @layout('main')
 @section('extracss')
 {{style('showsurvey.css')}}
+<script>
+    $("document").ready(function(){
+        $("#next").click(function(){
+            $("option-container").toggle()
+        })
+    })
+</script>
 @endsection
 @section('content')
     @if(old('notification'))
@@ -58,7 +65,12 @@
                             Radio
                     </label>
                     <div class="row">
-                        <button class="btn btn-primary" type="submit">Next</button>
+                        <button class="btn btn-primary" type="submit" id="next">Next</button>
+                        <div class="option-container">
+                            <p>
+                                Add options here!
+                            </p>
+                        </div>
                     </div>
                 </div>
             </form>

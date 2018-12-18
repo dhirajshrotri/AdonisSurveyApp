@@ -28,16 +28,26 @@ class AnswerSurveyController {
         var survey = await Survey.find(surveyId)
         var question = await survey.question().fetch()
         question = question.toJSON()
-        let option
+        let option = []
         question.forEach(element => {
-            console.log(element)
-            option = await element.option().fetch()
-        });
+            // const id = element.questionId
+            // const questOpt = await NoOfChoice.query().where('question_Id', id).fetch()
+            // option.push(questOpt)
+        })
+        // const questOpt = await NoOfChoice.query().where('question_Id', 3).fetch()
+        // console.log(questOpt)
         
-        // return view.render('fillsurvey', {
-        //     question: question,
-        //     option: options
-        // })
+        //let questOpt
+        questionId.forEach(element => {
+        //    questOpt = await NoOfChoice.query().where('question_Id', parseInt(element))
+        //     option.push(questOpt)
+        //const questOpt = await Database.from('no_of_choices').where({ questionId: element })
+        //console.log(questOpt)
+        })
+        return view.render('fillsurvey', {
+            question: question,
+            //option: option
+        })
     }
 
     async store({params:{surveyId}, request, response}){
