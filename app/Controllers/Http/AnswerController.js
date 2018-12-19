@@ -5,6 +5,7 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 const Survey = use('App/Models/Survey')
 const Question = use('App/Models/Question')
+
 /**
  * Resourceful controller for interacting with answers
  */
@@ -41,16 +42,28 @@ class AnswerController {
   async count ({params:{id, surveyId, questionId}, request, response, view }) {
     const question = await Question.find(questionId)
     var answertype = await question.answerType().fetch()
+    var answers = await question.answer().fetch()
+    let labels = []
+    let text = []
+    answers = answers.toJSON()
     answertype = answertype.toJSON()
-    //console.log(answertype.answerType)
-    if(answertype.answerType === 'radio' || answertype.answerType === 'checkbox'){
-      //TODO: calculate percentage
+    let set = new Set()
+    for (let index = 0; index < answers.length; index++) {
+      const temp = answers[index].answerText
+      set.add(temp)
+      text.push(temp)
     }
-    else{
-      console.log('text')
+    text.sort()
+    var counts = []
+    for (let index = 0; index < text.length; index++) {
+      counts[text[index]] = 1 + (counts[text[index]] || 0)
     }
+    labels = Array.from(set)
+    return view.render('result', { 
+      counts: counts
+    })
   }
-
+  
   /**
    * Create/save a new answer.
    * POST answers

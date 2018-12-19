@@ -5,10 +5,10 @@
 @section('content')
 <div class="questions-container">
     <div class="surveyTitle-row text-center">
-        <p><h2>{{ questionArr[0].surveyName }}</h2></p>
+        <p><h2>{{ survey.surveyName }}</h2></p>
     </div>
     <div class="surveydesc-row text-center">
-        <p><h6>{{ questionArr[0].surveyDesc }}</h6></p>
+        <p><h6>{{ survey.surveyDesc }}</h6></p>
     </div>
     <hr>
     <form action="{{ '/surveys/'+survey.surveyId+'/addAnswer/'}}" method='POST'>
@@ -24,22 +24,22 @@
                         {{questions.description}}
                     </h6>
                 </p>
-                <div class="answer=container">
-                    @each(option in options)
-                        @if(option.question_Id === questions.questionId)
-                            @if(option.answerType === "radio" || option.answerType === "checkbox")
-                                <label>
-                                    <input type="{{ option.answerType }}" name="selection">    
-                                        {{option.option}}
-                                </label> 
-                            @else
-                                <input type="{{ option.answerType }}" name="selection">
-                            @endif
-                        @endif   
-                    @endeach
+        @each(temp in option)
+        
+            @if(temp[$loop.index].question_Id === questions.questionId)
+                <div class="answer-container">
+                <label>
+                <input type={{questions.answerType}} name="selection">    
+                    {{temp[$loop.index].option}}
+                </label>
                 </div>
-            </div>
+            @else
+                <input type="text" name="selection" placeholder="Enter your answer here...">
+            @endif
+            @endeach
         @endeach
+                
+            </div>
         <button class="btn btn-primary" type="submit">Submit</button>
     </form>
 </div>

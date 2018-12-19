@@ -6,8 +6,10 @@ const Survey = use('App/Models/Survey')
 const NoOfChoice = use('App/Models/NoOfChoice')
 const Answertype = use('App/Models/Answertype')
 const Database = use('Database')
-class AnswerSurveyController {
 
+class AnswerSurveyController {
+    
+    
     async index({params:{token}, view, response}){
         const surveytoken = await SurveyToken.query().where('token', token).fetch()
         const expiry = Date.now()
@@ -26,27 +28,18 @@ class AnswerSurveyController {
     }
     async show({params:{surveyId}, view, response}){
         var survey = await Survey.find(surveyId)
-        var question = await survey.question().fetch()
-        question = question.toJSON()
+        var question = await Database.from('questions').rightOuterJoin('answertypes', 'questions.questionId', 'answertypes.question_Id')
         let option = []
-        question.forEach(element => {
-            // const id = element.questionId
-            // const questOpt = await NoOfChoice.query().where('question_Id', id).fetch()
-            // option.push(questOpt)
-        })
-        // const questOpt = await NoOfChoice.query().where('question_Id', 3).fetch()
-        // console.log(questOpt)
-        
-        //let questOpt
-        questionId.forEach(element => {
-        //    questOpt = await NoOfChoice.query().where('question_Id', parseInt(element))
-        //     option.push(questOpt)
-        //const questOpt = await Database.from('no_of_choices').where({ questionId: element })
-        //console.log(questOpt)
-        })
+        for (let index = 0; index < question.length; index++) {
+            const temp = await Database.from('no_of_choices').where('question_Id', question[index].questionId)
+            option.push(temp)
+        }
+//        console.log(question)
+        // console.log(option[0].option)
         return view.render('fillsurvey', {
             question: question,
-            //option: option
+            survey: survey.toJSON(),
+            option: option
         })
     }
 
