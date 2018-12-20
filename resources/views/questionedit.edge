@@ -24,6 +24,33 @@
                         </div>
                     </div>
                 </div>
+                <div class="choice-container">
+                        @each(choice in choices)
+                          <ul>
+                            <ul>
+                              <div class="row">
+                                <div class="col">
+                                  @if(answertype === "checkbox")
+                                    <label>
+                                        <input type="checkbox" name="choice"> {{choice.option}}
+                                    </label>
+                                  @elseif(answertype === "radio")
+                                    <label>
+                                      <input type="radio" name="choice"> {{choice.option}}
+                                    </label>
+                                  @endif
+                                </div>
+                                <div class="col">
+                                    <a href="{{'/users/'+id+'/surveys/'+surveyId+'/questions/'+question.questionId+'/option/'+choice.choiceId+'/edit'}}"><i class="fas fa-pencil-alt"></i></a> 
+                                    <a href="{{'/users/'+id+'/surveys/'+surveyId+'/questions/'+question.questionId+'/option/'+choice.choiceId+'/delete'}}"><i class="fas fa-trash-alt"></i></a>
+                                </div>
+                              </div>
+                            </ul>
+                          </ul>
+                        @else
+                          <p>No options for this question have been added.</p>
+                        @endeach
+                        </div>
                 <div class="row">
                     <div class="col">
                             <button class="btn btn-primary" type="submit">Save</button>

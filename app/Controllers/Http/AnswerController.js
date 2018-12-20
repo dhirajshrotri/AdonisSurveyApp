@@ -5,7 +5,9 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 const Survey = use('App/Models/Survey')
 const Question = use('App/Models/Question')
-
+const AnswerType = use('App/Models/Answertype')
+const NoOfChoices = use('App/Models/NoOfChoice')
+const Answer = use('App/Models/Answer')
 /**
  * Resourceful controller for interacting with answers
  */
@@ -58,9 +60,16 @@ class AnswerController {
     for (let index = 0; index < text.length; index++) {
       counts[text[index]] = 1 + (counts[text[index]] || 0)
     }
+    let val = []
+    for (const key in counts) {
+      const temp = counts[key]
+      val.push(temp)
+    }
     labels = Array.from(set)
+    console.log(labels)
     return view.render('result', { 
-      counts: counts
+      labels: labels,
+      val: val
     })
   }
   
@@ -72,7 +81,38 @@ class AnswerController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
+  async store ({ request, params:{surveyId}, view }) {
+    const ans = request.all()
+    //console.log(ans)
+    var surveys = await Survey.find(surveyId)
+    var questions = await surveys.question().fetch()
+    questions = questions.toJSON()
+    let answertypes = []
+    let options = []
+    for (const key in questions) {
+      // console.log(questions[key])
+      const temp = await AnswerType.query().where('question_Id', questions[key].questionId).fetch()
+      answertypes.push(temp.toJSON())
+    }
+    // console.log(answertypes)
+    
+    for (const key in answertypes) {
+      if(answertypes[key][0].answerType === "checkbox"){
+        for(const index in ans[answertypes[key][0].answerType]){
+            const answer = new Answer()
+            answer.answerText = ans[answertypes[key][0].answerType][index]
+            answer.question_Id = questions[key].questionId
+            await answer.save()
+            // console.log(ans[answertypes[key][0].answerType][index])
+        }
+      }else{
+        const answer = new Answer()
+        answer.answerText = ans[answertypes[key][0].answerType]
+        answer.question_Id = questions[key].questionId
+        await answer.save()
+      }
+    }
+    return view.render('thankyou')
   }
 
   /**

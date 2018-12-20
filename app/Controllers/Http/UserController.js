@@ -11,7 +11,7 @@ class UserController {
     async login({request, response, auth, session}){
       
         const {email, password, remember} = request.all()
-        console.log(remember)
+        // console.log(remember)
         const user =  await User.query()
                                 .where('email', email)
                                 .first()
@@ -19,8 +19,15 @@ class UserController {
         if(user){
             const passwordVerified = await Hash.verify(password, user.password)
             if(passwordVerified){
-                await auth.remember(!!remember).login(user)
-                return response.redirect('/users/'+user.id)
+                if(remember){
+                    await auth.remember(true).login(user)
+                    return response.redirect('/users/'+user.id)
+                }
+                else{
+                    await auth.remember(false).login(user)
+                    return response.redirect('/users/'+user.id)
+                }
+                
             }
         }
         session.flash({
@@ -29,7 +36,6 @@ class UserController {
           })
 
         return response.redirect('back')
-
     }
 
     async redirect({auth, response}){

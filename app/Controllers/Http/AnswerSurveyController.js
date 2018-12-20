@@ -34,29 +34,28 @@ class AnswerSurveyController {
             const temp = await Database.from('no_of_choices').where('question_Id', question[index].questionId)
             option.push(temp)
         }
-//        console.log(question)
-        // console.log(option[0].option)
+        survey = survey.toJSON()
         return view.render('fillsurvey', {
             question: question,
-            survey: survey.toJSON(),
+            survey: survey,
             option: option
         })
     }
 
     async store({params:{surveyId}, request, response}){
         
-        const answerText = request.input('answer')
-        const question = await Question.query().where('survey_Id', surveyId).fetch()
-        const questionTemp = question.toJSON()
-        for (let index = 0; index < answerText.length; index++) {
-            const answer = new Answer()
-            answer.answerText = answerText[index]
-            answer.question_Id = questionTemp[index].questionId
-            await answer.save()
-            //await question[index].answer().save(answer)
-            //console.log(questionTemp[index])
-        }
-        return response.redirect('/surveys/'+surveyId+'/thankyou')
+        // const answerText = request.input('answer')
+        // const question = await Question.query().where('survey_Id', surveyId).fetch()
+        // const questionTemp = question.toJSON()
+        // for (let index = 0; index < answerText.length; index++) {
+        //     const answer = new Answer()
+        //     answer.answerText = answerText[index]
+        //     answer.question_Id = questionTemp[index].questionId
+        //     await answer.save()
+        //     //await question[index].answer().save(answer)
+        //     //console.log(questionTemp[index])
+        // }
+        // return response.redirect('/surveys/'+surveyId+'/thankyou')
     }
 
     async modify({params:{surveyId, questionId}, view}){

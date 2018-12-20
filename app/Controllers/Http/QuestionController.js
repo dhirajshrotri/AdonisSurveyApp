@@ -74,8 +74,13 @@ class QuestionController {
   async edit ({ params:{id, surveyId, questionId }, view }) {
     const question = await Question.find(questionId)
     const tempQuestion = question.toJSON()
+    var choice = question.option().fetch()
+    var answertype =await question.answerType().fetch()
+    answertype = answertype.toJSON()
     //console.log(tempQuestion)
     return view.render('questionedit', {
+      answertype: answertype,
+      choice: choice,
       id: id,
       surveyId: surveyId,      
       question: question

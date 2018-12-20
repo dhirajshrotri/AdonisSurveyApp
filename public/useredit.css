@@ -1,11 +1,39 @@
 .container {
     text-align: center;
+    margin-top: 10rem;
+    align-content: center;
+    padding:1rem;
+    background-color: #bfbfbf;
+    border-radius: 7px;
+    max-width: 560px;
+    display: block;
+
 }
 .form-container{
+    background-color: #e2e2e2;
+    margin: 1rem 1rem;
+    padding: 2rem;
     width: 500px;
-    background-color: #d8d5d5bd;
+    border-radius: 7px;
 }
 
 body{
     text-align: center;
 }
+
+.btn-primary {
+    color: #fff;
+    background-color: rgba(0, 123, 255, 0.71);
+    border-color: #0a7cf1;  
+}
+
+.btn-secondary{
+    margin: 5px 25px;
+    border-radius: 2px;
+    width: 5rem;
+}
+
+a{
+    text-decoration: none !important;
+    border-radius: 2px;
+  }

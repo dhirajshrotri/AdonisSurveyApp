@@ -3,7 +3,7 @@
     {{ style('fillsurvey') }}
 @endsection
 @section('content')
-<div class="questions-container">
+<div class="display-container">
     <div class="surveyTitle-row text-center">
         <p><h2>{{ survey.surveyName }}</h2></p>
     </div>
@@ -11,10 +11,11 @@
         <p><h6>{{ survey.surveyDesc }}</h6></p>
     </div>
     <hr>
-    <form action="{{ '/surveys/'+survey.surveyId+'/addAnswer/'}}" method='POST'>
+    <form action="{{ '/surveys/'+survey.surveyId+ '/addAnswer' }}" method='POST'>
+        {{ csrfField() }}
         @each(questions in question)
-            <div class="question-container">
-                <p>
+        <div class="question-container">
+            <p>
                     <h4>
                         {{questions.questionTitle}}
                     </h4>
@@ -24,22 +25,31 @@
                         {{questions.description}}
                     </h6>
                 </p>
-        @each(temp in option)
-        
-            @if(temp[$loop.index].question_Id === questions.questionId)
-                <div class="answer-container">
-                <label>
-                <input type={{questions.answerType}} name="selection">    
-                    {{temp[$loop.index].option}}
-                </label>
-                </div>
-            @else
-                <input type="text" name="selection" placeholder="Enter your answer here...">
-            @endif
-            @endeach
-        @endeach
-                
+            @if(questions.answerType === "checkbox")
+            <div class="answer-container">
+                @each(key in option[$loop.index])
+                <ul>
+                    <input type="checkbox" value={{key.option}} name="checkbox">
+                    <label for="checkbox">{{key.option}}</label>
+                </ul>
+                @endeach
             </div>
+            @elseif(questions.answerType === "radio")
+            <div class="answer-container">
+                    @each(key in option[$loop.index])
+                    <ul>
+                            <input type="radio" value={{key.option}} name="radio">
+                        <label for="radio">{{key.option}}</label>                       
+                    </ul>
+                    @endeach
+                </div>
+            @elseif(questions.answerType === "text")
+            <div class="answer-container">
+                <input type="text" name="selection">
+            </div>
+            @endif
+        </div> 
+        @endeach
         <button class="btn btn-primary" type="submit">Submit</button>
     </form>
 </div>

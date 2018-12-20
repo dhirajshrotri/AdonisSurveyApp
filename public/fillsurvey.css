@@ -4,15 +4,15 @@
     padding: 10rem;
 }
 
-.questions-container {
+
+.question-container{
     margin: auto auto;
-    padding: 2rem;
-    background-color: #d8d5d5bd;
+    padding: 2rem 2;
+    background: #bfbfbf;
     border-radius: 7px;
 }
-
 .display-container {
-    background-color: #bfbfbf;
+    background-color: #d8d5d5bd;
     padding: 2rem;
     margin-bottom: 10px;
     border-radius: 7px;

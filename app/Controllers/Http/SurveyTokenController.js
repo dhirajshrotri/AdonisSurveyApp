@@ -34,7 +34,6 @@ class SurveyTokenController {
     surveyLink.token = token
     surveyLink.tokenExpires = tokenExpires
     await survey.surveyToken().save(surveyLink)
-
       emails.forEach(element => {
         const msg = {
           to: element,  
@@ -49,8 +48,6 @@ class SurveyTokenController {
         })
         return response.redirect('/users/'+user.id)
       })
-      
-    
   }
 }
 

@@ -1,13 +1,7 @@
 @layout('main')
 @section('extracss')
 {{style('showsurvey.css')}}
-<script>
-    $("document").ready(function(){
-        $("#next").click(function(){
-            $("option-container").toggle()
-        })
-    })
-</script>
+
 @endsection
 @section('content')
     @if(old('notification'))
