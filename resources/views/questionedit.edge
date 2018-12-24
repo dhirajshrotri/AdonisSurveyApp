@@ -3,63 +3,61 @@
     {{style('questionedit')}}
 @endsection
 @section('content')
-    <div class="webpage-container" style="padding:5px;margin:auto">
-        <div class="row">
-            <form action="{{ '/users/'+id+'/surveys/'+surveyId+'/questions/'+question.questionId+'?_method=PUT'}}" method="POST">
-                <div class="form-group" style="margin:auto">
-                    <div class="row" style="padding:5px">
-                        <div class="col">
-                            <label>Question: </label>
-                        </div>
-                        <div class="col">
-                            <input type="text" name="questionTitle" placeholder="{{question.questionTitle}}">
-                        </div>
-                    </div>
-                    <div class="row" style="padding:5px">
-                        <div class="col">
-                            <label>Description: </label>
-                        </div>
-                        <div class="col">
-                            <textarea type="text" name="description" placeholder="{{question.description}}"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="choice-container">
-                        @each(choice in choices)
-                          <ul>
-                            <ul>
-                              <div class="row">
-                                <div class="col">
-                                  @if(answertype === "checkbox")
-                                    <label>
-                                        <input type="checkbox" name="choice"> {{choice.option}}
-                                    </label>
-                                  @elseif(answertype === "radio")
-                                    <label>
-                                      <input type="radio" name="choice"> {{choice.option}}
-                                    </label>
-                                  @endif
-                                </div>
-                                <div class="col">
-                                    <a href="{{'/users/'+id+'/surveys/'+surveyId+'/questions/'+question.questionId+'/option/'+choice.choiceId+'/edit'}}"><i class="fas fa-pencil-alt"></i></a> 
-                                    <a href="{{'/users/'+id+'/surveys/'+surveyId+'/questions/'+question.questionId+'/option/'+choice.choiceId+'/delete'}}"><i class="fas fa-trash-alt"></i></a>
-                                </div>
-                              </div>
-                            </ul>
-                          </ul>
-                        @else
-                          <p>No options for this question have been added.</p>
-                        @endeach
-                        </div>
+    <div class="webpage-container">
+        <form action="{{ '/users/'+id+'/surveys/'+surveyId+'/questions/'+question.questionId+'?_method=PUT'}}" method="POST">
+            <div class="form-group">
                 <div class="row">
                     <div class="col">
-                            <button class="btn btn-primary" type="submit">Save</button>
+                        <label>Question: </label>
                     </div>
                     <div class="col">
-                        <button type="button" class="btn btn-secondary"><a href="/users/{{id}}/surveys/{{surveyId}}">Cancel</a></button>
+                        <input type="text" name="questionTitle" placeholder="{{question.questionTitle}}">
                     </div>
                 </div>
-            </form>
-        </div>  
+                <div class="row">
+                    <div class="col">
+                        <label>Description: </label>
+                    </div>
+                    <div class="col">
+                        <textarea type="text" name="description" placeholder="{{question.description}}"></textarea>
+                    </div>
+                </div>
+            <div class="choice-container">
+                    @each(choice in choice)
+                        <ul>
+                        <ul>
+                            <div class="row">
+                            <div class="col">
+                                @if(answertype.answerType === "checkbox")
+                                <label>
+                                    <input type="checkbox" name="choice"> {{choice.option}}
+                                </label>
+                                @elseif(answertype.answerType === "radio")
+                                <label>
+                                    <input type="radio" name="choice"> {{choice.option}}
+                                </label>
+                                @endif
+                            </div>
+                            <div class="col">
+                                <a href="{{'/users/'+id+'/surveys/'+surveyId+'/questions/'+question.questionId+'/option/'+choice.choiceId+'/edit'}}"><i class="fas fa-pencil-alt"></i></a> 
+                                <a href="{{'/users/'+id+'/surveys/'+surveyId+'/questions/'+question.questionId+'/option/'+choice.choiceId+'/delete'}}"><i class="fas fa-trash-alt"></i></a>
+                            </div>
+                            </div>
+                        </ul>
+                        </ul>
+                    @else
+                        <p>No options for this question have been added.</p>
+                    @endeach
+                    </div>
+            <div class="row">
+                <div class="col">
+                        <button class="btn btn-primary" type="submit">Save</button>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-secondary"><a href="/users/{{id}}/surveys/{{surveyId}}">Cancel</a></button>
+                </div>
+            </div>
+        </div>
+        </form>
     </div>
 @endsection

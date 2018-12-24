@@ -4,15 +4,19 @@
 @endsection
 @section('content')
     <div class="survey-container">
-        <p>{{survey.surveyName}}</p>
-        <div class="question-container">
-            @each(question in question)
+        <p><h3>{{survey.surveyName}}</h3></p>
+        @each(question in question)
+            <div class="question-container">
                 <ul>
                     <ul>
-                        <a href="{{'/users/'+id+'/surveys/'+survey.surveyId+'/questions/'+question.questionId+'/viewResult'}}">{{question.questionTitle}}</a>
+                        <a href="{{'/users/'+id+'/surveys/'+survey.surveyId+'/questions/'+question.questionId+'/viewResult'}}"><h5>{{question.questionTitle}}</h5></a>
                     </ul>
                 </ul>
-            @endeach
+            </div>
+        @endeach
+        <div class="row">
+            <button type="button" class="btn btn-primary" role="button">Download as Excel</button>
+        <button type="button" class="btn btn-secondary" role="button"><a href="{{'/users/'+id}}">Back</a></button>
         </div>
     </div>
 @endsection

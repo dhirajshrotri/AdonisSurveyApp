@@ -1,0 +1,30 @@
+.container{
+    margin: 0 auto;
+    text-align: center;
+}
+
+.main-container{
+    margin: 13rem auto;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 7px;
+    background: #bfbfbf;
+    max-width: 720px;
+}
+
+.form-group{
+    margin: 0 auto;
+    padding: 1rem;
+    background: #e2e2e2;
+    border-radius: 7px; 
+}
+
+.row{
+    display: block;
+    padding: 0.5rem;
+    margin: 0 auto;
+}
+button{
+    width: 10rem;
+    padding: 1rem;
+}

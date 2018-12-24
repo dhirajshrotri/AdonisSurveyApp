@@ -1,40 +1,37 @@
 @layout('main')
-
+@section('extracss')
+{{ style('register') }}
+@endsection
 @section('content')
-<div class="container">
-    <div class="col-4">
+<div class="main-container text-center">
+    <div class="col">
         <h1>Register to Surveyor</h1>
         <hr>
         <form action="/register" method="POST">
             {{ csrfField() }}
             <div class="form-group">
-              <label>First Name</label>
-              <input type="text" name="firstName" class="form-control" placeholder="First Name" value="{{ old('firstName', '') }}">
-              {{ elIf('<span class="text-danger">$self</span>', getErrorFor('firstName'), hasErrorFor('firstName')) }}
+                <label>First Name</label>
+                <input type="text" name="firstName" class="form-control" placeholder="First Name" value="{{ old('firstName', '') }}">
+                {{ elIf('<span class="text-danger">$self</span>', getErrorFor('firstName'), hasErrorFor('firstName')) }}
+                <label>Last Name</label>
+                <input type="text" name="lastName" class="form-control" placeholder="Last Name" value="{{ old('lastName', '') }}">
+                {{ elIf('<span class="text-danger">$self</span>', getErrorFor('lastName'), hasErrorFor('lastName')) }}
+                <label>Email</label>
+                <input type="email" name="email" class="form-control" placeholder="Email" value="{{ old('email', '') }}">
+                {{ elIf('<span class="text-danger">$self</span>', getErrorFor('email'), hasErrorFor('email')) }}
+                <label>Password</label>
+                <input type="password" name="password" class="form-control" placeholder="Password" value="{{ old('password', '') }}">
+                {{ elIf('<span class="text-danger">$self</span>', getErrorFor('password'), hasErrorFor('password')) }}
             </div>
-            <div class="form-group">
-              <label>Last Name</label>
-              <input type="text" name="lastName" class="form-control" placeholder="Last Name" value="{{ old('lastName', '') }}">
-              {{ elIf('<span class="text-danger">$self</span>', getErrorFor('lastName'), hasErrorFor('lastName')) }}
-            </div>
-            <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" name="email" class="form-control" placeholder="Email" value="{{ old('email', '') }}">
-                    {{ elIf('<span class="text-danger">$self</span>', getErrorFor('email'), hasErrorFor('email')) }}
-            </div>
-            <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" name="password" class="form-control" placeholder="Password" value="{{ old('password', '') }}">
-                    {{ elIf('<span class="text-danger">$self</span>', getErrorFor('password'), hasErrorFor('password')) }}
+            <div class="row">
+                <button class="btn btn-primary" type="submit">Submit</button>
+                <button type="button" class="btn btn-secondary"><a href="/">Cancel</a></button>
+                
             </div>      
-            <button class="btn btn-primary" type="submit">Submit</button>
-          </form>
-        <div class="row">
-            <button type="button" class="btn btn-secondary"><a href="/">Cancel</a></button>
-        </div> 
+        </form>
         <div class="row">
             <a href="/login">Already an User? Login!</a>
-        </div> 
+        </div>
     </div>
 </div>
 @endsection

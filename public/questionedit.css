@@ -1,14 +1,20 @@
-.webpage-container{
-    margin: 0 auto;
-    display: block;
-    background-color: #e2e2e2;
-    width: 500px;
+.webpage-container {
+    font-family: 'Lato';
+    background-color: #e6e6e6;
+    margin-top: auto;
+    text-align: center;
+    border-radius: 7px;
+    align-content: center;
+    padding: 1rem;
+}
+.form-group{
+    margin: 1rem;
+    background-color: #d8d5d5bd;
     border-radius: 7px;
     text-align: center;
 }
-
 .container{
-    padding: 15rem;
+    padding: 12rem;
     margin: 0 auto;
 }
 .row{
@@ -17,7 +23,7 @@
 }
 
 button{
-    width: 7rem;
+    width: 10rem;
 }
 
 a{
@@ -34,5 +40,4 @@ textarea{
 input{
     border-radius: 7px;
     width: 300px;
-
 }

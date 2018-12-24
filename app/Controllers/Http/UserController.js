@@ -225,6 +225,39 @@ class UserController {
         }
         
     }
+    async redirectToProvider ({ally}) {
+        await ally.driver('google').redirect()
+    }
+
+    async handleProviderCallback ({params, ally, auth, response}) {
+        const provider = params.provider
+        try {
+            const userData = await ally.driver(provider).getUser()
+            console.log(userData)
+            // const authUser = await User.query().where({
+            //     'provider': provider,
+            //     'provider_id': userData.getId()
+            // }).first()
+            // if (!(authUser === null)) {
+            //     await auth.loginViaId(authUser.id)
+            //     return response.redirect('/')
+            // }
+
+            // const user = new User()
+            // user.name = userData.getName()
+            // user.email = userData.getEmail()
+
+            // await user.save()
+
+            // await auth.loginViaId(user.id)
+            // return response.redirect('/')
+        } catch (e) {
+            console.log(e)
+            response.redirect('/auth/' + provider)
+        }
+    }
+
+
 }
 
 module.exports = UserController

@@ -28,7 +28,13 @@
                         <button class="btn btn-primary" type="submit">Sign In</button>
                     </div>
                     <div class="row">
-                        <button type="button" class="btn btn-danger"><a href="/recoverPassword">Forgot Password?</a></button>
+                        <a href="{{ route('social.login', {provider: 'google'}) }}"
+                                    class="btn btn-block btn-google btn-social">
+                                    <i class="fa fa-google-plus"></i>Login with Google
+                        </a>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="btn btn-secondary"><a href="/recoverPassword">Forgot Password?</a></button>
                     </div>
                 </form>
             </div>
