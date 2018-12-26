@@ -3,6 +3,7 @@
 const Survey = use('App/Models/Survey')
 const User = use('App/Models/User')
 const randomString = require('random-string')
+const Database = use('Database')
 
 class SurveyController {
 
@@ -55,14 +56,18 @@ class SurveyController {
 
     async show({view, params:{id, surveyId} }){
         const survey = await Survey.find(surveyId)
-        //console.log(survey)
-        const question = await survey.question().fetch()
-        const tempQuestion = question.toJSON()
-        //console.log(tempQuestion)
+        var question = await Database.from('questions').rightOuterJoin('answertypes', 'questions.questionId', 'answertypes.question_Id')
+        let option = []
+        for (let index = 0; index < question.length; index++) {
+            const temp = await Database.from('no_of_choices').where('question_Id', question[index].questionId)
+            option.push(temp)
+        }
         return view.render('showsurvey', {
-            survey : survey,
+            survey: survey,
+            question: question,
+            option: option,
             id: id,
-            tempQuestion: tempQuestion
+            surveyId: surveyId      
         })
     }
 

@@ -69,7 +69,9 @@ class AnswerController {
     console.log(labels)
     return view.render('result', { 
       labels: labels,
-      val: val
+      val: val, 
+      id: id,
+      surveyId:surveyId
     })
   }
   
@@ -83,28 +85,27 @@ class AnswerController {
    */
   async store ({ request, params:{surveyId}, view }) {
     const ans = request.all()
-    //console.log(ans)
     var surveys = await Survey.find(surveyId)
     var questions = await surveys.question().fetch()
     questions = questions.toJSON()
     let answertypes = []
     let options = []
     for (const key in questions) {
-      // console.log(questions[key])
+      //console.log(questions[key])
       const temp = await AnswerType.query().where('question_Id', questions[key].questionId).fetch()
       answertypes.push(temp.toJSON())
     }
-    // console.log(answertypes)
-    
+    //console.log(answertypes)
+    //console.log(ans)
     for (const key in answertypes) {
       if(answertypes[key][0].answerType === "checkbox"){
-        for(const index in ans[answertypes[key][0].answerType]){
-            const answer = new Answer()
-            answer.answerText = ans[answertypes[key][0].answerType][index]
-            answer.question_Id = questions[key].questionId
-            await answer.save()
-            // console.log(ans[answertypes[key][0].answerType][index])
+        for (let index = 0; index < ans[answertypes[key][0].answerType].length; index++) {
+          const answer = new Answer()
+          answer.answerText = ans[answertypes[key][0].answerType][index]
+          answer.question_Id = answertypes[key][0].question_Id
+          await answer.save()
         }
+        //console.log("checkbox")
       }else{
         const answer = new Answer()
         answer.answerText = ans[answertypes[key][0].answerType]

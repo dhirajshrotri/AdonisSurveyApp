@@ -9,6 +9,7 @@ class AnswerSchema extends Schema {
       table.increments('answerId')
       table.timestamps()
       table.text('answerText')
+      table.integer('userToken')
       table.integer('question_Id').unsigned()
       table
         .foreign('question_Id')

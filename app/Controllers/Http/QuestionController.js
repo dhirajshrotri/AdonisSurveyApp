@@ -109,7 +109,6 @@ class QuestionController {
       //console.log('null detected')
     }
     await survey.question().where('questionId', questionId).update({'questionTitle': questionTitle, 'description': description})
-
     response.redirect('/users/'+id+'/surveys/'+surveyId)
   }
 

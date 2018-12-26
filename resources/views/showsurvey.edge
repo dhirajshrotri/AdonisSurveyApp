@@ -1,8 +1,20 @@
 @layout('main')
 @section('extracss')
+<script>
+    $(document).ready(function() {
+        $('#editdiv').hide();
+        $('#option').hide()
+        $( "#edit" ).click(function() {
+            $('#editdiv').slideToggle(200);
+        });
+        $('#next').click(function(){
+            $('#option').slideToggle(200);
+        })
+    });
+</script>
 {{style('showsurvey.css')}}
-
 @endsection
+
 @section('content')
     @if(old('notification'))
     <div class="alert alert-success">
@@ -17,22 +29,27 @@
             <p><h6>{{ survey.surveyDesc }}</h6></p>
         </div>
         <hr>
-        @each(question in tempQuestion)
-        <div class="question-container" >
-            <div class="questionTitle-row">
-                    <p>{{ question.questionTitle }}</p>
+        @each(question in question)
+            <div class="question-container" >
+                <div class="questionTitle-row">
+                        <p>{{ question.questionTitle }}</p>
+                </div>
+                <div class="description-row">
+                        <p>{{ question.description }}</p>
+                </div>
+                <div class="row">
+                    <button id="edit" type="button" class="btn btn-primary">Edit</button>
+                    <div class="toggle-container" id="editdiv">
+                            <p>
+                                edit this option
+                            </p>
+                        </div>
+                    <button type="button" class="btn btn-danger"><a href="/users/{{ id }}/surveys/{{ survey.surveyId }}/questions/{{ question.questionId }}/delete">Delete</a></button>
+                </div>
             </div>
-            <div class="description-row">
-                    <p>{{ question.description }}</p>
-            </div>
-            <div class="row">
-                <button type="button" class="btn btn-primary"><a href="/users/{{ id }}/surveys/{{ survey.surveyId }}/questions/{{ question.questionId }}/edit">Edit</a></button>
-                <button type="button" class="btn btn-danger"><a href="/users/{{ id }}/surveys/{{ survey.surveyId }}/questions/{{ question.questionId }}/delete">Delete</a></button>
-            </div>
-        </div>
-            @else
-                <p>No questions found! Please add a question below to continue.</p>
-            @endeach
+        @else
+            <p>No questions found! Please add a question below to continue.</p>
+        @endeach
         <div class="addquestion-container">
             <form action="/users/{{ id }}/surveys/{{ survey.surveyId }}/questions" method="POST">
                 <div class="form-group">
@@ -60,7 +77,8 @@
                     </label>
                     <div class="row">
                         <button class="btn btn-primary" type="submit" id="next">Next</button>
-                        <div class="option-container">
+                        
+                        <div class="option-container" id="option">
                             <p>
                                 Add options here!
                             </p>
