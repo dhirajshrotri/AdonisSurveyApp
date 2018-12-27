@@ -1,15 +1,11 @@
 @layout('main')
 @section('extracss')
 <script>
-    $(document).ready(function() {
-        $('#editdiv').hide();
-        $('#option').hide()
-        $( "#edit" ).click(function() {
-            $('#editdiv').slideToggle(200);
-        });
-        $('#next').click(function(){
-            $('#option').slideToggle(200);
-        })
+    $(document).ready(function(){
+        $("#option").hide();
+       $("#check").click(function(){
+            $("#option").slideToggle(200)
+       });
     });
 </script>
 {{style('showsurvey.css')}}
@@ -64,21 +60,21 @@
                     </div>
                     <p>Select the type of Answer for this question:</p>
                     <label class="radio-inline">
-                        <input type="radio" name="answer" value="text">
+                        <input type="radio" name="answer" value="text" id="text">
                             Text
                         </label>
-                        <label class="radio-inline">
-                        <input type="radio" name="answer" value="checkbox">
+                    <label class="radio-inline">
+                        <input type="radio" name="answer" value="checkbox" id="check">
                             Checkbox
-                        </label>
-                        <label class="radio-inline">
-                        <input type="radio" name="answer" value="radio">
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="answer" value="radio" id="radio">
                             Radio
                     </label>
-                    <div class="row">
+                
+                    <div class="row" id="option">
                         <button class="btn btn-primary" type="submit" id="next">Next</button>
-                        
-                        <div class="option-container" id="option">
+                        <div class="option-container">
                             <p>
                                 Add options here!
                             </p>

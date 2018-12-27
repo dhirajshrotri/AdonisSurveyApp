@@ -3,10 +3,13 @@
     {{style('useredit.css')}}
 @endsection
 @section('content')
-    <div class="form-container text-center">
+    <div class="webpage-container">
         <div class="row">
             <h3>Edit your profile, {{ user.firstName }}</h3>
         </div>
+        <hr>
+    </div>
+    <div class="form-container text-center">
         <form action="{{ '/users/'+user.id+'?_method=PUT'}}" method="POST">
             <div class="form-group">    
                 <label>First Name</label>
@@ -16,13 +19,20 @@
               <label>Last Name</label>
               <input type="text" name="lastName" class="form-control" placeholder="{{ user.lastName }}">  
             </div>
-            <button class="btn btn-primary" type="submit">Save</button>
+            <div class="row">
+                <button class="btn btn-primary" type="submit">Save</button>
+                <button type="button" class="btn btn-secondary"><a href="{{'/users/'+ user.id}}">Cancel</a></button>
+            </div>
         </form>
-        <a type="button" class="btn btn-secondary" href="{{'/users/'+ user.id}}">Cancel</a>
     </div>
-    <div class="button-container">
         <div class="row">
             <a href="{{'/users/'+user.id+'/resetPassword'}}">Reset your password?</a>
         </div>
-    </div>
+        <div class="row">
+            <button class="btn btn-danger">
+                <a href="{{'/users/'+user.id+'/delete'}}">
+                    Delete profile
+                </a>
+            </button>
+        </div>
 @endsection

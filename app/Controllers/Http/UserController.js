@@ -9,7 +9,7 @@ const sgMail = require('@sendgrid/mail')
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 class UserController {
     async login({request, response, auth, session}){
-      
+        
         const {email, password, remember} = request.all()
         // console.log(remember)
         const user =  await User.query()
@@ -17,17 +17,26 @@ class UserController {
                                 .first()
         //console.log(user)
         if(user){
-            const passwordVerified = await Hash.verify(password, user.password)
-            if(passwordVerified){
-                if(remember){
-                    await auth.remember(true).login(user)
-                    return response.redirect('/users/'+user.id)
+            const isActive = await user.isActive().fetch()
+            if(isActive.is_active){
+                const passwordVerified = await Hash.verify(password, user.password)
+                if(passwordVerified){
+                    if(remember){
+                        await auth.remember(true).login(user)
+                        return response.redirect('/users/'+user.id)
+                    }
+                    else{
+                        await auth.remember(false).login(user)
+                        return response.redirect('/users/'+user.id)
+                    }
                 }
-                else{
-                    await auth.remember(false).login(user)
-                    return response.redirect('/users/'+user.id)
-                }
-                
+            }
+            else{
+                session.flash({
+                    type:'danger', 
+                    notification: `Please confirm your email first!`, 
+              })
+              return response.redirect('back')
             }
         }
         session.flash({
@@ -61,6 +70,7 @@ class UserController {
     }
 
     async store({ request, response, session}){
+        // console.log('store hit')
         const rules = {
             firstName: 'required',
             lastName: 'required',
@@ -72,32 +82,48 @@ class UserController {
 
         if(validation.fails()){
             session.withErrors(validation.messages()).flashAll()
-            console.log('Errors')
+            return response.redirect('back')
+            //console.log('Errors')
         }else{
-            const user = new User()
-            user.email = request.input('email')
-            user.firstName = request.input('firstName')
-            user.lastName = request.input('lastName')
-            user.password = request.input('password')
-            console.log('creating user!')
-            await user.save()
-            const userActive = new isActive()
-            userActive.token = randomString({length: 40})
-            userActive.token_expire = Date.now() + 86400
-            userActive.is_active = false
-            await user.isActive().save(userActive)
-            const msg = {
-                to: user.email,
-                from: 'noreply@surveyor.com',
-                subject: 'Confirm your email!',
-                html: '<p> Your email has been registered on Surveyor. Please confirm your email by clicking the link below:</p>'+
-                      '<p>http://'+headers.host+'/register/confirm/'+userActive.token+'</p>'
-              }
-            sgMail.send(msg)
-           
-            //console.log(headers.host)
-            session.flash({ notification: 'We have sent a confirmation mail to your email. Please confirm your email to continue!' })
-            return response.redirect('/register/plsConfirm')
+            // console.log('validation passsed')
+            const firstName = request.input('firstName')
+            const lastName = request.input('lastName')
+            const email = request.input('email')
+            const password = request.input('password')
+            const confirmPass = request.input('confirmPass')    
+            if(confirmPass === password){
+                console.log('pass verified')
+                const user = new User()
+                user.email = email
+                user.firstName = firstName
+                user.lastName = lastName
+                user.password = password
+                //console.log('creating user!')
+                await user.save()
+                const userActive = new isActive()
+                userActive.token = randomString({length: 40})
+                userActive.token_expire = Date.now() + 86400
+                userActive.is_active = false
+                await user.isActive().save(userActive)
+                const msg = {
+                    to: user.email,
+                    from: 'noreply@surveyor.com',
+                    subject: 'Confirm your email!',
+                    html: '<p> Your email has been registered on Surveyor. Please confirm your email by clicking the link below:</p>'+
+                        '<p>http://'+headers.host+'/register/confirm/'+userActive.token+'</p>'
+                }
+                sgMail.send(msg)
+                session.flash({ notification: 'We have sent a confirmation mail to your email. Please confirm your email to continue!' })
+                return response.redirect('/register/plsConfirm')
+            }
+            else{
+                session.flash({ 
+                    type:'success', 
+                    notification: "The two passwords must match!" 
+                })
+                return response.redirect('back')
+            }
+            
         }
         //console.log('Store route hit!')
     }
@@ -216,11 +242,9 @@ class UserController {
             //await is_active.save()
             await Database.table('is_actives').where('token', token).update({ 'token': null, 'is_active': true})
             session.flash({
-                notification: {
-                    type: 'success',
-                    message: 'Your email address has been confirmed.'
-                }
-            })
+                type:'success', 
+                notification: `Your email address has been confirmed. Please log in to continue.`, 
+          })
             return response.redirect('/login')
         }
         
@@ -257,7 +281,11 @@ class UserController {
         }
     }
 
-
+    async destroy({params:{id}, request, response}){
+        const user = await User.find(id)
+        await user.delete()
+        return response.redirect('/')
+    }
 }
 
 module.exports = UserController

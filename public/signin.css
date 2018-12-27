@@ -33,14 +33,23 @@
 .container{
   margin: 0 auto;
 }
+
+a {
+  color: #343a40;
+  text-decoration: none !important;
+  
+}
+
 button{
   width: 10rem;
 }
-
-a{
-  text-decoration: none !important;
-}
-
 .register-container{
   padding: 1rem;
+}
+
+hr {
+  margin-bottom: 1rem;    
+  border-top: 1.5px solid #017cff;
+  margin-top: 0;
+  display: block;
 }

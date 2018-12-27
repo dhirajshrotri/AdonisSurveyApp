@@ -22,6 +22,9 @@
                 <label>Password</label>
                 <input type="password" name="password" class="form-control" placeholder="Password" value="{{ old('password', '') }}">
                 {{ elIf('<span class="text-danger">$self</span>', getErrorFor('password'), hasErrorFor('password')) }}
+                <label>Confirm Password</label>
+                <input type="password" name="confirmPass" class="form-control" placeholder="Retype Password" required>
+                {{ elIf('<span class="text-danger">$self</span>', getErrorFor('confirmPass'), hasErrorFor('confirmPass')) }}
             </div>
             <div class="row">
                 <button class="btn btn-primary" type="submit">Submit</button>
