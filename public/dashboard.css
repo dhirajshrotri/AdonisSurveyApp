@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
 .main-container {
     padding: 2em;
     margin-top: auto;
@@ -51,4 +52,10 @@ a {
 
 button{
     width: 5rem;
+}
+
+body {
+    font-family: Lato;
+    font-weight: 700;
+    background-color:#EFEFEF;
 }
