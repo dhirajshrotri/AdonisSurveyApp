@@ -13,20 +13,17 @@
                     </ul>
                 </ul>
             </div>
-            <div class="row">
-                <button type="button" class="btn btn-primary" role="button">Download as Excel</button>
-                <button type="button" class="btn btn-secondary" role="button"><a href="{{'/users/'+id}}">Back</a></button>
-            </div>
+            
         @else
             <div class="question-container">
                 <p>
                     No questions have been added to the survey yet!
                 </p>
             </div>
-            <div class="row">
-                <button type="button" class="btn btn-primary" role="button" disabled>Download as Excel</button>
-                <button type="button" class="btn btn-secondary" role="button"><a href="{{'/users/'+id}}">Back</a></button>
-            </div>
         @endeach
+        <div class="row">
+            <button type="button" class="btn btn-primary" role="button">Download as Excel</button>
+            <button type="button" class="btn btn-secondary" role="button"><a href="{{'/users/'+id}}">Back</a></button>
+        </div>
     </div>
 @endsection

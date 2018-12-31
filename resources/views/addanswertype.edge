@@ -10,6 +10,7 @@
           {{question.description}}
         </h6>
       </p>
+      <hr>
       <div class="choice-container">
       @each(choice in choices)
         <ul>
@@ -36,7 +37,6 @@
       @else
         <p>Please add an option for this question below.</p>
       @endeach
-      </div>
       <div class="answer-container">
         <form action="{{ '/users/'+id+'/surveys/'+surveyId+'/questions/'+question.questionId+'/addChoices'}}" method="POST">
           <div class="row">
@@ -51,5 +51,6 @@
           </div>
         </form>
       </div>
+    </div>
   </div>  
 @endsection

@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+.container{
+    text-align: center;
+    background: #e2e2e2;
+    border-radius: 7px;
+}
+.main-container {
+    padding: 2em;
+    margin-top: 10rem;
+    margin-left: auto;
+}
+
+.choice-container{
+  
+    border-radius: 7px;
+  padding: 1em;
+  /* margin-bottom: 10px; */
+  /*margin: auto auto; */
+
+  display: block;  
+}
+
+.answer-container {
+    background: #bfbfbf;
+  border-radius: 7px;
+  padding: 1em;
+  margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: 200 auto;
+}
+
+hr {
+    margin-bottom: 1rem;    
+    border-top: 1.5px solid #017cff;
+    margin-top: 0;
+    display: block;
+}
+
+.row {
+    display: block;
+    word-spacing: 1.5px;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: rgba(0, 123, 255, 0.71);
+    border-color: #0a7cf1;
+   
+}
+
+a {
+    color: #343a40;
+    text-decoration: none !important;
+    
+}
+
+button{
+    width: 5rem;
+}
+
+body {
+    font-family: Lato;
+    font-weight: 700;
+    background-color:#EFEFEF;
+}
