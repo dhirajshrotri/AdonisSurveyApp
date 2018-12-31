@@ -49,12 +49,7 @@ class AnswerController {
     let text = []
     answers = answers.toJSON()
     answertype = answertype.toJSON()
-    if(answertype.answerType === 'text'){
-      for (let index = 0; index < answers.length; index++) {
-        console.log(answers[index].answerText)
-      }
-    }else{
-      let set = new Set()
+    let set = new Set()
     for (let index = 0; index < answers.length; index++) {
       const temp = answers[index].answerText
       set.add(temp)
@@ -78,7 +73,6 @@ class AnswerController {
       id: id,
       surveyId:surveyId
     })
-    }
     
   }
   
