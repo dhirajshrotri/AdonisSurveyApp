@@ -1,4 +1,11 @@
 @layout('main')
+@section('extracss')
+{{style('about.css')}}
+@endsection
 @section('content')
-<p>This is the about page.</p>
+<div class="row">
+    <p>This is the about page.</p>
+    <hr>
+</div>
+<button type="button" class="btn btn-secondary"><a href="/">Home</a></button>
 @endsection

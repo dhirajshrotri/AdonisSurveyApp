@@ -17,6 +17,7 @@
 const Route = use('Route')
 
 Route.on('/').render('home')
+Route.on('/about').render('about')
 Route.on('/register').render('register')
 Route.get('/auth/:provider', 'UserController.redirectToProvider').as('social.login')
 Route.get('/authenticated/:provider', 'UserController.handleProviderCallback').as('social.login.callback')

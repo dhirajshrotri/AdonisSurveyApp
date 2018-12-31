@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+hr {
+    margin-bottom: 1rem;    
+    border-top: 1.5px solid #017cff;
+    margin-top: 0;
+    display: block;
+}
+a {
+    color: #343a40;
+    text-decoration: none !important;
+    
+}
+
+button{
+    width: 5rem;
+}
+
+body {
+    font-family: Lato;
+    font-weight: 700;
+    background-color:#EFEFEF;
+}
+
+.row {
+    display: block;
+    color: #017cff;
+    word-spacing: 1.5px;
+}
