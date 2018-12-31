@@ -1,13 +1,5 @@
 @layout('main')
 @section('extracss')
-<script>
-    // $(document).ready(function(){
-    //     $("#option").hide();
-    //    $("#check").click(function(){
-    //         $("#option").slideToggle(200)
-    //    });
-    // });
-</script>
 {{style('showsurvey.css')}}
 @endsection
 
@@ -35,11 +27,6 @@
                 </div>
                 <div class="row">
                     <button id="edit" type="button" class="btn btn-primary">Edit</button>
-                    <div class="toggle-container" id="editdiv">
-                            <p>
-                                edit this option
-                            </p>
-                        </div>
                     <button type="button" class="btn btn-danger"><a href="/users/{{ id }}/surveys/{{ survey.surveyId }}/questions/{{ question.questionId }}/delete">Delete</a></button>
                 </div>
             </div>
@@ -74,11 +61,6 @@
                 
                     <div class="row" id="option">
                         <button class="btn btn-primary" type="submit" id="next">Next</button>
-                        <div class="option-container">
-                            <p>
-                                Add options here!
-                            </p>
-                        </div>
                     </div>
                 </div>
             </form>
