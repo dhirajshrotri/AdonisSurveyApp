@@ -48,11 +48,9 @@ class PasswordresetController {
             }
             sgMail.send(msg)
             session.flash({
-                notification:{
-                    type: 'success',
-                    message: 'A password reset link has been sent to your email'
-                }
-            })
+                type:'success', 
+                notification: `We have sent a mail to your email address to reset your password.`, 
+          })
             return response.redirect('/recoverPassword')
         }else{
             session.flash({
