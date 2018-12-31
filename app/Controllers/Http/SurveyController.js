@@ -55,6 +55,8 @@ class SurveyController {
     }
 
     async show({view, params:{id, surveyId} }){
+        // const user = await User.find(id)
+        // const survey = await user.survey().where('surveyId', surveyId).fetch()
         const survey = await Survey.find(surveyId)
         var question = await Database.from('questions').rightOuterJoin('answertypes', 'questions.questionId', 'answertypes.question_Id')
         let option = []

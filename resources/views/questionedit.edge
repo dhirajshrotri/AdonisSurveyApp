@@ -45,10 +45,14 @@
                             </div>
                         </ul>
                         </ul>
+                        
                     @else
                         <p>No options for this question have been added.</p>
                     @endeach
                     </div>
+                    @unless(answertype.answerType === "text")
+                        <button class="btn btn-primary"><a href="{{'/users/'+id+'/surveys/'+surveyId+'/questions/'+question.questionId+'/addAnswerType'}}">Add an option</a></button>  
+                    @endunless
             <div class="row">
                 <div class="col">
                         <button class="btn btn-primary" type="submit">Save</button>

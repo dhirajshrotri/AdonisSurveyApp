@@ -26,7 +26,7 @@
                         <p>{{ question.description }}</p>
                 </div>
                 <div class="row">
-                    <button id="edit" type="button" class="btn btn-primary">Edit</button>
+                    <button id="edit" type="button" class="btn btn-primary"><a href="/users/{{ id }}/surveys/{{ survey.surveyId }}/questions/{{ question.questionId }}/edit">Edit</a></button>
                     <button type="button" class="btn btn-danger"><a href="/users/{{ id }}/surveys/{{ survey.surveyId }}/questions/{{ question.questionId }}/delete">Delete</a></button>
                 </div>
             </div>
