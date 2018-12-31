@@ -26,7 +26,7 @@ class AnswertypeController {
     //var choice = await NoOfChoice.query().where('answerType_Id', answertype.answerTypeId).fetch()
     var choice = await question.option().fetch()
     choice = choice.toJSON()
-    console.log(choice)
+    //console.log(choice)
     // console.log(id)
     // console.log(surveyId)
     return view.render('addanswertype', {
