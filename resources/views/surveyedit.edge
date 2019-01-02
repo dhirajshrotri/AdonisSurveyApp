@@ -3,6 +3,11 @@
     {{ style('surveyedit')}}
 @endsection
 @section('content')
+@if(old('notification'))
+    <div class="alert">
+    {{ old('notification') }}
+    </div>
+@endif
     <div class="form-container">
         <form action="{{ '/users/'+id+'/surveys/'+survey.surveyId+'?_method=PUT'}}" method="POST">
             <div class="form-group" style="margin:auto">

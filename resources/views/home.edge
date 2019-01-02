@@ -9,15 +9,11 @@
             <div class="row">
                 <h2><p>Welcome to the Survey App!</p></h2>
             </div>
-            @loggedIn
-                <div class="row">
-                    <button type="button" class="btn btn-dark"><a href="{{'/users'}}">Get Started!</a></button>
-                </div>  
-            @else
+            
                 <div class="row">
                     <button type="button" class="btn btn-dark"><a href="/login">Get Started!</a></button>
                 </div>  
-            @endloggedIn
+           
         </div>    
     </div>
 </div>

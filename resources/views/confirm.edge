@@ -1,18 +1,22 @@
 @layout('main')
+@section('extracss')
+{{ style("confirm") }}
+@endsection
 @section('content')
     @if(old('notification'))
         <div class="alert alert-success">
         {{ old('notification') }}
         </div>
     @endif
-    <div class="container text-center">
+    <div class="webpage-container">
         <div class="row">
             <p>
                 Welcome to Surveyor. Your account has been created!
             </p>
         </div>
+        
         <div class="row">
-            <button type="button" class="btn btn-link" href="/">Go back</button>
+            <button type="button" class="btn btn-primary"><a href="/">Go back</a></button>
         </div>
     </div>
 @endsection

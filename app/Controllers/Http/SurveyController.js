@@ -55,10 +55,8 @@ class SurveyController {
     }
 
     async show({view, params:{id, surveyId} }){
-        // const user = await User.find(id)
-        // const survey = await user.survey().where('surveyId', surveyId).fetch()
         const survey = await Survey.find(surveyId)
-        var question = await Database.from('questions').rightOuterJoin('answertypes', 'questions.questionId', 'answertypes.question_Id')
+        var question = await Database.from('questions').rightOuterJoin('answertypes', 'questions.questionId', 'answertypes.question_Id').where('questions.survey_Id', surveyId)
         let option = []
         for (let index = 0; index < question.length; index++) {
             const temp = await Database.from('no_of_choices').where('question_Id', question[index].questionId)

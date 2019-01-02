@@ -3,8 +3,10 @@
     {{style('signin')}}
 @endsection
 @section('content')
-@if(flashMessage('notification'))
-<span>{{ flashMessage('notification') }}</span>
+@if(old('notification'))
+<div class="alert">
+    {{ old('notification') }}
+    </div>
 @endif
     <div class="webpage-container">
         <div class="signin-container text-center">

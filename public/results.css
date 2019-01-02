@@ -21,12 +21,34 @@ body {
     display: block;  
 }
 
-.question-container {
+.chart-container {
     background: #bfbfbf;
     border-radius: 7px;
     padding: 1em;
     padding-bottom: 0.0001rem;
     margin-bottom: 10px;
-    display: grid;
-    grid-template-columns: 200 auto;
+   
 }
+
+a {
+    color: #343a40;
+    text-decoration: none !important;
+    
+}
+
+button{
+    width: 5rem;
+}
+
+body {
+    font-family: Lato;
+    font-weight: 700;
+    background-color:#EFEFEF;
+}
+
+.row {
+    display: block;
+    color: #017cff;
+    word-spacing: 1.5px;
+}
+

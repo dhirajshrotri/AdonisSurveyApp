@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+.webpage-container{
+    text-align: center;
+    background-color: gainsboro;
+    border-radius: 7px;
+    width: 720px;
+    margin: 0 auto;
+    margin-top: 12rem;
+    padding: 1rem;
+  }
+  
+  .row{
+    padding: 0.5rem;
+    padding-bottom: 0;
+    display: block;
+  }
+  
+  .container{
+    margin: 0 auto;
+  }
+  
+  a {
+    color: #343a40;
+    text-decoration: none !important;
+    
+  }
+  
+  button{
+    width: 10rem;
+  }
+
+  hr {
+    margin-bottom: 1rem;    
+    border-top: 1.5px solid #017cff;
+    margin-top: 0;
+    display: block;
+  }
+  
+  body {
+    font-family: Lato;
+    font-weight: 700;
+    background-color:#EFEFEF;
+  }

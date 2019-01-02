@@ -8,10 +8,22 @@ const randomString = use('random-string')
 const sgMail = require('@sendgrid/mail')
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 class UserController {
+    async checkLogin({response, view, auth}){
+        try {
+            const isLoggedIn = await auth.check()
+            if (isLoggedIn) {
+               const user = await auth.getUser()
+               response.redirect('/users/'+user.id)
+            }
+        } catch (error) {
+            return view.render('signin')
+        }
+    }
+
     async login({request, response, auth, session}){
         
         const {email, password, remember} = request.all()
-        // console.log(remember)
+        //console.log(remember)
         const user =  await User.query()
                                 .where('email', email)
                                 .first()

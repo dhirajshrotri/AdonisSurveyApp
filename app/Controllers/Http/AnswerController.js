@@ -48,6 +48,7 @@ class AnswerController {
     let labels = []
     let text = []
     answers = answers.toJSON()
+    //console.log(answers)
     answertype = answertype.toJSON()
     let set = new Set()
     for (let index = 0; index < answers.length; index++) {
@@ -92,13 +93,12 @@ class AnswerController {
     questions = questions.toJSON()
     let answertypes = []
     let options = []
+    
     for (const key in questions) {
       //console.log(questions[key])
       const temp = await AnswerType.query().where('question_Id', questions[key].questionId).fetch()
       answertypes.push(temp.toJSON())
     }
-    //console.log(answertypes)
-    //console.log(ans)
     for (const key in answertypes) {
       if(answertypes[key][0].answerType === "checkbox"){
         for (let index = 0; index < ans[answertypes[key][0].answerType].length; index++) {
@@ -108,6 +108,12 @@ class AnswerController {
           await answer.save()
         }
   
+      }else if(answertypes[key][0].answerType === "text"){
+        const answer = new Answer()
+        answer.answerText = ans[answertypes[key][0].answerType+key]
+        answer.question_Id = questions[key].questionId
+        await answer.save()
+        // console.log(answertypes[key][0].answerType+key)
       }else{
         const answer = new Answer()
         answer.answerText = ans[answertypes[key][0].answerType]

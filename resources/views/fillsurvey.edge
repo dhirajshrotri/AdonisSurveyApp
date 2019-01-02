@@ -16,15 +16,16 @@
         @each(questions in question)
         <div class="question-container">
             <p>
-                    <h4>
-                        {{questions.questionTitle}}
-                    </h4>
-                </p>
-                <p>
-                    <h6>
-                        {{questions.description}}
-                    </h6>
-                </p>
+                <h4>
+                    {{questions.questionTitle}}
+                </h4>
+            </p>
+            <p>
+                <h6>
+                    {{questions.description}}
+                </h6>
+            </p>
+            
             @if(questions.answerType === "checkbox")
             <div class="answer-container">
                 @each(key in option[$loop.index])
@@ -37,12 +38,15 @@
             @elseif(questions.answerType === "radio")
             <div class="answer-container">
                     @each(key in option[$loop.index])
-                    <ul>
-                            <input type="radio" value={{key.option}} name="radio">
-                        <label for="radio">{{key.option}}</label>                       
-                    </ul>
+                        <div class="btn-group">
+                            <ul>
+                                <input type="radio" value={{key.option}} name="radio">
+                                <label for="radio">{{key.option}}</label>                       
+                            </ul>
+                        </div>
                     @endeach
-                </div>
+
+            </div>
             @elseif(questions.answerType === "text")
             <div class="answer-container">
                 <input type="text" name="{{'text'+$loop.index}}">

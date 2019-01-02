@@ -26,7 +26,7 @@ class PasswordresetController {
         }
         
         const user = await User.findBy('email', request.input('email'))
-        console.log(user)
+        //console.log(user)
         if(user){
             // const {token} = await PasswordReset.create({
             //     email: user.email,
@@ -73,16 +73,16 @@ class PasswordresetController {
             return view.render('recoverpassword', {   
                 user: user
             })
-        // }else{
-        //     //console.log('expired')
+        //}else{
+            //console.log('expired')
         //     session.flash({
         //         notification:{
         //             type: 'danger',
         //             message: 'Sorry, this token has expired. Please try again.!'
         //         }
         //     })
+            
         // }
-        
     }
 
     async setPassword({session, params:{id}, request, response}){
@@ -94,12 +94,9 @@ class PasswordresetController {
             const tempPass = await Hash.make(newPass)
             //console.log(tempPass)
             await User.query().where('id', user.id).update({'password': tempPass})
-            
             session.flash({
-                notification: {
-                    type: 'success',
-                    message: 'Password Changed Successfully. Login again to continue.'
-                }
+                type: 'success',
+                notification: 'Password Changed Successfully. Login again to continue.'
             })
             return response.redirect('/users/'+user.id+'/logout')
         }else{
