@@ -67,9 +67,14 @@ class AnswerController {
       val.push(temp)
     }
     labels = Array.from(set)
-    console.log(labels)
+    let templabel = []
+    for(const key in labels){
+      const temp = labels[key]
+      templabel.push(temp)
+    }
+   // console.log(labels)
     return view.render('result', { 
-      labels: labels,
+      labels: templabel,
       val: val, 
       id: id,
       surveyId:surveyId
@@ -87,7 +92,7 @@ class AnswerController {
    */
   async store ({ request, params:{surveyId}, view }) {
     const ans = request.all()
-    console.log(ans)
+    //console.log(ans)
     var surveys = await Survey.find(surveyId)
     var questions = await surveys.question().fetch()
     questions = questions.toJSON()

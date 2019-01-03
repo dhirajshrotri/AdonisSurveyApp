@@ -14,4 +14,6 @@ EXPOSE 8080
 
 RUN adonis migration:run
 
+RUN adonis seed
+
 CMD [ "npm", "start" ]
