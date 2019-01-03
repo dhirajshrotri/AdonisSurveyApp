@@ -103,20 +103,20 @@ class AnswerController {
       if(answertypes[key][0].answerType === "checkbox"){
         for (let index = 0; index < ans[answertypes[key][0].answerType].length; index++) {
           const answer = new Answer()
-          answer.answerText = ans[answertypes[key][0].answerType][index]
+          answer.answerText = ans[answertypes[key][0].answerType+questions[key].questionId][index]
           answer.question_Id = answertypes[key][0].question_Id
           await answer.save()
         }
   
       }else if(answertypes[key][0].answerType === "text"){
         const answer = new Answer()
-        answer.answerText = ans[answertypes[key][0].answerType+key]
+        answer.answerText = ans[answertypes[key][0].answerType+questions[key].questionId]
         answer.question_Id = questions[key].questionId
         await answer.save()
         // console.log(answertypes[key][0].answerType+key)
       }else{
         const answer = new Answer()
-        answer.answerText = ans[answertypes[key][0].answerType]
+        answer.answerText = ans[answertypes[key][0].answerType+questions[key].questionId]
         answer.question_Id = questions[key].questionId
         await answer.save()
       }

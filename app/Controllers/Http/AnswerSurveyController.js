@@ -34,11 +34,12 @@ class AnswerSurveyController {
             const temp = await Database.from('no_of_choices').where('question_Id', question[index].questionId)
             option.push(temp)
         }
+        //console.log(option)
         survey = survey.toJSON()
         return view.render('fillsurvey', {
             question: question,
             survey: survey,
-            option: option
+            option: option,
         })
     }
 

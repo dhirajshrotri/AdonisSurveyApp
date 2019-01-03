@@ -30,7 +30,7 @@
             <div class="answer-container">
                 @each(key in option[$loop.index])
                 <ul>
-                    <input type="checkbox" value={{key.option}} name="checkbox">
+                    <input type="checkbox" value={{key.option}} name="{{'checkbox'+key.question_Id}}">
                     <label for="checkbox">{{key.option}}</label>
                 </ul>
                 @endeach
@@ -40,7 +40,7 @@
                     @each(key in option[$loop.index])
                         <div class="btn-group">
                             <ul>
-                                <input type="radio" value={{key.option}} name="radio">
+                                <input type="radio" value={{key.option}} name="{{'radio'+key.question_Id}}">
                                 <label for="radio">{{key.option}}</label>                       
                             </ul>
                         </div>
@@ -49,7 +49,7 @@
             </div>
             @elseif(questions.answerType === "text")
             <div class="answer-container">
-                <input type="text" name="{{'text'+$loop.index}}">
+                <input type="text" name="{{'text'+key.question_Id}}">
             </div>
             @endif
         </div> 
