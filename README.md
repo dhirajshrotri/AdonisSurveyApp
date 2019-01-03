@@ -1,31 +1,17 @@
-# Adonis fullstack application
+# Adonis Survey application
 
-This is the fullstack boilerplate for AdonisJs, it comes pre-configured with.
+Small aplication to create and view surveys using AdonisJS and MySQL.
 
-1. Bodyparser
-2. Session
-3. Authentication
-4. Web security middleware
-5. CORS
-6. Edge template engine
-7. Lucid ORM
-8. Migrations and seeds
+To run this application:
 
-## Setup
+1. Install Adonis JS using the command:
+    
+> npm i -g @adonisjs/cli
 
-Use the adonis command to install the blueprint
+2. In the .env file of the project, configure the DB_HOST, DB_PORT, DB_USER and DB_PASSWORD for your database.
 
-```bash
-adonis new yardstick
-```
+3. Using the Adonis CLI, run the migrations using the command:
 
-or manually clone the repo and then run `npm install`.
+> adonis migration:run
 
-
-### Migrations
-
-Run the following command to run startup migrations.
-
-```js
-adonis migration:run
-```
+4. Run the docker.sh script to startup the docker container.
