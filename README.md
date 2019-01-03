@@ -15,3 +15,4 @@ To run this application:
 > adonis migration:run
 
 4. Run the docker.sh script to startup the docker container.
+> bash docker.sh
