@@ -92,7 +92,7 @@ class AnswerController {
    */
   async store ({ request, params:{surveyId}, view }) {
     const ans = request.all()
-    //console.log(ans)
+    console.log(request[0])
     var surveys = await Survey.find(surveyId)
     var questions = await surveys.question().fetch()
     questions = questions.toJSON()

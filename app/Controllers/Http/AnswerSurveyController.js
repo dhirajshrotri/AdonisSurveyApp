@@ -3,8 +3,6 @@ const SurveyToken = use('App/Models/SurveyToken')
 const Question = use('App/Models/Question')
 const Answer = use('App/Models/Answer')
 const Survey = use('App/Models/Survey')
-const NoOfChoice = use('App/Models/NoOfChoice')
-const Answertype = use('App/Models/Answertype')
 const Database = use('Database')
 
 class AnswerSurveyController {
