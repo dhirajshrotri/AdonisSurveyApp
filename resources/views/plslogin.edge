@@ -1,0 +1,19 @@
+@layout('main')
+@section('extracss')
+  {{style('error')}}
+@endsection
+@section('content')
+<div class="webpage-container">
+    <div class="content-container">
+        <p>
+            <h3>
+                You must be logged in to view this page!
+            </h3>
+        </p>
+    </div>
+    <hr>
+    <div class="button-container">
+        <button class="btn btn-secondary"><a href="/signin">Go to SignIn</a></button>
+    </div>
+</div>
+@endsection

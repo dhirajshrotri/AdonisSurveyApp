@@ -23,7 +23,6 @@ class UserController {
     async login({request, response, auth, session}){
         
         const {email, password, remember} = request.all()
-        //console.log(remember)
         const user =  await User.query()
                                 .where('email', email)
                                 .first()

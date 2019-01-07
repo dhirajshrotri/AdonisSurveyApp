@@ -48,10 +48,6 @@ class QuestionController {
       })
       return response.redirect('/users/'+id+'/surveys/'+surveyId)
     }
-    // //console.log(answer)
-    
-    
-    // console.log('Question Added Successfully!')
   }
 
   /**
@@ -102,13 +98,11 @@ class QuestionController {
     
     const questionTitle = request.input('questionTitle')
     const description = request.input('description')
-    //console.log(description)
     if(!questionTitle){
       questionTitle = question.questionTitle
     }
     if(!description){
       description = question.description
-      //console.log('null detected')
     }
     await survey.question().where('questionId', questionId).update({'questionTitle': questionTitle, 'description': description})
     response.redirect('/users/'+id+'/surveys/'+surveyId)

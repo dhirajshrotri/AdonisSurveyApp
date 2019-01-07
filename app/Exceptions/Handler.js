@@ -1,5 +1,4 @@
 'use strict'
-
 const BaseExceptionHandler = use('BaseExceptionHandler')
 
 /**
@@ -20,6 +19,8 @@ class ExceptionHandler extends BaseExceptionHandler {
    *
    * @return {void}
    */
+ 
+
   async handle (error, { request, response }) {
     if (error.name === 'ValidationException') {
       session.withErrors(error.messages).flashAll()
