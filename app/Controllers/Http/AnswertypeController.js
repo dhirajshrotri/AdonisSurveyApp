@@ -61,7 +61,6 @@ class AnswertypeController {
    * @param {Response} ctx.response
    */
   async store ({ request, params:{id, surveyId, questionId}, response}) {
-  //  console.log('store route hit!')
     const answerChoice = request.input('choice')
     const question = await Question.find(questionId)
     var answertype = await Answertype.query().where('question_Id', questionId).fetch()
@@ -69,7 +68,7 @@ class AnswertypeController {
     const choice = new NoOfChoice()
     choice.option = answerChoice
     //choice.answerType_Id = answertype[0].answerTypeId
-    // console.log(answertype.toJSON())
+    
     await question.option().save(choice)
     //await choice.save()
     return response.redirect('/users/'+id+'/surveys/'+surveyId+'/questions/'+questionId+'/addAnswerType')

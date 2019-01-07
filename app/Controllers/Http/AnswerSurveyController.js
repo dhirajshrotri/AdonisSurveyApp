@@ -26,13 +26,14 @@ class AnswerSurveyController {
     }
     async show({params:{surveyId}, view, response}){
         var survey = await Survey.find(surveyId)
-        var question = await Database.from('questions').rightOuterJoin('answertypes', 'questions.questionId', 'answertypes.question_Id')
+        var question = await Database.from('questions').rightOuterJoin('answertypes', 'questions.questionId', 'answertypes.question_Id').where('questions.survey_Id', surveyId)
         let option = []
-        for (let index = 0; index < question.length; index++) {
+        for (let index = 0; index < question.length; index++) {           
             const temp = await Database.from('no_of_choices').where('question_Id', question[index].questionId)
-            option.push(temp)
+            option.push(temp)      
         }
-        //console.log(option)
+      
+        console.log(question[0].questionId)
         survey = survey.toJSON()
         return view.render('fillsurvey', {
             question: question,

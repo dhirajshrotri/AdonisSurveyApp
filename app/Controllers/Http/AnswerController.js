@@ -50,10 +50,8 @@ class AnswerController {
     answers = answers.toJSON()
     //console.log(answers)
     answertype = answertype.toJSON()
-    let set = new Set()
     for (let index = 0; index < answers.length; index++) {
       const temp = answers[index].answerText
-      set.add(temp)
       text.push(temp)
     }
     text.sort()
@@ -65,16 +63,11 @@ class AnswerController {
     for (const key in counts) {
       const temp = counts[key]
       val.push(temp)
-    }
-    labels = Array.from(set)
-    let templabel = []
-    for(const key in labels){
-      const temp = labels[key]
-      templabel.push(temp)
-    }
-   // console.log(labels)
+      labels.push(key)
+    }   
+    
     return view.render('result', { 
-      labels: templabel,
+      labels: labels,
       val: val, 
       id: id,
       surveyId:surveyId
@@ -92,7 +85,7 @@ class AnswerController {
    */
   async store ({ request, params:{surveyId}, view }) {
     const ans = request.all()
-    console.log(request[0])
+    console.log(ans)
     var surveys = await Survey.find(surveyId)
     var questions = await surveys.question().fetch()
     questions = questions.toJSON()
@@ -106,7 +99,7 @@ class AnswerController {
     }
     for (const key in answertypes) {
       if(answertypes[key][0].answerType === "checkbox"){
-        for (let index = 0; index < ans[answertypes[key][0].answerType].length; index++) {
+        for (let index = 0; index < ans[answertypes[key][0].answerType+questions[key].questionId].length; index++) {
           const answer = new Answer()
           answer.answerText = ans[answertypes[key][0].answerType+questions[key].questionId][index]
           answer.question_Id = answertypes[key][0].question_Id

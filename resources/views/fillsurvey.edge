@@ -49,7 +49,7 @@
             </div>
             @elseif(questions.answerType === "text")
             <div class="answer-container">
-                <input type="text" name="{{'text'+key.question_Id}}">
+                <input type="text" name="{{'text'+questions[0].questionId}}">
             </div>
             @endif
         </div> 
