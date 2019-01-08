@@ -12,13 +12,12 @@ class AnswerSurveyController {
         const surveytoken = await SurveyToken.query().where('token', token).fetch()
         const expiry = Date.now()
         const survey_token = surveytoken.toJSON()
-        //console.log(survey_token)
         if(survey_token[0].tokenExpires > expiry){
             //const question = await Question.query().select('questionId').where('survey_Id', survey_token[0].survey_Id).fetch()
             return view.render('getstarted', {
                 surveyId: survey_token[0].survey_Id
             })
-            //console.log(question.toJSON())    
+           
         }
         return response.status(201).json({
             message: "The token has expired."
@@ -40,22 +39,6 @@ class AnswerSurveyController {
             survey: survey,
             option: option,
         })
-    }
-
-    async store({params:{surveyId}, request, response}){
-        
-        // const answerText = request.input('answer')
-        // const question = await Question.query().where('survey_Id', surveyId).fetch()
-        // const questionTemp = question.toJSON()
-        // for (let index = 0; index < answerText.length; index++) {
-        //     const answer = new Answer()
-        //     answer.answerText = answerText[index]
-        //     answer.question_Id = questionTemp[index].questionId
-        //     await answer.save()
-        //     //await question[index].answer().save(answer)
-        //     //console.log(questionTemp[index])
-        // }
-        // return response.redirect('/surveys/'+surveyId+'/thankyou')
     }
 
     async modify({params:{surveyId, questionId}, view}){
