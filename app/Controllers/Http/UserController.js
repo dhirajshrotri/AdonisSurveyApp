@@ -26,8 +26,15 @@ class UserController {
         const user =  await User.query()
                                 .where('email', email)
                                 .first()
-        //console.log(user)
+        // console.log(user)
         if(user){
+            if(user.deleted_at){
+                await user.restore()
+                session.flash({
+                    type:'success', 
+                    notification: `Your account has been restored!`, 
+                })
+            }
             const isActive = await user.isActive().fetch()
             if(isActive.is_active){
                 const passwordVerified = await Hash.verify(password, user.password)
@@ -44,16 +51,16 @@ class UserController {
             }
             else{
                 session.flash({
-                    type:'danger', 
+                    type:'success', 
                     notification: `Please confirm your email first!`, 
-              })
-              return response.redirect('back')
+            })
+            return response.redirect('back')
             }
         }
         session.flash({
                 type:'success', 
                 notification: `We couldn't verify your credentials. Please check your Email and Password!`, 
-          })
+        })
 
         return response.redirect('back')
     }
@@ -81,7 +88,6 @@ class UserController {
     }
 
     async store({ request, response, session}){
-        // console.log('store hit')
         const rules = {
             firstName: 'required',
             lastName: 'required',
@@ -90,42 +96,48 @@ class UserController {
         }
         const headers = request.headers()
         const validation = await validate(request.all(), rules)
+        var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{6,}$/
 
         if(validation.fails()){
             session.withErrors(validation.messages()).flashAll()
             return response.redirect('back')
-            //console.log('Errors')
         }else{
-            // console.log('validation passsed')
             const firstName = request.input('firstName')
             const lastName = request.input('lastName')
             const email = request.input('email')
             const password = request.input('password')
             const confirmPass = request.input('confirmPass')    
             if(confirmPass === password){
-                console.log('pass verified')
-                const user = new User()
-                user.email = email
-                user.firstName = firstName
-                user.lastName = lastName
-                user.password = password
-                //console.log('creating user!')
-                await user.save()
-                const userActive = new isActive()
-                userActive.token = randomString({length: 40})
-                userActive.token_expire = Date.now() + 86400
-                userActive.is_active = false
-                await user.isActive().save(userActive)
-                const msg = {
-                    to: user.email,
-                    from: 'noreply@surveyor.com',
-                    subject: 'Confirm your email!',
-                    html: '<p> Your email has been registered on Surveyor. Please confirm your email by clicking the link below:</p>'+
-                        '<p>http://'+headers.host+'/register/confirm/'+userActive.token+'</p>'
+                if(re.test(password)){
+                    const user = new User()
+                    user.email = email
+                    user.firstName = firstName
+                    user.lastName = lastName
+                    user.password = password
+                    await user.save()
+                    const userActive = new isActive()
+                    userActive.token = randomString({length: 40})
+                    userActive.token_expire = Date.now() + 86400
+                    userActive.is_active = false
+                    await user.isActive().save(userActive)
+                    const msg = {
+                        to: user.email,
+                        from: 'noreply@surveyor.com',
+                        subject: 'Confirm your email!',
+                        html: '<p> Your email has been registered on Surveyor. Please confirm your email by clicking the link below:</p>'+
+                            '<p>http://'+headers.host+'/register/confirm/'+userActive.token+'</p>'
+                    }
+                    sgMail.send(msg)
+                    session.flash({ notification: 'We have sent a confirmation mail to your email. Please confirm your email to continue!' })
+                    return response.redirect('/register/plsConfirm')
                 }
-                sgMail.send(msg)
-                session.flash({ notification: 'We have sent a confirmation mail to your email. Please confirm your email to continue!' })
-                return response.redirect('/register/plsConfirm')
+                else{
+                    session.flash({ 
+                        type:'danger', 
+                        notification: "The selected password must contain a Capital letter, a numeral and must be atleast six chracters long." 
+                    })
+                    return response.redirect('back')
+                }
             }
             else{
                 session.flash({ 
@@ -294,8 +306,16 @@ class UserController {
 
     async destroy({params:{id}, request, response}){
         const user = await User.find(id)
-        await user.delete()
-        return response.redirect('/')
+        //if(alert("Are you sure you want to delete your profile?")){
+            await user.delete()
+            session.flash({
+                type:'success', 
+                notification: `Your account has been deleted. To restore your account at any time, login in again with your crendetials.`, 
+          })
+            return response.redirect('/')
+        //}else{
+            // return response.redirect('back')
+        //}
     }
 }
 
