@@ -12,6 +12,7 @@ class UserController {
         try {
             const isLoggedIn = await auth.check()
             if (isLoggedIn) {
+                
                const user = await auth.getUser()
                response.redirect('/users/'+user.id)
             }
@@ -26,7 +27,6 @@ class UserController {
         const user =  await User.query()
                                 .where('email', email)
                                 .first()
-        // console.log(user)
         if(user){
             if(user.deleted_at){
                 await user.restore()
