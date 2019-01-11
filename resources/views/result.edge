@@ -5,20 +5,29 @@
 @section('content')
     <div class="webpage-container">    
         <div class="chart-container">
+            @if(val)
             <canvas id="doughnut-chart" width="800" height="300">
-                <script>
-                    new Chart(document.getElementById("doughnut-chart"), {
-                        type: 'doughnut',
-                        data: {
-                            datasets:[{
-                                backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-                                data: [{{val}}]
-                            }],
-                            labels: ["{{labels}}"]
-                            }
-                    })
-                </script>
-            </canvas>
+                    <script>
+                        new Chart(document.getElementById("doughnut-chart"), {
+                            type: 'doughnut',
+                            data: {
+                                datasets:[{
+                                    backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                                    data: [{{val}}]
+                                }],
+                                labels: ["{{labels}}"]
+                                }
+                        })
+                    </script>
+                </canvas>
+            @else
+                <div>
+                    <p>
+                        No answers have been added to this question yet!
+                    </p>
+                </div>
+            @endif
+            
         </div>
         <div class="row">
             <button type="button" class="btn btn-secondary"><a href="{{'/users/'+id+'/surveys/'+surveyId+'/viewResults'}}">Back</a></button>

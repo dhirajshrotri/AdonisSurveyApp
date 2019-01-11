@@ -29,10 +29,13 @@
             <a href="{{'/users/'+user.id+'/resetPassword'}}">Reset your password?</a>
         </div>
         <div class="row">
-            <button class="btn btn-danger" onClick="myFunction">
+            <button class="btn btn-danger" id="deleteButton">
                 <a href="{{'/users/'+user.id+'/delete'}}">
                     Delete profile
                 </a>
             </button>
         </div>
+@endsection
+@section('scripts')
+{{script('useredit')}}
 @endsection

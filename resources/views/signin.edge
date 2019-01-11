@@ -4,11 +4,11 @@
 @endsection
 @section('content')
 @if(old('notification'))
-<div class="alert">
-    {{ old('notification') }}
-    </div>
-@endif
-    <div class="webpage-container">
+        <div class="alert">
+            {{ old('notification') }}
+        </div>
+    @endif
+<div class="webpage-container">
         <div class="signin-container text-center">
             <div class="form-group">
                 <form class="form-signin" action="/login" method="POST">

@@ -41,38 +41,43 @@ class AnswerController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async count ({params:{id, surveyId, questionId}, request, response, view }) {
+  async count ({params:{id, surveyId, questionId}, session, response, view }) {
     const question = await Question.find(questionId)
     var answertype = await question.answerType().fetch()
     var answers = await question.answer().fetch()
     let labels = []
     let text = []
-    answers = answers.toJSON()
-    //console.log(answers)
-    answertype = answertype.toJSON()
-    for (let index = 0; index < answers.length; index++) {
-      const temp = answers[index].answerText
-      text.push(temp)
+    if(answers.toJSON() != []){
+      answers = answers.toJSON()
+      answertype = answertype.toJSON()
+      for (let index = 0; index < answers.length; index++) {
+        const temp = answers[index].answerText
+        text.push(temp)
+      }
+      text.sort()
+      var counts = []
+      for (let index = 0; index < text.length; index++) {
+        counts[text[index]] = 1 + (counts[text[index]] || 0)
+      }
+      let val = []
+      for (const key in counts) {
+        const temp = counts[key]
+        val.push(temp)
+        labels.push(key)
+      }
+      return view.render('result', { 
+        labels: labels,
+        val: val, 
+        id: id,
+        surveyId:surveyId
+      })
+    }else{
+      session.flash({
+        type: "success",
+        notification: "No answers have been added for this question yet!"
+      })
+      response.redirect('back')
     }
-    text.sort()
-    var counts = []
-    for (let index = 0; index < text.length; index++) {
-      counts[text[index]] = 1 + (counts[text[index]] || 0)
-    }
-    let val = []
-    for (const key in counts) {
-      const temp = counts[key]
-      val.push(temp)
-      labels.push(key)
-    }   
-    
-    return view.render('result', { 
-      labels: labels,
-      val: val, 
-      id: id,
-      surveyId:surveyId
-    })
-    
   }
   
   /**

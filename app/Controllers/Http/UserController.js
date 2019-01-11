@@ -109,6 +109,7 @@ class UserController {
             const confirmPass = request.input('confirmPass')    
             if(confirmPass === password){
                 if(re.test(password)){
+                    //console.log("password verified!")
                     const user = new User()
                     user.email = email
                     user.firstName = firstName
@@ -132,8 +133,9 @@ class UserController {
                     return response.redirect('/register/plsConfirm')
                 }
                 else{
+                    //console.log("password verification failed!")
                     session.flash({ 
-                        type:'danger', 
+                        type:'success', 
                         notification: "The selected password must contain a Capital letter, a numeral and must be atleast six chracters long." 
                     })
                     return response.redirect('back')
@@ -153,7 +155,6 @@ class UserController {
 
     async logout({auth, response}){
         await auth.logout()
-
         return response.redirect('/login')
     }
 
@@ -199,9 +200,9 @@ class UserController {
     async modifyPassword({auth, request, response, session}){
         const user = await auth.getUser()
         const {oldPass, newPass, confirmPass} = request.all()
-        console.log(oldPass)
-        console.log(newPass)
-        console.log(confirmPass)
+        // console.log(oldPass)
+        // console.log(newPass)
+        // console.log(confirmPass)
         if(user){
             // console.log('Updating Password!')
             const verifiedPass = await Hash.verify(oldPass, user.password)
@@ -304,7 +305,7 @@ class UserController {
         }
     }
 
-    async destroy({params:{id}, request, response}){
+    async destroy({params:{id}, session, response}){
         const user = await User.find(id)
         //if(alert("Are you sure you want to delete your profile?")){
             await user.delete()

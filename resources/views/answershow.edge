@@ -3,6 +3,11 @@
 {{ style('answershow') }}
 @endsection
 @section('content')
+    @if(old('notification'))
+        <div class="alert">
+            {{ old('notification') }}
+        </div>
+    @endif
     <div class="survey-container">
         <p><h3>{{survey.surveyName}}</h3></p>
         @each(question in question)
