@@ -76,6 +76,7 @@ hr {
 a{
     text-decoration: none !important;
     color: white;
+    margin-right: 1rem;
 }
 
 button{

@@ -2,7 +2,6 @@
 
 const Survey = use('App/Models/Survey')
 const User = use('App/Models/User')
-const randomString = require('random-string')
 const Database = use('Database')
 
 class SurveyController {
@@ -48,8 +47,6 @@ class SurveyController {
         if(!surveyDesc){
             surveyDesc = survey.surveyDesc
         }
-        //console.log(surveyName)
-        //console.log(surveyDesc)
         await user.survey().where('surveyId', surveyId).update({'surveyName': surveyName, 'surveyDesc': surveyDesc})
         response.redirect('/users/'+id+'/surveys/'+surveyId)
     }
@@ -72,20 +69,9 @@ class SurveyController {
     }
 
     async destroy({params:{id, surveyId}, response}){
-        //const survey = await Survey.find(surveyId)
         const user = await User.find(id)
-        //console.log(admin)
-        //console.log(surveyId)
         await user.survey().where('surveyId', surveyId).delete()
-
         response.redirect('/users/'+id)
-    }
-
-    async viewResults({params:{id, surveyId}, view}){
-        const survey = await Survey.find(surveyId)
-        const questions = await survey.question().fetch()
-        const answers = await questions.answer().fetch()
-        //console.log(questions.toJSON())
     }
     
 }

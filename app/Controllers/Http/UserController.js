@@ -12,7 +12,6 @@ class UserController {
         try {
             const isLoggedIn = await auth.check()
             if (isLoggedIn) {
-                
                const user = await auth.getUser()
                response.redirect('/users/'+user.id)
             }
@@ -35,11 +34,16 @@ class UserController {
                     notification: `Your account has been restored!`, 
                 })
             }
+            if(session.get('email' === user.email)){
+                await auth.login(user)
+                return response.redirect('/users/'+user.id)
+            }
             const isActive = await user.isActive().fetch()
             if(isActive.is_active){
                 const passwordVerified = await Hash.verify(password, user.password)
                 if(passwordVerified){
                     if(remember){
+                        session.put('email', email)
                         await auth.remember(true).login(user)
                         return response.redirect('/users/'+user.id)
                     }
@@ -110,6 +114,7 @@ class UserController {
             if(confirmPass === password){
                 if(re.test(password)){
                     //console.log("password verified!")
+                    
                     const user = new User()
                     user.email = email
                     user.firstName = firstName
@@ -153,7 +158,8 @@ class UserController {
         //console.log('Store route hit!')
     }
 
-    async logout({auth, response}){
+    async logout({auth, session, response}){
+        session.forget('email')
         await auth.logout()
         return response.redirect('/login')
     }

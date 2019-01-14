@@ -3,6 +3,11 @@
 {{ style('register') }}
 @endsection
 @section('content')
+@if(old('notification'))
+    <div class="alert">
+        {{ old('notification') }}
+    </div>
+@endif
 <div class="main-container text-center">
     <div class="col">
         <h1>Register to Surveyor</h1>

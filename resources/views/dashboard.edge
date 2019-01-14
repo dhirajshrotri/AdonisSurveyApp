@@ -28,7 +28,7 @@
                     <div class="btn-row">
                             <button type="button" class="btn btn-primary"><a href="{{ '/users/'+user.id+'/surveys/'+survey.surveyId+'/sendLink'}}">Mail</a></button>
                             <button type="button" class="btn btn-secondary"><a href="/users/{{ user.id }}/surveys/{{ survey.surveyId }}/edit">Edit</a></button>
-                            <button type="button" class="btn btn-danger"><a href="/users/{{ user.id }}/surveys/{{ survey.surveyId }}/delete">Delete</a></button>
+                            <button type="button" class="btn btn-danger"><a href="/users/{{ user.id }}/surveys/{{ survey.surveyId }}/delete" onclick="return confirm('Are you sure you want to delete this survey?');">Delete</a></button>
                             <button type="button" class="btn btn-success"><a href="/users/{{ user.id }}/surveys/{{ survey.surveyId }}/viewResults">Results</a></button>
                     </div>
                 </div>

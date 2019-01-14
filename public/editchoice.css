@@ -8,11 +8,12 @@
     padding: 2em;
     margin-top: 10rem;
     margin-left: auto;
+    box-sizing: content-box;
+    height: 7rem;
 }
 .form-control{
     background: #bfbfbf;
   border-radius: 7px;
-  padding: 1em;
   margin-bottom: 10px;
   
 }
@@ -37,4 +38,5 @@ body {
     display: block;
     color: #017cff;
     word-spacing: 1.5px;
+    padding-top: 2rem;
 }
