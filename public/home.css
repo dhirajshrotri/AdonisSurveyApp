@@ -20,11 +20,13 @@ body {
     font-family: Lato;
     font-weight: 700;
     background-color:#EFEFEF;
+    text-align: center;
 }
 
 .jumbotron {
     margin: 25px;
     width: 600px; 
+    display: block;
 }
 .container {
     margin: 0 auto;
@@ -37,3 +39,7 @@ body {
 a{
     text-decoration: none !important;
   }
+
+.row{
+    display: block;
+}

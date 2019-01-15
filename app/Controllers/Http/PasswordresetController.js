@@ -54,53 +54,72 @@ class PasswordresetController {
             return response.redirect('/recoverPassword')
         }else{
             session.flash({
-                notification: {
-                    type: 'danger',
-                    message: 'Sorry, there is no user with this email address.'
-                }
+                notification:'Sorry, there is no user with this email address.'
             })
         }
     }
 
     async resetPass({request, params:{token}, response, session, view}){
         const passreset = await Database.from('password_resets').where({'token': token})
-        //console.log(passreset)
-        const id = passreset[0].user_id
-        const user = await Database.from('users').where({'id': id})
-        //console.log(user)
-        const expire = Date.now()
-        //if(passreset.tokenExpire >= expire){
-            return view.render('recoverpassword', {   
-                user: user
+        if (passreset.length < 1 || passreset == undefined ){
+            session.flash({
+                notification: 'This link has already been used. Please try again with a different link.'
             })
-        //}else{
-            //console.log('expired')
-        //     session.flash({
-        //         notification:{
-        //             type: 'danger',
-        //             message: 'Sorry, this token has expired. Please try again.!'
-        //         }
-        //     })
-            
-        // }
+            return response.redirect('/login')    
+        }
+        else{
+            const id = passreset[0].user_id
+            const user = await Database.from('users').where({'id': id})
+            const expire = Date.now()
+            if(passreset[0].tokenExpire >= expire){
+                return view.render('recoverpassword', {   
+                    user: user
+                })
+            }else{
+                session.flash({
+                    notification:'Sorry, this token has expired. Please try again.!'
+                })
+                return response.redirect('/login')
+            }
+        }
+             
     }
 
     async setPassword({session, params:{id}, request, response}){
+        
         const user = await User.find(id)
         const newPass = request.input('newPass')
         const confirmPass = request.input('confirmPass')
+        var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{6,}$/
         await Database.from('password_resets').where({'user_id': user.id}).delete()
         if(newPass === confirmPass){
-            const tempPass = await Hash.make(newPass)
-            //console.log(tempPass)
-            await User.query().where('id', user.id).update({'password': tempPass})
-            session.flash({
-                type: 'success',
-                notification: 'Password Changed Successfully. Login again to continue.'
-            })
-            return response.redirect('/users/'+user.id+'/logout')
+            if(re.test(newPass)){
+                const verify = await Hash.verify(newPass, user.password)
+                if(verify){
+                    session.flash({
+                        type: 'success',
+                        notification: 'New password cannot be similar to old password!'
+                    })
+                    return response.redirect('back')
+                }else{
+                    const tempPass = await Hash.make(newPass)
+                    await User.query().where('id', user.id).update({'password': tempPass})
+                    session.flash({
+                        type: 'success',
+                        notification: 'Password Changed Successfully. Login again to continue.'
+                    })
+                    return response.redirect('/users/'+user.id+'/logout')
+                }
+            }else{
+                session.flash({
+                    type: 'success',
+                    notification: 'The selected password must contain a Capital letter, a numeral and must be atleast six chracters long.'
+                })
+                return response.redirect('back')
+            }
         }else{
-            session.withErrors('New Password must match with Confirm Password').flashAll()
+            session.flash({notification: 'New Password must match with Confirm Password'})
+            return response.redirect('back')
         }
     }
 }

@@ -194,7 +194,6 @@ class UserController {
     async resetPassword({auth, request, view}){
         const user = await auth.getUser()
         if(user){
-            //console.log('Route to reset Password reached!')
             return view.render('resetpassword', {
                 user:user
             })
@@ -206,20 +205,15 @@ class UserController {
     async modifyPassword({auth, request, response, session}){
         const user = await auth.getUser()
         const {oldPass, newPass, confirmPass} = request.all()
-        // console.log(oldPass)
-        // console.log(newPass)
-        // console.log(confirmPass)
         if(user){
-            // console.log('Updating Password!')
             const verifiedPass = await Hash.verify(oldPass, user.password)
             if(verifiedPass){
                 if(oldPass === newPass){
                     session.flash({
-                        notification: {
-                            type: 'danger',
-                            message: 'New Password cannot be same as Old Password.'
-                        }
+                        type: 'danger',
+                        notification:'New Password cannot be same as Old Password.'
                     })
+                    return response.redirect('back')
                 }else{
                     if(newPass === confirmPass){
                         const tempPass = await Hash.make(newPass)
