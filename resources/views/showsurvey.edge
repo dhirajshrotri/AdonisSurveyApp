@@ -1,9 +1,9 @@
-@layout('main')
-@section('extracss')
+@layout('froala-editor')
+@section('header')
 {{style('showsurvey.css')}}
 @endsection
 
-@section('content')
+@section('textarea')
     @if(old('notification'))
     <div class="alert alert-success">
     {{ old('notification') }}
@@ -43,7 +43,8 @@
                         <input type="text" name="questionTitle" class="form-control" placeholder="Question Title">
                     </div>
                     <div class="desc-row">
-                        <input type="text" name="description" class="form-control" placeholder="Question Description">
+                        <textarea name="description" id="froala-editor" placeholder="Question Description" maxlength="1000"></textarea>
+                        <div id="demo"></div>
                     </div>
                     <p>Select the type of Answer for this question:</p>
                     <label class="radio-inline">
@@ -68,7 +69,7 @@
         </div>
         <div class="button-container">
             <div class="row">
-                    <button type="button" class="btn btn-danger"><a href="/users/{{ id }}">Back</a></button>
+                    <button type="button" class="btn btn-secondary"><a href="/users/{{ id }}">Back</a></button>
             </div>
         </div>      
     </div>

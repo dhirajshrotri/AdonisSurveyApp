@@ -15,7 +15,6 @@
 
 // /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
-
 Route.on('/').render('home')
 Route.on('/about').render('about')
 Route.on('/register').render('register')

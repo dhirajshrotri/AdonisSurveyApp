@@ -35,6 +35,7 @@
     "adonis-fold": "^3.0.3",
     "adonis-mail-provider": "^2.0.2",
     "adonis-validation-provider": "^3.0.5",
+    "froala-editor": "file:froala-editor",
     "install": "^0.12.2",
     "mysql": "^2.16.0",
     "nodemon": "^1.18.6",

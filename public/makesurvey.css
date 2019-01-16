@@ -8,18 +8,18 @@ body {
 .container{
     text-align: center;
     margin: 0 auto;
-    margin-top: 13rem;
+    margin-top: 11rem;
     align-content: center;
     padding:1rem;
     background-color: #bfbfbf;
     border-radius: 7px;
-    max-width: 560px;
+    max-width: 960px;
 }
 .main-container{
     background-color: #e2e2e2;
     margin: 1rem 1rem;
     padding: 2rem;
-    width: 500px;
+    width: 900px;
     border-radius: 7px;
 }
 
@@ -42,13 +42,16 @@ hr{
 .btn-primary {
     color: #fff;
     background-color: rgba(0, 123, 255, 0.71);
-    border-color: #0a7cf1;
-    
+    border-color: #0a7cf1;    
+}
+.btn-secondary{
+    -webkit-text-fill-color: #EFEFEF;
 }
 
 .btn{
     margin: 5px 25px;
     border-radius: 2px;
+    width: 10rem;
 }
 
 a{

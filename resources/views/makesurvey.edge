@@ -1,8 +1,9 @@
-@layout('main')
-@section('extracss')
+@layout('froala-editor')
+@section('header')
+    {{style('style')}}
     {{style('makesurvey')}}
 @endsection
-@section('content')
+@section('textarea')
 <div class="main-container">
     <div class="col">
         <h1>Add a survey</h1>
@@ -17,12 +18,12 @@
                 </div>
                 <div class="form-group">
                     <label>Survey Description:</label>
-                    <textarea name="surveyDesc" class="form-control" placeholder="describe your survey in a few words!">{{ old('surveyDesc', '') }}</textarea>
+                    <textarea id="froala-editor" name="surveyDesc" class="form-control" placeholder="describe your survey in a few words!">{{ old('surveyDesc', '') }}</textarea>
                     {{ elIf('<span class="text-danger">$self</span>', getErrorFor('surveyDesc'), hasErrorFor('surveyDesc')) }}
                 </div>
                 <div class="btn-row">
-                        <button class="btn btn-primary" type="submit">Submit</button>
-                        <button type="button" class="btn btn-secondary"><a href="{{'/users/'+id}}"> Go Back</a></button>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                    <button type="button" class="btn btn-secondary"><a href="{{'/users/'+id}}"> Go Back</a></button>
                 </div>
             </div>    
         </form>

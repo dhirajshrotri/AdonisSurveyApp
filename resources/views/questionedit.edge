@@ -1,8 +1,8 @@
-@layout('main')
-@section('extracss')
+@layout('froala-editor')
+@section('header')
     {{style('questionedit')}}
 @endsection
-@section('content')
+@section('textarea')
     <div class="webpage-container">
         <form action="{{ '/users/'+id+'/surveys/'+surveyId+'/questions/'+question.questionId+'?_method=PUT'}}" method="POST">
             <div class="form-group">
@@ -19,7 +19,7 @@
                         <label>Description: </label>
                     </div>
                     <div class="col">
-                        <textarea type="text" name="description" placeholder="{{question.description}}"></textarea>
+                        <textarea id="froala-editor" type="text" name="description" placeholder="{{question.description}}"></textarea>
                     </div>
                 </div>
             <div class="choice-container">
