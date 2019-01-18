@@ -7,6 +7,8 @@ const Database = use('Database')
 const randomString = use('random-string')
 const sgMail = require('@sendgrid/mail')
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+//var FroalaEditor = require('froalaEditor.js')
+
 class UserController {
     async checkLogin({response, view, auth}){
         try {
@@ -318,6 +320,17 @@ class UserController {
             // return response.redirect('back')
         //}
     }
+
+    // async fileUpload({params:{id, surveyId}, session, response}){
+    //     FroalaEditor.File.upload(req, '/uploads/', function(err, data) {
+    //         if(err){
+    //             return response.send(JSON.stringify(err))
+    //         }
+    //         console.log("File uploaded success")
+    //         return response.send(data)
+            
+    //     })
+    // }
 }
 
 module.exports = UserController

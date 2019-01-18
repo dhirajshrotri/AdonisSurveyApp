@@ -35,12 +35,15 @@
     "adonis-fold": "^3.0.3",
     "adonis-mail-provider": "^2.0.2",
     "adonis-validation-provider": "^3.0.5",
-    "froala-editor": "file:froala-editor",
+    "body-parser": "^1.18.3",
+    "edge.js": "^1.1.4",
     "install": "^0.12.2",
+    "multer": "^1.4.1",
     "mysql": "^2.16.0",
     "nodemon": "^1.18.6",
     "random-string": "^0.2.0",
-    "sendgrid": "^5.2.3"
+    "sendgrid": "^5.2.3",
+    "wysiwyg-editor-node-sdk": "^2.3.4"
   },
   "devDependencies": {},
   "autoload": {

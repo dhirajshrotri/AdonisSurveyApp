@@ -35,8 +35,10 @@ body {
 .desc-row {
     font-size: 15px;
     padding: 0.5rem;
-    max-width: 510px;
+    max-width: 500px;
     margin: auto;
+    background-color: white;
+    border-radius: 7px;
 }
 
 .surveyTitle-row{

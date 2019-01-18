@@ -56,4 +56,20 @@ hr{
 
 a{
     text-decoration: none !important;
-  }
+}
+.desc-row{
+    font-size: 15px;
+    padding: 0.5rem;
+    max-width: 500px;
+    margin: auto;
+    background-color: white;
+    border-radius: 7px;
+    border: 1px black;
+}
+
+.title-row{
+    font-size: 15px;
+    max-width: 500px;
+    margin: auto;
+    border-radius: 7px;
+}
