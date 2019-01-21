@@ -7,7 +7,7 @@ const Question = use('App/Models/Question')
 const Survey = use('App/Models/Survey')
 const AnswerType = use('App/Models/Answertype')
 const User = use('App/Models/User')
-const FroalaEditor = require('../node_modules/lib/froalaEditor.js')
+//const FroalaEditor = require('../node_modules/lib/froalaEditor.js')
 const multer = require('multer')
 const path = require('path')
 
