@@ -12,8 +12,11 @@
 // | http://adonisjs.com/docs/4.1/routing
 // |
 // */
-var upload_image = require('./public/image_upload.js')
-var upload_file = require('../public/upload_file.js')
+
+var path = require("path");
+var fs = require("fs");
+var upload_image = require('../public/image_upload.js')
+//var upload_file = require('../public/upload_file.js')
 // /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 Route.on('/').render('home')
@@ -76,3 +79,10 @@ Route.post('/image_upload', (request, response)=>{
         response.send(data)
     })
 })
+
+// Create folder for uploading files.
+var filesDir = path.join(path.dirname(require.main.filename), "uploads");
+ 
+if (!fs.existsSync(filesDir)){
+  fs.mkdirSync(filesDir);
+}

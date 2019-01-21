@@ -177,6 +177,8 @@ class QuestionController {
     // console.log("trying to upload image")
 
   //}
+
+  
 }
 
 module.exports = QuestionController
