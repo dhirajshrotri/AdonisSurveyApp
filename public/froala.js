@@ -27,3 +27,10 @@ $(() => {
       fileAllowedTypes: ['.doc', '.pdf', 'txt']
     });
 });
+
+$(()=>{
+  $(".description-row").each((index, element)=>{
+    var htmlString = $(element).children('p').text();
+    $(element).children('p').html(htmlString);
+  });
+})

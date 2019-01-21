@@ -154,29 +154,29 @@ class QuestionController {
     response.redirect('/users/'+id+'/surveys/'+surveyId)
   }
 
-  async uploadImage({params:{id, surveyId}, request, response}){
-    upload(request, response, (err)=> {
-      if(err){
-        res.render('index', {
-          msg: err
-        });
-      } else {
-        if(req.file == undefined){
-          res.render('index', {
-            msg: 'Error: No File Selected!'
-          });
-        } else {
-          res.render('index', {
-            msg: 'File Uploaded!',
-            file: `uploads/${request.file.filename}`
-          })
-        }
-      }
-    }) 
+  // async uploadImage({params:{id, surveyId}, request, response}){
+  //   upload(request, response, (err)=> {
+  //     if(err){
+  //       res.render('index', {
+  //         msg: err
+  //       });
+  //     } else {
+  //       if(req.file == undefined){
+  //         res.render('index', {
+  //           msg: 'Error: No File Selected!'
+  //         });
+  //       } else {
+  //         res.render('index', {
+  //           msg: 'File Uploaded!',
+  //           file: `uploads/${request.file.filename}`
+  //         })
+  //       }
+  //     }
+  //   }) 
     // const survey = await Survey.find(surveyId)
-    
+    // console.log("trying to upload image")
 
-  }
+  //}
 }
 
 module.exports = QuestionController

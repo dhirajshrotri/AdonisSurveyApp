@@ -12,7 +12,8 @@
 // | http://adonisjs.com/docs/4.1/routing
 // |
 // */
-
+var upload_image = require('./public/image_upload.js')
+var upload_file = require('../public/upload_file.js')
 // /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 Route.on('/').render('home')
@@ -67,4 +68,11 @@ Route.post('/surveys/:surveyId/preview', 'AnswerSurveyController.submit')
 Route.get('/surveys/:surveyId/edit', 'AnswerSurveyController.edit')
 Route.on('/surveys/:surveyId/thankyou').render('thankyou')
 Route.on('*').render('error')
-Route.on('/users/:id/surveys/:surveyId/upload_image', 'QuestionController.uploadImage')
+Route.post('/image_upload', (request, response)=>{
+    upload_image(requset, (err, data)=>{
+        if(err){
+            return response.status(404)
+        }
+        response.send(data)
+    })
+})
