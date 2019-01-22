@@ -15,7 +15,7 @@
 
 var path = require("path");
 var fs = require("fs");
-var upload_image = require('../public/image_upload.js')
+//var FroalaEditor = require('../node_modules/wysiwyg-editor-node-sdk/lib/froalaEditor.js')
 //var upload_file = require('../public/upload_file.js')
 // /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
@@ -70,19 +70,13 @@ Route.get('/surveys/:surveyId/preview', 'AnswerSurveyController.preview')
 Route.post('/surveys/:surveyId/preview', 'AnswerSurveyController.submit')
 Route.get('/surveys/:surveyId/edit', 'AnswerSurveyController.edit')
 Route.on('/surveys/:surveyId/thankyou').render('thankyou')
+Route.post('/upload_image', 'QuestionController.uploadImage')
 Route.on('*').render('error')
-Route.post('/image_upload', (request, response)=>{
-    upload_image(requset, (err, data)=>{
-        if(err){
-            return response.status(404)
-        }
-        response.send(data)
-    })
-})
 
-// Create folder for uploading files.
-var filesDir = path.join(path.dirname(require.main.filename), "uploads");
+
+// // Create folder for uploading files.
+// var filesDir = path.join(path.dirname(require.main.filename), "uploads");
  
-if (!fs.existsSync(filesDir)){
-  fs.mkdirSync(filesDir);
-}
+// if (!fs.existsSync(filesDir)){
+//   fs.mkdirSync(filesDir);
+// }

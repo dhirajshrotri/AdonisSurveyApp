@@ -2,7 +2,24 @@ $(() => {
   var pathname = window.location.pathname;
   
   $('#froala-editor').froalaEditor({
-      imageUploadURL: 'http://0.0.0.0:8080/'+pathname+'/upload_image',
+      charCounterCount: true,
+      // Set the image upload parameter.
+      imageUploadParam: 'image_param',
+
+      // Set the image upload URL.
+      imageUploadURL: '/upload_image',
+
+      // Additional upload params.
+      imageUploadParams: {id: 'my_editor'},
+
+      // Set request type.
+      imageUploadMethod: 'POST',
+
+      // Set max image size to 5MB.
+      imageMaxSize: 5 * 1024 * 1024,
+
+      // Allow to upload PNG and JPG.
+      imageAllowedTypes: ['jpeg', 'jpg', 'png'],
       toolbarInline: true,
       charCounterCount: false,
       videoResponsive: true,
@@ -35,13 +52,9 @@ $(()=>{
   });
 })
 
-$(()=>{
-  $('#froala-editor').editable({
-      //set the image upload URL.
-      imageUploadURL: '/image_upload',
-      //set the image upload parameter
-      imageUploadParam: {
-          id: 'file'
-      }
+$(function() {
+  $('#froala-editor').froalaEditor({
+    // Set the image upload URL.
+    //imageUploadURL: '/upload_image'
   })
 });

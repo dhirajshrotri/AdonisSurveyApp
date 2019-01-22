@@ -8,38 +8,38 @@ const Survey = use('App/Models/Survey')
 const AnswerType = use('App/Models/Answertype')
 const User = use('App/Models/User')
 //const FroalaEditor = require('../node_modules/lib/froalaEditor.js')
-const multer = require('multer')
+//const multer = require('multer')
 const path = require('path')
+var FroalaEditor = require('../../../node_modules/wysiwyg-editor-node-sdk/lib/froalaEditor.js');
+// const storage = multer.diskStorage({
+//   destination: './public/uploads',
+//   filename: (request, file, cb) => {
+//     cb(null, file.filename + '-' + Date.now() + path.extname(file.originalname))
+//   }
+// })
 
-const storage = multer.diskStorage({
-  destination: './public/uploads',
-  filename: (request, file, cb) => {
-    cb(null, file.filename + '-' + Date.now() + path.extname(file.originalname))
-  }
-})
+// const checkFiletype = (file, cb) => { 
+//   //allowed file types
+//   const fileTypes = /jpeg|jpg|png|gif/
+//   //check filetype
+//   const extname = fileTypes.test(path.extname(file.originalname).toLowerCase())
+//   //check mime
+//   const mimetype = fileTypes.test(file.mimetype)
 
-const checkFiletype = (file, cb) => { 
-  //allowed file types
-  const fileTypes = /jpeg|jpg|png|gif/
-  //check filetype
-  const extname = fileTypes.test(path.extname(file.originalname).toLowerCase())
-  //check mime
-  const mimetype = fileTypes.test(file.mimetype)
+//   if(extname && mimetype){
+//     return cb(null, true)
+//   }else {
+//     return cb('Error: Images only!')
+//   }
+// }
 
-  if(extname && mimetype){
-    return cb(null, true)
-  }else {
-    return cb('Error: Images only!')
-  }
-}
-
-const upload = multer({
-  storage: storage,
-  limits: {filesize: 100000},
-  fileFilter: function(request, file, cb){
-    checkFiletype(file, cb);
-  }
-}).single('myImage');
+// const upload = multer({
+//   storage: storage,
+//   limits: {filesize: 100000},
+//   fileFilter: function(request, file, cb){
+//     checkFiletype(file, cb);
+//   }
+// }).single('myImage');
 
 /**
  * Resourceful controller for interacting with questions
@@ -154,29 +154,17 @@ class QuestionController {
     response.redirect('/users/'+id+'/surveys/'+surveyId)
   }
 
-  // async uploadImage({params:{id, surveyId}, request, response}){
-  //   upload(request, response, (err)=> {
-  //     if(err){
-  //       res.render('index', {
-  //         msg: err
-  //       });
-  //     } else {
-  //       if(req.file == undefined){
-  //         res.render('index', {
-  //           msg: 'Error: No File Selected!'
-  //         });
-  //       } else {
-  //         res.render('index', {
-  //           msg: 'File Uploaded!',
-  //           file: `uploads/${request.file.filename}`
-  //         })
-  //       }
-  //     }
-  //   }) 
-    // const survey = await Survey.find(surveyId)
-    // console.log("trying to upload image")
-
-  //}
+  async uploadImage ({params:{id, surveyId}, response, request}){
+    
+    FroalaEditor.Image.upload(request, '/uploads/', function(err, data) {
+      // Return data.
+      if (err) {
+        return response.send(JSON.stringify(err));
+      }
+   
+      response.send(data);
+    });
+  }
 
   
 }

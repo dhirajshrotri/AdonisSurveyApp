@@ -67,10 +67,17 @@ function upload (req, callback) {
       file.resume();
       return callback("Fieldname is not correct. It must be "/file/".");
     }
- 
     // Generate link.
     var randomName = sha1(new Date().getTime()) + "." + getExtension(filename);
     link = fileRoute + randomName;
+    var thishost = req.protocol + '://' + req.get('host');
+    console.log("thishost = " + thishost);
+    var fullurl = thishost + link;
+    console.log("fullurl = " + fullurl);
+    // update the original data.link that contained only
+    // the URI to the complete URL that includes hostname
+    link = fullurl;
+    console.log(link)
  
     // Generate path where the file will be saved.
     var appDir = path.dirname(require.main.filename);
