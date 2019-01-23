@@ -24,12 +24,12 @@ class ExceptionHandler extends BaseExceptionHandler {
   async handle (error, session,  request, response ) {
     if (error.name === 'ValidationException') {
       session.withErrors(error.messages).flashAll()
-      await session.commit()
+      //await session.commit()
       response.redirect('back')
       return
     }
     if(error.name === "InvalidSessionException"){
-      await session.commit()
+      //await session.commit()
       session.flash({
         type:'success',
         notification: 'Your session has expired. Please login again to continue.'

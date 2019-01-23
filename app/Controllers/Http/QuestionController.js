@@ -7,39 +7,10 @@ const Question = use('App/Models/Question')
 const Survey = use('App/Models/Survey')
 const AnswerType = use('App/Models/Answertype')
 const User = use('App/Models/User')
-//const FroalaEditor = require('../node_modules/lib/froalaEditor.js')
-//const multer = require('multer')
+const multer = require('multer')
+const multerupload = multer({ dest: './uploads/' });
 const path = require('path')
 var FroalaEditor = require('../../../node_modules/wysiwyg-editor-node-sdk/lib/froalaEditor.js');
-// const storage = multer.diskStorage({
-//   destination: './public/uploads',
-//   filename: (request, file, cb) => {
-//     cb(null, file.filename + '-' + Date.now() + path.extname(file.originalname))
-//   }
-// })
-
-// const checkFiletype = (file, cb) => { 
-//   //allowed file types
-//   const fileTypes = /jpeg|jpg|png|gif/
-//   //check filetype
-//   const extname = fileTypes.test(path.extname(file.originalname).toLowerCase())
-//   //check mime
-//   const mimetype = fileTypes.test(file.mimetype)
-
-//   if(extname && mimetype){
-//     return cb(null, true)
-//   }else {
-//     return cb('Error: Images only!')
-//   }
-// }
-
-// const upload = multer({
-//   storage: storage,
-//   limits: {filesize: 100000},
-//   fileFilter: function(request, file, cb){
-//     checkFiletype(file, cb);
-//   }
-// }).single('myImage');
 
 /**
  * Resourceful controller for interacting with questions
@@ -155,15 +126,21 @@ class QuestionController {
   }
 
   async uploadImage ({params:{id, surveyId}, response, request}){
-    
+    response.setHeader('content-type', 'text/html');
     FroalaEditor.Image.upload(request, '/uploads/', function(err, data) {
+      console.log(data)
       // Return data.
       if (err) {
+        //console.log(err)
+        //response.setHeader('content-type', 'text');
         return response.send(JSON.stringify(err));
       }
-   
+      //console.log(typeof data)
+      
       response.send(data);
     });
+    // multerupload.any()
+    // upload.fileupload
   }
 
   

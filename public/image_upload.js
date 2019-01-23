@@ -5,11 +5,13 @@ var sha1 = require("sha1");
  
 // Gets a filename extension.
 function getExtension(filename) {
+  console.log("got extension")
   return filename.split(".").pop();
 }
  
 // Test if a image is valid based on its extension and mime type.
 function isImageValid(filename, mimetype) {
+  console.log('check image')
   var allowedExts = ["gif", "jpeg", "jpg", "png", "svg", "blob"];
   var allowedMimeTypes = ["image/gif", "image/jpeg", "image/pjpeg", "image/x-png", "image/png", "image/svg+xml"];
  
@@ -21,6 +23,7 @@ function isImageValid(filename, mimetype) {
 }
  
 function upload (req, callback) {
+  console.log('to upload')
   // The route on which the image is saved.
   var fileRoute = "/uploads/";
  
@@ -70,14 +73,14 @@ function upload (req, callback) {
     // Generate link.
     var randomName = sha1(new Date().getTime()) + "." + getExtension(filename);
     link = fileRoute + randomName;
-    var thishost = req.protocol + '://' + req.get('host');
-    console.log("thishost = " + thishost);
-    var fullurl = thishost + link;
-    console.log("fullurl = " + fullurl);
-    // update the original data.link that contained only
-    // the URI to the complete URL that includes hostname
-    link = fullurl;
-    console.log(link)
+    // var thishost = req.protocol + '://' + req.get('host');
+    // console.log("thishost = " + thishost);
+    // var fullurl = thishost + link;
+    // console.log("fullurl = " + fullurl);
+    // // update the original data.link that contained only
+    // // the URI to the complete URL that includes hostname
+    // link = fullurl;
+    // console.log(link)
  
     // Generate path where the file will be saved.
     var appDir = path.dirname(require.main.filename);
@@ -99,7 +102,7 @@ function upload (req, callback) {
        return handleStreamError("File does not meet the validation.");
      }
  
-     return callback(null, {link: link});
+     return callback(null, {"link": link});
     });
  
     // Save image to disk.
