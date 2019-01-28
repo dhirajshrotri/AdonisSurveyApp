@@ -8,6 +8,11 @@ class Survey extends Model {
         return 'surveyId'
     }
 
+    static boot(){
+        super.boot()
+        this.addTrait('Slugify')
+    }
+
     user(){
         return this.belongsTo('App/Models/User')
     }

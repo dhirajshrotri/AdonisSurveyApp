@@ -3,6 +3,7 @@
 const Survey = use('App/Models/Survey')
 const User = use('App/Models/User')
 const Database = use('Database')
+const _ = require('underscore')
 
 class SurveyController {
 

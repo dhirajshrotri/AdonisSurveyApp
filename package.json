@@ -45,7 +45,9 @@
     "mysql": "^2.16.0",
     "nodemon": "^1.18.6",
     "random-string": "^0.2.0",
+    "request": "^2.88.0",
     "sendgrid": "^5.2.3",
+    "underscore": "^1.9.1",
     "wysiwyg-editor-node-sdk": "^2.3.4"
   },
   "devDependencies": {},
