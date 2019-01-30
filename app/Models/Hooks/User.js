@@ -29,7 +29,7 @@ UserHook.validate = async (userInstance) => {
   if(!userInstance.firstName){
     throw new Error('First name is required!')
   }
-  if(userInstance.password !== userInstance.confirmPass){
-    throw new Error('The two passwords must match!')
-  }
+  // if(userInstance.password !== userInstance.confirmPass){
+  //   throw new Error('The two passwords must match!')
+  // }
 }

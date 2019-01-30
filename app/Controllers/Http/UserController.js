@@ -102,7 +102,7 @@ class UserController {
         }
         const headers = request.headers()
         const validation = await validate(request.all(), rules)
-        var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{6,}$/
+        var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{4,15}$/
 
         if(validation.fails()){
             session.withErrors(validation.messages()).flashAll()

@@ -11,6 +11,7 @@ class SurveySchema extends Schema {
       table.string('surveyName')
       table.text('surveyDesc')
       table.integer('user_id').unsigned()
+      table.string('surveySlug')
       table  
         .foreign('user_id')
         .references('users.id')
